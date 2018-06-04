@@ -187,6 +187,7 @@
 		D23D1DB720C4FF5A00022CD2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SE;
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "InfoVision Labs India Pvt. Ltd.";
