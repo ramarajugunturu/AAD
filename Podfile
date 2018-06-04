@@ -6,8 +6,11 @@ target 'SEiOS' do
   use_frameworks!
 
   # Pods for SEiOS
-  pod 'ADALiOS'
+  #pod 'ADALiOS'
   #pod 'ADALiOS', :git => 'https://github.com/AzureAD/azure-activedirectory-library-for-objc.git', :branch=> 'convergence'
+  
+  pod 'MSAL', :git => 'https://github.com/AzureAD/microsoft-authentication-library-for-objc', :tag => '0.1.3'
+
   pod 'NXOAuth2Client'
   pod 'Alamofire'
 
