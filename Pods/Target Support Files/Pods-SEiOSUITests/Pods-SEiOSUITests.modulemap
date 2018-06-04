@@ -1,0 +1,6 @@
+framework module Pods_SEiOSUITests {
+  umbrella header "Pods-SEiOSUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

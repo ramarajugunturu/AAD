@@ -1,0 +1,6 @@
+framework module Pods_SEiOS {
+  umbrella header "Pods-SEiOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,24 @@
+PODS:
+  - ADALiOS (1.2.10)
+  - Alamofire (4.7.2)
+  - NXOAuth2Client (1.2.8)
+
+DEPENDENCIES:
+  - ADALiOS
+  - Alamofire
+  - NXOAuth2Client
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ADALiOS
+    - Alamofire
+    - NXOAuth2Client
+
+SPEC CHECKSUMS:
+  ADALiOS: 505c364827c25dd37811e660a943dace9c0ff094
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  NXOAuth2Client: 98c4d4c594edd2b289cfc34a8928653e1dab7adf
+
+PODFILE CHECKSUM: 07a711329cad980ce769d4c107f4d5404cdefc37
+
+COCOAPODS: 1.5.2
