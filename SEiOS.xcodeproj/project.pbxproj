@@ -89,6 +89,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		528A6A8620C514E3004C7FA7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		528A6A8720C514ED004C7FA7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		528A6A8820C514F4004C7FA7 /* UIControls */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIControls;
+			sourceTree = "<group>";
+		};
+		528A6A8920C51503004C7FA7 /* Utilties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilties;
+			sourceTree = "<group>";
+		};
 		64B642D69E35460499D37D56 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,14 +156,14 @@
 			isa = PBXGroup;
 			children = (
 				D23D1DC220C4FF5A00022CD2 /* AppDelegate.swift */,
-				D23D1DF620C5038F00022CD2 /* Views */,
-				D23D1DF520C5038800022CD2 /* Model */,
-				D23D1DF420C5037200022CD2 /* UIControls */,
+				528A6A8820C514F4004C7FA7 /* UIControls */,
+				528A6A8720C514ED004C7FA7 /* Model */,
+				528A6A8620C514E3004C7FA7 /* Views */,
 				D23D1DF320C5036900022CD2 /* ViewControllers */,
 				D23D1DF220C5032800022CD2 /* Storyboards */,
 				D23D1DF120C5031900022CD2 /* Resources */,
-				D23D1DF020C5030C00022CD2 /* Utilties */,
 				D23D1DCE20C4FF5F00022CD2 /* Info.plist */,
+				528A6A8920C51503004C7FA7 /* Utilties */,
 			);
 			path = SEiOS;
 			sourceTree = "<group>";
@@ -156,13 +184,6 @@
 				D23D1DE420C4FF5F00022CD2 /* Info.plist */,
 			);
 			path = SEiOSUITests;
-			sourceTree = "<group>";
-		};
-		D23D1DF020C5030C00022CD2 /* Utilties */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utilties;
 			sourceTree = "<group>";
 		};
 		D23D1DF120C5031900022CD2 /* Resources */ = {
@@ -188,27 +209,6 @@
 				D23D1DF720C5040F00022CD2 /* SEMainViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		D23D1DF420C5037200022CD2 /* UIControls */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UIControls;
-			sourceTree = "<group>";
-		};
-		D23D1DF520C5038800022CD2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		D23D1DF620C5038F00022CD2 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		EEC1CC75226D96D8372A7397 /* Frameworks */ = {
