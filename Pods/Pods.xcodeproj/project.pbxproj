@@ -36,7 +36,7 @@
 		296095317F1B6DED281DAB2D08193D54 /* MSALB2CAuthorityResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = B54676C572B754B7DCB18C014C7599CF /* MSALB2CAuthorityResolver.m */; };
 		299C6FFBFFCDA277D77B70B47D418648 /* MSALTelemetryAPIEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 80DE132266E56AD0386AFEB53019204E /* MSALTelemetryAPIEvent.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2EB3F5B9E3537A794321DC2189B258A5 /* MSALWebAuthResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5E7FBA1ECAED44FD70B343C7579A44 /* MSALWebAuthResponse.m */; };
-		31C9498D73C921186098F2388A99A55B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C085E02FF89804F50ADDA04F5A586E94 /* Security.framework */; };
+		2FFF0DC55D5F1C208D0C1D5011BE145B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */; };
 		323BB2DF6DD08F2D857214789AF8371F /* NSMutableDictionary+MSALExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = D16B0D81926E01004E6DE45E8E7DA5ED /* NSMutableDictionary+MSALExtension.m */; };
 		32B37151A90CB669CB74626A2309546C /* MSALAadAuthorityResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = B6007CC12F29B896163488BA66A10B4B /* MSALAadAuthorityResolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3343E02AFF72FFA5444C5E1FD720449F /* NXOAuth2PostBodyStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DA9777C52C605B3B70F81AB637CC8D9 /* NXOAuth2PostBodyStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -100,7 +100,6 @@
 		6DADB091A82369D703BB3E9761C61CCB /* MSALTelemetryBaseEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9ABF2FCB7E78DC0F83FFDD6FF3B57C /* MSALTelemetryBaseEvent.m */; };
 		7258DA5ECA2CB558E3DB774271BB57BE /* MSALTelemetryCacheEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AF72B340BA23EF47385C906630BB82E8 /* MSALTelemetryCacheEvent.m */; };
 		735B2E18D643DEF27D9A4033DB5AE092 /* NXOAuth2Client-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADB99A85D3C5EA41CD62BFA3C7EFCBA /* NXOAuth2Client-dummy.m */; };
-		73B9C996AED49ED7CF8EC2A6F1738059 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
 		77679F41253BE5BC5B9B45936C910CC2 /* MSALAccessTokenCacheItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD9101B54A6C149A88E642D37868F02 /* MSALAccessTokenCacheItem.m */; };
 		7790B66FB8F4CA36AD906AB727587193 /* MSALAuthorityBaseResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C73561B4AC80DF1FA5FCFBF97E1DF6E /* MSALAuthorityBaseResolver.m */; };
 		7AA7DEBD7CE92089F61F4DEBB97BFC49 /* MSALAdfsAuthorityResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1434701A664EC435CCC151FE895855 /* MSALAdfsAuthorityResolver.m */; };
@@ -109,6 +108,7 @@
 		7D8CC01E8C9EFFF9F4D65406CDE0AB66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00414230B91C93C18FEE2F0ED984481C /* Result.swift */; };
 		7F67DA1D69107A847FA140B1EF86341D /* UIApplication+MSALExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = B4D5B9F679F1F0B0BA21FBADE93BB8F0 /* UIApplication+MSALExtensions.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		82EA5E6555450AD29A8EE3464FF807E2 /* NXOAuth2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0717573B81E8AF593BF433D306C088 /* NXOAuth2Request.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		834F4D9819C6010E611A7E151B8899C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */; };
 		836AD9BCF65333B90B945114376FF6EA /* NXOAuth2PostBodyPart.h in Headers */ = {isa = PBXBuildFile; fileRef = C11B38B0B7DB13C05EFB46855B5A3440 /* NXOAuth2PostBodyPart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		843D9E26515B028336C677948A865BFE /* MSALURLSessionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E370D58B7941FF5C2C88C0C06BE43E /* MSALURLSessionDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		857FD0D2251E7896B2F61AFF8AB3BAE9 /* NSURL+NXOAuth2.h in Headers */ = {isa = PBXBuildFile; fileRef = AFFD508F23B3BC30F180E56A68148EC0 /* NSURL+NXOAuth2.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,20 +122,17 @@
 		8B58D3FAE39F2A71BA5247D7AE10A6AB /* NSString+MSALHelperMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = B8B39819A9E020CFC86F79667DEF0057 /* NSString+MSALHelperMethods.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8CDF65CD44C5EA568D002C11B187BA51 /* MSALLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D94A5B29CF0E61FBF9E95FF367072DED /* MSALLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8E1B26DAEF61FDFD04471E22007AA1BE /* NXOAuth2Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = EDADBAC5F5B54D0145F78C1F23426807 /* NXOAuth2Constants.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		90FFB1F6501A840525DF5F2B9349875C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
 		918B17FEAC93EF4759F4732222A215B0 /* NXOAuth2FileStreamWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9B7632145B04B6D2A7C3F86D0C9B97 /* NXOAuth2FileStreamWrapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		93018ED1E7345DDD827A4D7A48AC7B73 /* MSALRequestParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD07ED54B43FC6FE36936D0B56A212C /* MSALRequestParameters.m */; };
 		93486C97C29563D4C108B0AC3193CC12 /* MSALJsonObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 39D00E4258E6FE5492703D0C7C970D5E /* MSALJsonObject.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		94702C9351D56B1C186E3C514CC43930 /* MSALTelemetryEventStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 45911C9DBB89E37F3A98BEDED2D99EEA /* MSALTelemetryEventStrings.m */; };
 		949AA34DF965DD3B99383EC5DEF9BF68 /* UIApplication+MSALExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = A69111DA894FE4DC4FA1228524B6C43D /* UIApplication+MSALExtensions.m */; };
 		950DA48D7EF6426D6E645B78D3D37DB0 /* MSALTelemetryPiiRules.m in Sources */ = {isa = PBXBuildFile; fileRef = F51851392FF348C445FD834FCF5598AF /* MSALTelemetryPiiRules.m */; };
-		96368C9D686C34AF92FDD81EB7509812 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
 		992372A0C19F91F27E682D481B09625C /* MSALError_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = B309E8040750E414EB9EA3FFB692B43E /* MSALError_Internal.m */; };
 		99F1D1727B8FC705C16F9AA035BC9188 /* MSALTokenCacheKeyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC6BF1F165D8015AE5BDE3C3BAF2CAD /* MSALTokenCacheKeyBase.m */; };
-		9AC19AF964BE4889CACF2D86138BE708 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
 		9E1002A7289F86B01A69CBA0354A7442 /* MSALSilentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C1B361629785495F412DB59C50EAC51 /* MSALSilentRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		9ED2BB2981896E0A39EFA365503F58CE /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6739F67ABC12E5088EF270203944478A /* AFError.swift */; };
-		9ED3D342C8228B1BB8510868E955D822 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
+		A0E7A81FD6C94457FBB3A83B3F66E2B3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */; };
 		A26F0BAD370CBB3DE2C9B2ABBF2D5C6D /* MSALOAuth2Response.m in Sources */ = {isa = PBXBuildFile; fileRef = EF932EDC2A9C7FE064ADCA6E19FF7F5F /* MSALOAuth2Response.m */; };
 		A2A6F71B727312BD45CC7A4AAD7B0AB7 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CFE105C2E54DFC0C56EABA86DE2C45 /* NetworkReachabilityManager.swift */; };
 		A2B2828BA0635DCC0DA3D0AB6A6B6F08 /* MSALClientInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9651B4CF237AB51E8DC2C0844B7226 /* MSALClientInfo.m */; };
@@ -148,8 +145,8 @@
 		AA478B4B38EDB18214B334C3BA3D9F62 /* MSALInstanceDiscoveryResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC221B8F8870FCDCE5AA37E70CA5F9C /* MSALInstanceDiscoveryResponse.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AA982912913D773D2B80F05546DB5E51 /* NSString+MSALHelperMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = F148ADD3B6DFE8732413C3F9625ACA62 /* NSString+MSALHelperMethods.m */; };
 		ABB8E0BAE8268073A3F37165AFDAE777 /* MSALTelemetryEventStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = 950F7DC6E429B8002D6FD18ABF20D3FB /* MSALTelemetryEventStrings.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		ABFF0C484CA24B6A366773EA647618C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */; };
 		AD8629DBD4D044D645141DD571845B2E /* NXOAuth2Request.h in Headers */ = {isa = PBXBuildFile; fileRef = 256672A2DD1EF4A37DC2E47BF6D9034B /* NXOAuth2Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD8A15D17377141E61FA5D7431A7E2F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
 		AE1EF48399533730D0066E04B22CA2D6 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E8FF5508C130CB398C1C804CF6931A /* SessionManager.swift */; };
 		B03A964BEB30EB1B18F6FE4268E5CE40 /* MSALHttpRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BAC46BC0CA67D6BCBD4D7BA0AD8A925C /* MSALHttpRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B0EFBE7D3AF6EFAB3E445BB15B89CD47 /* MSALPublicClientApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DD53DFF9C072341C8FCBBD4481681A /* MSALPublicClientApplication.m */; };
@@ -170,6 +167,7 @@
 		C54EE20CE8119B7322321100EE7AD268 /* NSURL+MSALExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7629F8A956D6B51D0F6D320081D84775 /* NSURL+MSALExtensions.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C6DE2BB3144FD2720493F1A512D9D0B9 /* MSALSilentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7472E69EF42998583FE63F3D28E9CFA3 /* MSALSilentRequest.m */; };
 		C8F675DC9F1C239AE01550DF346530BD /* MSALWebAuthResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3DD1A159689F1CCB0588557F06573F /* MSALWebAuthResponse.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		CAED0BCFF3D04D70AE06205314661512 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */; };
 		CB6D60925223897FFA2662667DF83E8A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B91B79A6192742311C8116DF060A0 /* Response.swift */; };
 		CD4632773E6B606447064B2E705D71E5 /* MSALError_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 802390C4CA73867F31F8084615213B2A /* MSALError_Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CE08A1CC27A5E2E4C40DD5777C011698 /* MSALCryptoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 120BC44CD8903C1C27EEE7888164FC04 /* MSALCryptoHelper.m */; };
@@ -186,10 +184,12 @@
 		DFE2F79175470C40425BE868A064C50F /* MSALIdToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 963995C72EBEC596CC25F06703B67FCB /* MSALIdToken.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E0F167CD842D0D1F5F8D2D6F1F624A1C /* NXOAuth2AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B4221294E5827776B15E2837C675BCC0 /* NXOAuth2AccessToken.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		E288B3E8A2651A856BABCECD74049FBA /* NSOrderedSet+MSALExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9DA868EAB8200E1FCCBAF73BDBF62 /* NSOrderedSet+MSALExtensions.m */; };
+		E4DC0FBB0F52766B278A54F346FCC589 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */; };
 		E678B6D81461F58A7B369FF1E9CB326D /* Pods-SEiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8C763B57B9796DD0883A714915ED74 /* Pods-SEiOS-dummy.m */; };
 		E741A6CEEF32C872C1A7BC615B9D088C /* MSALB2CAuthorityResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 994D1EA8EC4F861369D7A4C2D50F86E8 /* MSALB2CAuthorityResolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E7ED0AF4147AC47547C52648D4120F93 /* NSURL+NXOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = D50F6E4F223F7019218FD9A65F198E4D /* NSURL+NXOAuth2.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		EA30526D818F33940D89CB42E38ADE81 /* MSALAuthority.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F0F021ECECDF5087DF31649C1158A01 /* MSALAuthority.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EAD5BAC8F19798C5D0CAC27E953B00CA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7570261E6ACC7105B21202B26AE43D97 /* Security.framework */; };
 		EBCDBD9DDBB35E83CAF1DC4535B60ACB /* MSALURLSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58966F7B68368132A7C602B30C0AC13D /* MSALURLSessionDelegate.m */; };
 		EBF2E516EB18D60068FBCB5ACB361365 /* MSALBaseTokenCacheItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D83E6900BD9E0FE226ABEE883824A88 /* MSALBaseTokenCacheItem.m */; };
 		EF7155F96BA9BE75856E6EBE5507102F /* MSALUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C3B102F9553B3AE4C21238A2211E68A /* MSALUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -268,7 +268,6 @@
 		0F24BD700F369A5FE17971970546CA1F /* NXOAuth2Client-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NXOAuth2Client-umbrella.h"; sourceTree = "<group>"; };
 		1119DB62BF8591BE9309D2695569B63D /* NXOAuth2Account.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NXOAuth2Account.m; path = Sources/OAuth2Client/NXOAuth2Account.m; sourceTree = "<group>"; };
 		1158ED328FFC21756C33C8566AF83816 /* MSALTenantDiscoveryResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MSALTenantDiscoveryResponse.m; path = MSAL/src/instance/MSALTenantDiscoveryResponse.m; sourceTree = "<group>"; };
-		11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		120BC44CD8903C1C27EEE7888164FC04 /* MSALCryptoHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MSALCryptoHelper.m; path = MSAL/src/util/MSALCryptoHelper.m; sourceTree = "<group>"; };
 		1214D087926E317E44F8BB09B81EEE2D /* MSALTelemetryHttpEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MSALTelemetryHttpEvent.h; path = MSAL/src/telemetry/MSALTelemetryHttpEvent.h; sourceTree = "<group>"; };
 		1632D59CD8F0466FE059495E367E1A4A /* MSALURLSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MSALURLSession.m; path = MSAL/src/http/MSALURLSession.m; sourceTree = "<group>"; };
@@ -356,6 +355,7 @@
 		7472E69EF42998583FE63F3D28E9CFA3 /* MSALSilentRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MSALSilentRequest.m; path = MSAL/src/requests/MSALSilentRequest.m; sourceTree = "<group>"; };
 		749198B31352ADE06169B58D665475D4 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
 		750051D43CA71C938D1F0D58B9CF32CF /* NXOAuth2Client.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NXOAuth2Client.h; path = Sources/OAuth2Client/NXOAuth2Client.h; sourceTree = "<group>"; };
+		7570261E6ACC7105B21202B26AE43D97 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		75980EF83526902720A0B240E0F5E5FD /* MSALPkce.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MSALPkce.h; path = MSAL/src/pkce/MSALPkce.h; sourceTree = "<group>"; };
 		7629F8A956D6B51D0F6D320081D84775 /* NSURL+MSALExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURL+MSALExtensions.h"; path = "MSAL/src/util/NSURL+MSALExtensions.h"; sourceTree = "<group>"; };
 		7638E9DB0A86D6C60A3CF5F6A2261D05 /* MSALURLSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MSALURLSession.h; path = MSAL/src/http/MSALURLSession.h; sourceTree = "<group>"; };
@@ -431,7 +431,6 @@
 		BCD79EC4C377A6D86C34E34444BEE439 /* MSALFramework.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MSALFramework.m; path = MSAL/src/MSALFramework.m; sourceTree = "<group>"; };
 		BEF1B5D785AD4EE2D7A86CC3F4D33B18 /* MSALResult+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MSALResult+Internal.h"; path = "MSAL/src/MSALResult+Internal.h"; sourceTree = "<group>"; };
 		BF1173FA4E92053C1C7D9E08AEEDF4C3 /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
-		C085E02FF89804F50ADDA04F5A586E94 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		C0EBE36FB8B5AA91EB6E4F75F3EF7972 /* NSDictionary+MSALExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+MSALExtensions.h"; path = "MSAL/src/util/NSDictionary+MSALExtensions.h"; sourceTree = "<group>"; };
 		C11B38B0B7DB13C05EFB46855B5A3440 /* NXOAuth2PostBodyPart.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NXOAuth2PostBodyPart.h; path = Sources/OAuth2Client/NXOAuth2PostBodyPart.h; sourceTree = "<group>"; };
 		C24DF75B1D66E4303941ABAB886F05FB /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
@@ -445,6 +444,7 @@
 		CB9B73AE3FEF588595F619D2F6605E91 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
 		CD68F2AA5BD8DC1EE51E99328FE77ABF /* MSAL.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MSAL.modulemap; sourceTree = "<group>"; };
 		CE5E7FBA1ECAED44FD70B343C7579A44 /* MSALWebAuthResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MSALWebAuthResponse.m; path = MSAL/src/requests/MSALWebAuthResponse.m; sourceTree = "<group>"; };
+		CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CEE24AF8491E391F8BD34E0DD49EB8B3 /* NXOAuth2Constants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NXOAuth2Constants.h; path = Sources/OAuth2Client/NXOAuth2Constants.h; sourceTree = "<group>"; };
 		D16B0D81926E01004E6DE45E8E7DA5ED /* NSMutableDictionary+MSALExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+MSALExtension.m"; path = "MSAL/src/util/NSMutableDictionary+MSALExtension.m"; sourceTree = "<group>"; };
 		D2F36065C1C6FDB5075D88364470A9F5 /* MSALWebAuthRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MSALWebAuthRequest.h; path = MSAL/src/requests/MSALWebAuthRequest.h; sourceTree = "<group>"; };
@@ -497,7 +497,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC19AF964BE4889CACF2D86138BE708 /* Foundation.framework in Frameworks */,
+				2FFF0DC55D5F1C208D0C1D5011BE145B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,7 +505,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD8A15D17377141E61FA5D7431A7E2F2 /* Foundation.framework in Frameworks */,
+				A0E7A81FD6C94457FBB3A83B3F66E2B3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,8 +513,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90FFB1F6501A840525DF5F2B9349875C /* Foundation.framework in Frameworks */,
-				31C9498D73C921186098F2388A99A55B /* Security.framework in Frameworks */,
+				E4DC0FBB0F52766B278A54F346FCC589 /* Foundation.framework in Frameworks */,
+				EAD5BAC8F19798C5D0CAC27E953B00CA /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +522,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73B9C996AED49ED7CF8EC2A6F1738059 /* Foundation.framework in Frameworks */,
+				834F4D9819C6010E611A7E151B8899C3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,7 +530,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96368C9D686C34AF92FDD81EB7509812 /* Foundation.framework in Frameworks */,
+				CAED0BCFF3D04D70AE06205314661512 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,7 +538,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9ED3D342C8228B1BB8510868E955D822 /* Foundation.framework in Frameworks */,
+				ABFF0C484CA24B6A366773EA647618C4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,16 +656,16 @@
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4F990579C2E52276FD3C28227B49D60B /* iOS */,
+				547FE7BE59B73C045A10943A669A2D8C /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4F990579C2E52276FD3C28227B49D60B /* iOS */ = {
+		547FE7BE59B73C045A10943A669A2D8C /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */,
-				C085E02FF89804F50ADDA04F5A586E94 /* Security.framework */,
+				CEDC2E512ACD5CB722F7ADF14560309F /* Foundation.framework */,
+				7570261E6ACC7105B21202B26AE43D97 /* Security.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -1455,7 +1455,11 @@
 				INFOPLIST_FILE = "Target Support Files/MSAL/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/MSAL/MSAL.modulemap";
 				PRODUCT_MODULE_NAME = MSAL;
 				PRODUCT_NAME = MSAL;
@@ -1488,7 +1492,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-SEiOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SEiOS/Pods-SEiOS.modulemap";
 				OTHER_LDFLAGS = "";
@@ -1524,7 +1532,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-SEiOSUITests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SEiOSUITests/Pods-SEiOSUITests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -1559,7 +1571,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-SEiOSUITests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SEiOSUITests/Pods-SEiOSUITests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -1592,7 +1608,11 @@
 				INFOPLIST_FILE = "Target Support Files/MSAL/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/MSAL/MSAL.modulemap";
 				PRODUCT_MODULE_NAME = MSAL;
 				PRODUCT_NAME = MSAL;
@@ -1686,7 +1706,11 @@
 				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
 				PRODUCT_MODULE_NAME = Alamofire;
 				PRODUCT_NAME = Alamofire;
@@ -1720,7 +1744,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-SEiOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SEiOS/Pods-SEiOS.modulemap";
 				OTHER_LDFLAGS = "";
@@ -1755,7 +1783,11 @@
 				INFOPLIST_FILE = "Target Support Files/NXOAuth2Client/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/NXOAuth2Client/NXOAuth2Client.modulemap";
 				PRODUCT_MODULE_NAME = NXOAuth2Client;
 				PRODUCT_NAME = NXOAuth2Client;
@@ -1787,7 +1819,11 @@
 				INFOPLIST_FILE = "Target Support Files/NXOAuth2Client/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/NXOAuth2Client/NXOAuth2Client.modulemap";
 				PRODUCT_MODULE_NAME = NXOAuth2Client;
 				PRODUCT_NAME = NXOAuth2Client;
@@ -1819,7 +1855,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-SEiOSTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -1852,7 +1892,11 @@
 				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
 				PRODUCT_MODULE_NAME = Alamofire;
 				PRODUCT_NAME = Alamofire;
@@ -1885,7 +1929,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-SEiOSTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.modulemap";
 				OTHER_LDFLAGS = "";

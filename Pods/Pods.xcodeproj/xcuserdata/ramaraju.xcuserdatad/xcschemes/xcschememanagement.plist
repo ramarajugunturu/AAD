@@ -4,14 +4,14 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>ADALiOS.xcscheme</key>
+		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>Alamofire.xcscheme</key>
+		<key>MSAL.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
