@@ -26,12 +26,13 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     
     
     @IBOutlet weak var signoutButton: UIButton!
+    @IBOutlet weak var signInButton: UIButton!
 
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.configureInitiallyView()
         do {
             
@@ -62,7 +63,6 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     }
 
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,13 +70,13 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if self.accessToken.isEmpty {
-            
-            signoutButton.isEnabled = false;
-            signoutButton.alpha = 0.2
-            
-        }
+//        if self.accessToken.isEmpty {
+//            signoutButton.isEnabled = false;
+//            signoutButton.alpha = 0.2
+//        }
+    
     }
+    
     
 
     @IBAction func callSignInButton(_ sender: UIButton) {
@@ -233,6 +233,15 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     func configureInitiallyView()
     {
          self.setBackGroundGradient()
+        
+        signInButton.backgroundColor = .clear
+        signInButton.layer.cornerRadius = 25.0
+        signInButton.layer.borderWidth = 2.0
+        signInButton.layer.borderColor = UIColor.white.cgColor
+
     }
+    
+    
+
     
 }
