@@ -225,7 +225,26 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Vl-VX-QC3">
                                 <rect key="frame" x="32" y="115" width="315" height="532"/>
-                                <color key="backgroundColor" white="1" alpha="0.40257428278688523" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dcj-QJ-G5l">
+                                        <rect key="frame" x="0.0" y="0.0" width="315" height="532"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="dcS-gi-cI3" id="EcJ-Fr-5Zc"/>
+                                            <outlet property="delegate" destination="dcS-gi-cI3" id="cFM-rP-7ZC"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.20286458333333332" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="dcj-QJ-G5l" firstAttribute="centerX" secondItem="7Vl-VX-QC3" secondAttribute="centerX" id="33q-54-CgD"/>
+                                    <constraint firstItem="dcj-QJ-G5l" firstAttribute="leading" secondItem="7Vl-VX-QC3" secondAttribute="leading" id="BS5-dA-sTn"/>
+                                    <constraint firstItem="dcj-QJ-G5l" firstAttribute="centerY" secondItem="7Vl-VX-QC3" secondAttribute="centerY" id="Chv-eA-TVF"/>
+                                    <constraint firstAttribute="trailing" secondItem="dcj-QJ-G5l" secondAttribute="trailing" id="N6u-h0-GNa"/>
+                                    <constraint firstAttribute="bottom" secondItem="dcj-QJ-G5l" secondAttribute="bottom" id="oEd-lh-lDP"/>
+                                    <constraint firstItem="dcj-QJ-G5l" firstAttribute="top" secondItem="7Vl-VX-QC3" secondAttribute="top" id="w1E-d4-6kV"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -242,6 +261,7 @@
                         <viewLayoutGuide key="safeArea" id="EVm-Qw-iNb"/>
                     </view>
                     <connections>
+                        <outlet property="availableRoomsInfoTableView" destination="dcj-QJ-G5l" id="7f7-wV-OzV"/>
                         <outlet property="tblBGFadeView" destination="7Vl-VX-QC3" id="0d6-2D-viG"/>
                         <segue destination="idp-uV-aTG" kind="presentation" identifier="roomSearch2Filter" id="maK-Sm-Xuf"/>
                     </connections>

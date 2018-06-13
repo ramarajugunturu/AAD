@@ -24,6 +24,9 @@
 		D2D1D1B320D10D7F00766351 /* SERoomSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1B220D10D7F00766351 /* SERoomSearchViewController.swift */; };
 		D2D1D1B520D10E0800766351 /* SEPeopleSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1B420D10E0800766351 /* SEPeopleSearchViewController.swift */; };
 		D2D1D1B720D110F400766351 /* SEFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1B620D110F400766351 /* SEFilterViewController.swift */; };
+		D2D1D1BC20D1205B00766351 /* SERoomSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1BA20D1205B00766351 /* SERoomSearchTableViewCell.swift */; };
+		D2D1D1BD20D1205B00766351 /* SERoomSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */; };
+		D2D1D1BF20D124E000766351 /* cr4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1BE20D124E000766351 /* cr4.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		D2D1D1B220D10D7F00766351 /* SERoomSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SERoomSearchViewController.swift; sourceTree = "<group>"; };
 		D2D1D1B420D10E0800766351 /* SEPeopleSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEPeopleSearchViewController.swift; sourceTree = "<group>"; };
 		D2D1D1B620D110F400766351 /* SEFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEFilterViewController.swift; sourceTree = "<group>"; };
+		D2D1D1BA20D1205B00766351 /* SERoomSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SERoomSearchTableViewCell.swift; sourceTree = "<group>"; };
+		D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SERoomSearchTableViewCell.xib; sourceTree = "<group>"; };
+		D2D1D1BE20D124E000766351 /* cr4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cr4.jpg; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +112,7 @@
 		528A6A8620C514E3004C7FA7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2D1D1B820D1200100766351 /* Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,6 +211,7 @@
 		D23D1DF120C5031900022CD2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D2D1D1BE20D124E000766351 /* cr4.jpg */,
 				D23D1DC920C4FF5F00022CD2 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -246,6 +254,23 @@
 				D2D1D1B620D110F400766351 /* SEFilterViewController.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D2D1D1B820D1200100766351 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D2D1D1B920D1200100766351 /* TblViewCells */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D2D1D1B920D1200100766351 /* TblViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				D2D1D1BA20D1205B00766351 /* SERoomSearchTableViewCell.swift */,
+				D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */,
+			);
+			path = TblViewCells;
 			sourceTree = "<group>";
 		};
 		EEC1CC75226D96D8372A7397 /* Frameworks */ = {
@@ -367,6 +392,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2D1D1BF20D124E000766351 /* cr4.jpg in Resources */,
+				D2D1D1BD20D1205B00766351 /* SERoomSearchTableViewCell.xib in Resources */,
 				D23D1DCD20C4FF5F00022CD2 /* LaunchScreen.storyboard in Resources */,
 				D23D1DCA20C4FF5F00022CD2 /* Assets.xcassets in Resources */,
 				D23D1DC820C4FF5A00022CD2 /* Main.storyboard in Resources */,
@@ -473,6 +500,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2D1D1BC20D1205B00766351 /* SERoomSearchTableViewCell.swift in Sources */,
 				D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */,
 				D2D1D1B720D110F400766351 /* SEFilterViewController.swift in Sources */,
 				D2D1D1B320D10D7F00766351 /* SERoomSearchViewController.swift in Sources */,
