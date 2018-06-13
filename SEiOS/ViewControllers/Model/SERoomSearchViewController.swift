@@ -10,6 +10,8 @@ import UIKit
 
 class SERoomSearchViewController: SEBaseViewController {
 
+    @IBOutlet weak var tblBGFadeView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureInitiallyView()
@@ -24,6 +26,7 @@ class SERoomSearchViewController: SEBaseViewController {
     func configureInitiallyView()
     {
         self.setBackGroundGradient()
+        self.tblBGFadeView.layer.cornerRadius = 10.0
     }
     
     @IBAction func backButton(_ sender: UIButton) {
