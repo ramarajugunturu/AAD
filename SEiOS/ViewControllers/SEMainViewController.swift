@@ -9,7 +9,7 @@
 import UIKit
 import MSAL
 
-class SEMainViewController: UIViewController, URLSessionDelegate {
+class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     
     // Update the below to your client ID you received in the portal. The below is for running the demo only
     
@@ -32,7 +32,7 @@ class SEMainViewController: UIViewController, URLSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        self.configureInitiallyView()
         do {
             
             /**
@@ -221,6 +221,12 @@ class SEMainViewController: UIViewController, URLSessionDelegate {
             //self.loggingText.text = "Received error signing user out: \(error)"
             print("Received error signing user out: \(error)")
         }
+    }
+    
+    
+    func configureInitiallyView()
+    {
+         self.setBackGroundGradient()
     }
     
 }

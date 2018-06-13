@@ -17,6 +17,7 @@
 		D23D1DD820C4FF5F00022CD2 /* SEiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23D1DD720C4FF5F00022CD2 /* SEiOSTests.swift */; };
 		D23D1DE320C4FF5F00022CD2 /* SEiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23D1DE220C4FF5F00022CD2 /* SEiOSUITests.swift */; };
 		D23D1DF820C5040F00022CD2 /* SEMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23D1DF720C5040F00022CD2 /* SEMainViewController.swift */; };
+		D2D1D1A920D0E15000766351 /* SEBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1A820D0E15000766351 /* SEBaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		D23D1DE220C4FF5F00022CD2 /* SEiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEiOSUITests.swift; sourceTree = "<group>"; };
 		D23D1DE420C4FF5F00022CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D23D1DF720C5040F00022CD2 /* SEMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMainViewController.swift; sourceTree = "<group>"; };
+		D2D1D1A820D0E15000766351 /* SEBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBaseViewController.swift; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				D23D1DC220C4FF5A00022CD2 /* AppDelegate.swift */,
+				D2D1D1A820D0E15000766351 /* SEBaseViewController.swift */,
 				528A6A8720C514ED004C7FA7 /* Model */,
 				528A6A8620C514E3004C7FA7 /* Views */,
 				D23D1DF320C5036900022CD2 /* ViewControllers */,
@@ -437,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */,
+				D2D1D1A920D0E15000766351 /* SEBaseViewController.swift in Sources */,
 				D23D1DF820C5040F00022CD2 /* SEMainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,7 +618,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RBL5FW654B;
 				INFOPLIST_FILE = SEiOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "InfoVision-Labs-India-Pvt.-Ltd..SEiOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -630,7 +637,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RBL5FW654B;
 				INFOPLIST_FILE = SEiOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "InfoVision-Labs-India-Pvt.-Ltd..SEiOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -647,7 +657,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RBL5FW654B;
 				INFOPLIST_FILE = SEiOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "InfoVision-Labs-India-Pvt.-Ltd..SEiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -665,7 +679,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RBL5FW654B;
 				INFOPLIST_FILE = SEiOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "InfoVision-Labs-India-Pvt.-Ltd..SEiOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -682,7 +700,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RBL5FW654B;
 				INFOPLIST_FILE = SEiOSUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "InfoVision-Labs-India-Pvt.-Ltd..SEiOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -699,7 +721,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RBL5FW654B;
 				INFOPLIST_FILE = SEiOSUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "InfoVision-Labs-India-Pvt.-Ltd..SEiOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
