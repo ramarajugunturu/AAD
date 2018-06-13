@@ -31,6 +31,6 @@ class SERoomSearchViewController: SEBaseViewController {
     }
     
     @IBAction func filterButton(_ sender: UIButton) {
-        
+        self.performSegue(withIdentifier: "roomSearch2Filter", sender: nil)
     }
 }
