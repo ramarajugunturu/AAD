@@ -1,5 +1,5 @@
 //
-//  SECreateEventViewController.swift
+//  SEPeopleSearchViewController.swift
 //  SEiOS
 //
 //  Created by Rama Raju Gunturu on 13/06/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SECreateEventViewController: SEBaseViewController {
+class SEPeopleSearchViewController: SEBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +20,12 @@ class SECreateEventViewController: SEBaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func configureInitiallyView()
     {
         self.setBackGroundGradient()
     }
     
-    @IBAction func testButton(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "event2RoomSearch", sender: nil)
+    @IBAction func backButton(_ sender: UIButton) {
     }
-
 }
