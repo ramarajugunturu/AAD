@@ -18,6 +18,9 @@
 		D23D1DE320C4FF5F00022CD2 /* SEiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23D1DE220C4FF5F00022CD2 /* SEiOSUITests.swift */; };
 		D23D1DF820C5040F00022CD2 /* SEMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23D1DF720C5040F00022CD2 /* SEMainViewController.swift */; };
 		D2D1D1A920D0E15000766351 /* SEBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1A820D0E15000766351 /* SEBaseViewController.swift */; };
+		D2D1D1AC20D1094800766351 /* SECreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1AB20D1094800766351 /* SECreateEventViewController.swift */; };
+		D2D1D1AE20D1096300766351 /* SEMyBookingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1AD20D1096300766351 /* SEMyBookingsViewController.swift */; };
+		D2D1D1B020D109C500766351 /* SEMyContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1AF20D109C500766351 /* SEMyContactsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,9 @@
 		D23D1DE420C4FF5F00022CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D23D1DF720C5040F00022CD2 /* SEMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMainViewController.swift; sourceTree = "<group>"; };
 		D2D1D1A820D0E15000766351 /* SEBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBaseViewController.swift; sourceTree = "<group>"; };
+		D2D1D1AB20D1094800766351 /* SECreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECreateEventViewController.swift; sourceTree = "<group>"; };
+		D2D1D1AD20D1096300766351 /* SEMyBookingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMyBookingsViewController.swift; sourceTree = "<group>"; };
+		D2D1D1AF20D109C500766351 /* SEMyContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMyContactsViewController.swift; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +224,9 @@
 		D2D1D1AA20D0E48100766351 /* Tab */ = {
 			isa = PBXGroup;
 			children = (
+				D2D1D1AB20D1094800766351 /* SECreateEventViewController.swift */,
+				D2D1D1AD20D1096300766351 /* SEMyBookingsViewController.swift */,
+				D2D1D1AF20D109C500766351 /* SEMyContactsViewController.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -449,7 +458,10 @@
 			files = (
 				D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */,
 				D2D1D1A920D0E15000766351 /* SEBaseViewController.swift in Sources */,
+				D2D1D1B020D109C500766351 /* SEMyContactsViewController.swift in Sources */,
 				D23D1DF820C5040F00022CD2 /* SEMainViewController.swift in Sources */,
+				D2D1D1AE20D1096300766351 /* SEMyBookingsViewController.swift in Sources */,
+				D2D1D1AC20D1094800766351 /* SECreateEventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

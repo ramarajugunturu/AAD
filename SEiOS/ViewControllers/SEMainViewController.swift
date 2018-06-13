@@ -81,7 +81,8 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
 
     @IBAction func callSignInButton(_ sender: UIButton) {
         
-        
+        self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
+        /*
         do {
             
             // We check to see if we have a current logged in user. If we don't, then we need to sign someone in.
@@ -157,6 +158,7 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
             print("Unable to acquire token. Got error: \(error)")
             
         }
+        */
     }
     
     
