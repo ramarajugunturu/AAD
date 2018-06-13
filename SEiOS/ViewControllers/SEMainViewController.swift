@@ -203,6 +203,9 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     
     @IBAction func signoutButton(_ sender: UIButton) {
         print("signoutButton")
+        self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
+        
+        /*
         do {
             
             /**
@@ -221,6 +224,7 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
             //self.loggingText.text = "Received error signing user out: \(error)"
             print("Received error signing user out: \(error)")
         }
+        */
     }
     
     

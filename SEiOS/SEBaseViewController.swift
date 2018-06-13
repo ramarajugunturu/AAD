@@ -27,16 +27,16 @@ class SEBaseViewController: UIViewController {
     }
     
     func accessBackGroundGradientColor() -> CAGradientLayer {
-        
-        let startingColorOfGradientBlue = UIColor(red: 119/255, green: 42/255, blue: 179/255, alpha: 1.0).cgColor
-        let endingColorOFGradientPurple = UIColor(red: 148/255, green: 179/255, blue: 255/255, alpha: 1.0).cgColor
+
+        let startingColorOfGradientOrange = UIColor(red: 237/255, green: 136/255, blue: 96/255, alpha: 1.0).cgColor
+        let endingColorOFGradientPink = UIColor(red: 239/255, green: 103/255, blue: 141/255, alpha: 1.0).cgColor
         let gradient: CAGradientLayer = CAGradientLayer()
         
         gradient.frame.size = self.view.frame.size
         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradient.endPoint = CGPoint(x: 1.0, y:1.0)
-        
-        gradient.colors = [startingColorOfGradientBlue , endingColorOFGradientPurple]
+
+        gradient.colors = [startingColorOfGradientOrange , endingColorOFGradientPink]
         return gradient
     }
 }
