@@ -21,12 +21,6 @@ class SEViewControllerSwitcher {
         if(status == true){
             //rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarVC") as! SEMianTabBarViewController
             
-            let appDelegate = UIApplication.shared.delegate! as! AppDelegate
-            
-            //let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
-            //appDelegate.window?.rootViewController = initialViewController
-            //appDelegate.window?.makeKeyAndVisible()
-            
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarVC") as UIViewController
             
         }else{
