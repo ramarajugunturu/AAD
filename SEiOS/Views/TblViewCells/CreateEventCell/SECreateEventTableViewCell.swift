@@ -11,7 +11,6 @@ import UIKit
 class SECreateEventTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var imgageView: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var txtField: UITextField!
@@ -20,12 +19,30 @@ class SECreateEventTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.imageView?.frame = CGRect(x: 15, y: 15, width: 14, height: 14)
+    }
 }
+
+
+
+//extension UITextField{
+//    @IBInspectable var placeHolderColor: UIColor? {
+//        get {
+//            return self.placeHolderColor
+//        }
+//        set {
+//            self.attributedPlaceholder = NSAttributedString(string:self.placeholder != nil ? self.placeholder! : "", attributes:[NSAttributedStringKey.foregroundColor: newValue!])
+//        }
+//    }
+//}

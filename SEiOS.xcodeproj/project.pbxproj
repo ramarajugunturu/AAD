@@ -141,13 +141,6 @@
 			path = UIControls;
 			sourceTree = "<group>";
 		};
-		528A6A8920C51503004C7FA7 /* Utilties */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utilties;
-			sourceTree = "<group>";
-		};
 		52B679CD20D13F12001D58E8 /* CreateEventCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +148,14 @@
 				52B679D120D13F5C001D58E8 /* SECreateEventTableViewCell.xib */,
 			);
 			path = CreateEventCell;
+			sourceTree = "<group>";
+		};
+		52B679D520D277B4001D58E8 /* Utilties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utilties;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		64B642D69E35460499D37D56 /* Pods */ = {
@@ -205,7 +206,7 @@
 				D23D1DF220C5032800022CD2 /* Storyboards */,
 				D23D1DF120C5031900022CD2 /* Resources */,
 				D23D1DCE20C4FF5F00022CD2 /* Info.plist */,
-				528A6A8920C51503004C7FA7 /* Utilties */,
+				52B679D520D277B4001D58E8 /* Utilties */,
 			);
 			path = SEiOS;
 			sourceTree = "<group>";

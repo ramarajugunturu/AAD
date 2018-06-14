@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="grN-rP-Fhw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="grN-rP-Fhw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,6 +25,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Jiy-Lb-JC5"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="SIGN IN"/>
                                 <connections>
                                     <action selector="callSignInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q0b-n1-apt"/>
@@ -107,7 +108,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hl1-Jv-dFB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="i1a-SW-FsX"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="icon_settings_tab" id="i1a-SW-FsX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9TZ-mE-DoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,7 +124,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="m1J-Tk-nLs"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="My Contacts" id="5E6-0W-UaD"/>
+                    <tabBarItem key="tabBarItem" title="My Contacts" image="icon_my_contacts" id="5E6-0W-UaD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GyJ-ec-Ftz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -154,7 +155,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3P8-gn-6OB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="My Bookings" id="HYy-cB-fGY"/>
+                    <tabBarItem key="tabBarItem" title="My Bookings" image="icon_my_bookings" id="HYy-cB-fGY"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCC-5L-mHX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -168,52 +169,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZ0-c5-5zS">
-                                <rect key="frame" x="313" y="44" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="testButton:" destination="8GM-8u-P7Z" eventType="touchUpInside" id="xMY-nu-nbB"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bkH-w4-yjS">
                                 <rect key="frame" x="10" y="30" width="355" height="578"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNE-Tz-oAM">
-                                        <rect key="frame" x="10" y="8" width="200" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNE-Tz-oAM">
+                                        <rect key="frame" x="20" y="20" width="200" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="EVJ-UV-W2X"/>
-                                            <constraint firstAttribute="height" constant="21" id="h9M-Sf-8Uk"/>
+                                            <constraint firstAttribute="height" constant="30" id="h9M-Sf-8Uk"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wWW-cx-quF">
-                                        <rect key="frame" x="10" y="37" width="335" height="541"/>
+                                        <rect key="frame" x="10" y="70" width="335" height="508"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ziI-xd-M9f">
-                                        <rect key="frame" x="10" y="528" width="335" height="50"/>
-                                        <color key="backgroundColor" red="0.37254901960784315" green="0.36470588235294116" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="V8A-wf-S5Q"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                                        <state key="normal" title="CREATE EVENT"/>
-                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="wWW-cx-quF" firstAttribute="top" secondItem="GNE-Tz-oAM" secondAttribute="bottom" constant="8" id="3CI-TD-8K9"/>
+                                    <constraint firstItem="wWW-cx-quF" firstAttribute="top" secondItem="GNE-Tz-oAM" secondAttribute="bottom" constant="20" id="3CI-TD-8K9"/>
                                     <constraint firstAttribute="bottom" secondItem="wWW-cx-quF" secondAttribute="bottom" id="3cc-wU-LnU"/>
                                     <constraint firstAttribute="trailing" secondItem="wWW-cx-quF" secondAttribute="trailing" constant="10" id="8dn-T9-9A6"/>
-                                    <constraint firstAttribute="bottom" secondItem="ziI-xd-M9f" secondAttribute="bottom" id="BKS-qo-cF4"/>
-                                    <constraint firstItem="ziI-xd-M9f" firstAttribute="leading" secondItem="bkH-w4-yjS" secondAttribute="leading" constant="10" id="ILH-Jd-cI2"/>
-                                    <constraint firstAttribute="trailing" secondItem="ziI-xd-M9f" secondAttribute="trailing" constant="10" id="L6i-Xn-Jvb"/>
                                     <constraint firstItem="wWW-cx-quF" firstAttribute="leading" secondItem="bkH-w4-yjS" secondAttribute="leading" constant="10" id="Wj8-gm-KOn"/>
-                                    <constraint firstItem="GNE-Tz-oAM" firstAttribute="leading" secondItem="bkH-w4-yjS" secondAttribute="leading" constant="10" id="Ywi-De-aqH"/>
-                                    <constraint firstItem="GNE-Tz-oAM" firstAttribute="top" secondItem="bkH-w4-yjS" secondAttribute="top" constant="8" id="npa-3i-Ub0"/>
+                                    <constraint firstItem="GNE-Tz-oAM" firstAttribute="leading" secondItem="bkH-w4-yjS" secondAttribute="leading" constant="20" id="Ywi-De-aqH"/>
+                                    <constraint firstItem="GNE-Tz-oAM" firstAttribute="top" secondItem="bkH-w4-yjS" secondAttribute="top" constant="20" id="npa-3i-Ub0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -226,8 +207,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qy9-iE-5XZ"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Create Event" id="E6M-3D-cTD"/>
+                    <tabBarItem key="tabBarItem" title="Create Event" image="icon_create_event" id="E6M-3D-cTD"/>
                     <connections>
+                        <outlet property="tblBGFadeView" destination="bkH-w4-yjS" id="Wnl-dE-6Ky"/>
                         <outlet property="tblCreateEvent" destination="wWW-cx-quF" id="sJM-0Y-xsp"/>
                         <segue destination="dcS-gi-cI3" kind="presentation" identifier="event2RoomSearch" id="cPx-GU-hWi"/>
                         <segue destination="XFh-XA-gBD" kind="presentation" identifier="event2PeopleSearch" id="3zu-eV-OsL"/>
@@ -302,7 +284,7 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.20286458333333332" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="dcj-QJ-G5l" firstAttribute="centerX" secondItem="7Vl-VX-QC3" secondAttribute="centerX" id="33q-54-CgD"/>
                                     <constraint firstItem="dcj-QJ-G5l" firstAttribute="leading" secondItem="7Vl-VX-QC3" secondAttribute="leading" id="BS5-dA-sTn"/>
@@ -392,6 +374,10 @@
     <resources>
         <image name="download" width="185" height="203"/>
         <image name="icon_back" width="20" height="17"/>
+        <image name="icon_create_event" width="18" height="18"/>
         <image name="icon_filter" width="17" height="16"/>
+        <image name="icon_my_bookings" width="18" height="18"/>
+        <image name="icon_my_contacts" width="15" height="18"/>
+        <image name="icon_settings_tab" width="18" height="18"/>
     </resources>
 </document>

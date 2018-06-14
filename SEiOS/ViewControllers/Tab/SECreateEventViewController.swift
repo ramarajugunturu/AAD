@@ -24,8 +24,7 @@ class SECreateEventViewController: SEBaseViewController {
 
     
     @IBOutlet weak var tblCreateEvent: UITableView!
-
-    @IBOutlet weak var btnCreateEvent: UIButton!
+    @IBOutlet weak var tblBGFadeView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,20 +45,19 @@ class SECreateEventViewController: SEBaseViewController {
         self.tblCreateEvent.backgroundColor = UIColor.clear
         tblCreateEvent.delegate = self
         tblCreateEvent.dataSource = self
-
+        tblCreateEvent.showsHorizontalScrollIndicator = false
+        tblCreateEvent.showsVerticalScrollIndicator = false
+        self.tblBGFadeView.layer.cornerRadius = 10.0
     }
     
-    @IBAction func testButton(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "event2RoomSearch", sender: nil)
-    }
-
+   
 }
 
 extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 80
+        return 90
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,36 +80,90 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         let titleStr = item["name"]
         let titleImage = item["image"]
         cell?.imageView?.image = UIImage(named: titleImage!)
-        cell?.imageView?.contentMode = .scaleAspectFit
         cell?.lblTitle.text = titleStr
+
+
+        
+        cell?.txtField.isHidden = false
+        var placeHolderText  = ""
+        switch indexPath.row {
+        case 0:
+            placeHolderText = "Write your title here"
+        case 1:
+            placeHolderText = "Write your title here"
+            
+        case 2:
+            placeHolderText = "Tap to add people from contacts"
+            
+        case 3:
+            placeHolderText = "Tuesday, 5 Jun"
+        case 4:
+            cell?.txtField.isHidden = true
+            break
+        case 5:
+            placeHolderText = "10:00 AM"
+        case 6:
+            placeHolderText = "Never"
+        case 7:
+            placeHolderText = "15 minutes before"
+        case 8:
+            placeHolderText = "Write your description here"
+
+        default:
+            break
+        }
+        
+        
+        var placeHolder = NSMutableAttributedString()
+        // Set the Font
+        placeHolder = NSMutableAttributedString(string: placeHolderText, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 12)])
+        // Set the color
+        placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white, range:NSRange(location:0, length:placeHolderText.count))
+        
+        
+        // Add attribute
+        cell?.txtField.attributedPlaceholder = placeHolder
+        
+        
         return cell!
     }
+
     
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 50
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        /*
-//        UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
-//        UIButton *addcharity=[UIButton buttonWithType:UIButtonTypeCustom];
-//        [addcharity setTitle:@"Add to other" forState:UIControlStateNormal];
-//        [addcharity addTarget:self action:@selector(addCharity:) forControlEvents:UIControlEventTouchUpInside];
-//        [addcharity setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];  //Set the color this is may be different for iOS 7
-//        addcharity.frame=CGRectMake(0, 0, 130, 30); //Set some large width for your title
-//        [footerView addSubview:addcharity];
-//        return footerView;
-//        */
-//        
-//        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
-//        footerView.backgroundColor = UIColor.clear
-//        
-//        
-//        footerView.addSubview(self.btnCreateEvent)
-//        
-//        return footerView
-//        
-//    }
-//    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        footerView.backgroundColor = UIColor.clear
+        
+        let btnCreateEvent = UIButton.init(type: .custom)
+        btnCreateEvent.frame = CGRect(x: 0, y: 0, width: self.tblCreateEvent.frame.size.width, height: 50)
+        btnCreateEvent.setTitle("CREATE EVENT", for: .normal)
+        btnCreateEvent.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        btnCreateEvent.addTarget(self, action: #selector(createEventAction), for: .touchUpInside)
+        btnCreateEvent.setTitleColor(UIColor.white, for: .normal)
+        btnCreateEvent.backgroundColor = UIColor(red: 95/255, green: 93/255, blue: 166/255, alpha: 1.0)
+        footerView.addSubview(btnCreateEvent)
+        return footerView
+        
+    }
+    
+    @objc func createEventAction() {
+        print("Add event!!")
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 1:
+            self.performSegue(withIdentifier: "event2RoomSearch", sender: nil)
+        default:
+            break
+        }
+    }
+    
 }
+
+
