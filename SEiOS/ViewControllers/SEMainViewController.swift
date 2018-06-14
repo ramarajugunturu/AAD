@@ -80,7 +80,7 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     
 
     @IBAction func callSignInButton(_ sender: UIButton) {
-        
+        UserDefaults.standard.set(true, forKey: "status")
         self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
         /*
         do {

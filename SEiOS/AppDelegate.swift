@@ -41,7 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        
+        //SEViewControllerSwitcher.updateRootVC()
+
         return true
     }
 

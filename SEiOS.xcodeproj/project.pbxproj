@@ -31,6 +31,7 @@
 		D2D1D1BF20D124E000766351 /* cr4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1BE20D124E000766351 /* cr4.jpg */; };
 		D2D1D1C220D2259900766351 /* SEViewControllerSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C120D2259900766351 /* SEViewControllerSwitcher.swift */; };
 		D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */; };
+		D2D1D1C620D2316300766351 /* SESettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C520D2316300766351 /* SESettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		D2D1D1BE20D124E000766351 /* cr4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cr4.jpg; sourceTree = "<group>"; };
 		D2D1D1C120D2259900766351 /* SEViewControllerSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEViewControllerSwitcher.swift; sourceTree = "<group>"; };
 		D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMianTabBarViewController.swift; sourceTree = "<group>"; };
+		D2D1D1C520D2316300766351 /* SESettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SESettingsViewController.swift; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -261,6 +263,7 @@
 				D2D1D1AD20D1096300766351 /* SEMyBookingsViewController.swift */,
 				D2D1D1AF20D109C500766351 /* SEMyContactsViewController.swift */,
 				D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */,
+				D2D1D1C520D2316300766351 /* SESettingsViewController.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				D2D1D1AE20D1096300766351 /* SEMyBookingsViewController.swift in Sources */,
 				52B679D220D13F5C001D58E8 /* SECreateEventTableViewCell.swift in Sources */,
 				D2D1D1AC20D1094800766351 /* SECreateEventViewController.swift in Sources */,
+				D2D1D1C620D2316300766351 /* SESettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
