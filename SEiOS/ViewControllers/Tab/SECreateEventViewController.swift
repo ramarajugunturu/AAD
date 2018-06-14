@@ -25,6 +25,7 @@ class SECreateEventViewController: SEBaseViewController {
     
     @IBOutlet weak var tblCreateEvent: UITableView!
 
+    @IBOutlet weak var btnCreateEvent: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,4 +88,30 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        /*
+//        UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
+//        UIButton *addcharity=[UIButton buttonWithType:UIButtonTypeCustom];
+//        [addcharity setTitle:@"Add to other" forState:UIControlStateNormal];
+//        [addcharity addTarget:self action:@selector(addCharity:) forControlEvents:UIControlEventTouchUpInside];
+//        [addcharity setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];  //Set the color this is may be different for iOS 7
+//        addcharity.frame=CGRectMake(0, 0, 130, 30); //Set some large width for your title
+//        [footerView addSubview:addcharity];
+//        return footerView;
+//        */
+//        
+//        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+//        footerView.backgroundColor = UIColor.clear
+//        
+//        
+//        footerView.addSubview(self.btnCreateEvent)
+//        
+//        return footerView
+//        
+//    }
+//    
 }
