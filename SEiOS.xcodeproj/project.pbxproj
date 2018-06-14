@@ -29,6 +29,8 @@
 		D2D1D1BC20D1205B00766351 /* SERoomSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1BA20D1205B00766351 /* SERoomSearchTableViewCell.swift */; };
 		D2D1D1BD20D1205B00766351 /* SERoomSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */; };
 		D2D1D1BF20D124E000766351 /* cr4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1BE20D124E000766351 /* cr4.jpg */; };
+		D2D1D1C220D2259900766351 /* SEViewControllerSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C120D2259900766351 /* SEViewControllerSwitcher.swift */; };
+		D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		D2D1D1BA20D1205B00766351 /* SERoomSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SERoomSearchTableViewCell.swift; sourceTree = "<group>"; };
 		D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SERoomSearchTableViewCell.xib; sourceTree = "<group>"; };
 		D2D1D1BE20D124E000766351 /* cr4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cr4.jpg; sourceTree = "<group>"; };
+		D2D1D1C120D2259900766351 /* SEViewControllerSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEViewControllerSwitcher.swift; sourceTree = "<group>"; };
+		D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMianTabBarViewController.swift; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,6 +195,7 @@
 			children = (
 				D23D1DC220C4FF5A00022CD2 /* AppDelegate.swift */,
 				D2D1D1A820D0E15000766351 /* SEBaseViewController.swift */,
+				D2D1D1C020D2251800766351 /* Transitions */,
 				528A6A8720C514ED004C7FA7 /* Model */,
 				528A6A8620C514E3004C7FA7 /* Views */,
 				D23D1DF320C5036900022CD2 /* ViewControllers */,
@@ -255,6 +260,7 @@
 				D2D1D1AB20D1094800766351 /* SECreateEventViewController.swift */,
 				D2D1D1AD20D1096300766351 /* SEMyBookingsViewController.swift */,
 				D2D1D1AF20D109C500766351 /* SEMyContactsViewController.swift */,
+				D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -285,6 +291,14 @@
 				D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */,
 			);
 			path = TblViewCells;
+			sourceTree = "<group>";
+		};
+		D2D1D1C020D2251800766351 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				D2D1D1C120D2259900766351 /* SEViewControllerSwitcher.swift */,
+			);
+			path = Transitions;
 			sourceTree = "<group>";
 		};
 		EEC1CC75226D96D8372A7397 /* Frameworks */ = {
@@ -516,10 +530,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D1D1BC20D1205B00766351 /* SERoomSearchTableViewCell.swift in Sources */,
+				D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */,
 				D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */,
 				D2D1D1B720D110F400766351 /* SEFilterViewController.swift in Sources */,
 				D2D1D1B320D10D7F00766351 /* SERoomSearchViewController.swift in Sources */,
 				D2D1D1A920D0E15000766351 /* SEBaseViewController.swift in Sources */,
+				D2D1D1C220D2259900766351 /* SEViewControllerSwitcher.swift in Sources */,
 				D2D1D1B520D10E0800766351 /* SEPeopleSearchViewController.swift in Sources */,
 				D2D1D1B020D109C500766351 /* SEMyContactsViewController.swift in Sources */,
 				D23D1DF820C5040F00022CD2 /* SEMainViewController.swift in Sources */,
