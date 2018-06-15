@@ -334,6 +334,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateForService = dateFormatter.string(from: sender.date)
 
         
+        print(dateForService)
     }
     
     
@@ -345,9 +346,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateFormatter.timeStyle = DateFormatter.Style.short
         self.startMeetingTime = dateFormatter.string(from: sender.date)
         
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "HH:mm:ss"
         self.startMeetingTimeForService = dateFormatter.string(from: sender.date)
 
+        print(self.startMeetingTimeForService)
         
     }
     
@@ -358,9 +360,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateFormatter.timeStyle = DateFormatter.Style.short
         self.endMeetingTime = dateFormatter.string(from: sender.date)
         
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "HH:mm:ss"
         self.endMeetingTimeForService  = dateFormatter.string(from: sender.date)
 
+        print(self.endMeetingTimeForService)
     }
 
     
@@ -374,12 +377,21 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         let bodyDict: [String: String] = ["contentType": "HTML",
                                           "content": "Seven-Eleven Book Meeting room testing - POC."]
         
-        let startDict: [String: String] = ["dateTime": "2018-06-16T22:00:00",
+        
+        
+//        let startDict: [String: String] = ["dateTime": "2018-06-16T22:00:00",
+//                                           "timeZone": "India Standard Time"]
+//
+//        let endDict: [String: String] = ["dateTime": "2018-06-16T23:00:00",
+//                                         "timeZone": "India Standard Time"]
+        
+
+        let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
                                            "timeZone": "India Standard Time"]
         
-        let endDict: [String: String] = ["dateTime": "2018-06-16T23:00:00",
+        let endDict: [String: String] = ["dateTime": "\(dateForService)T\(endMeetingTimeForService)",
                                          "timeZone": "India Standard Time"]
-        
+
         
         var attendeesArray = [[String: Any]]()
         
@@ -401,7 +413,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
         
         var locationsArray = [[String: Any]]()
-        let locationsDict: [String: String] = ["displayName": "Estonia"]
+        let locationsDict: [String: String] = ["displayName": self.meetingRoomDetails.meetingRoomName]
         locationsArray.append(locationsDict)
         
         let parameters : Parameters = ["subject": self.eventTitle,
