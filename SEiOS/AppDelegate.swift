@@ -8,6 +8,7 @@
 
 import UIKit
 import MSAL
+import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+//        BITHockeyManager.shared().configure(withIdentifier: "")
+//        BITHockeyManager.shared().isUpdateManagerDisabled = false
+//        BITHockeyManager.shared().start()
+//        BITHockeyManager.shared().authenticator.authenticateInstallation()
         
         
         // The MSAL Logger should be set as early as possible in the app launch sequence, before any MSAL

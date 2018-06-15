@@ -13,6 +13,7 @@ target 'SEiOS' do
 
   pod 'NXOAuth2Client'
   pod 'Alamofire'
+  pod "HockeySDK", :subspecs => ['AllFeaturesLib']
 
   target 'SEiOSTests' do
     inherit! :search_paths
