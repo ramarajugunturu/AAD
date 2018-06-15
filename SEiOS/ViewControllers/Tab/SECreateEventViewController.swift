@@ -9,6 +9,12 @@
 import UIKit
 import Alamofire
 
+
+struct EmailAddress {
+    var address = ""
+    var name = ""
+}
+
 class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, UpdateAttendeeListDelegate {
     
     func showMeetingRoomDetails(meetingRoomDetails: MeetingRoomDetails) {
@@ -36,10 +42,14 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     var attendeeName : String! = ""
     var webServiceAPI = SEWebServiceAPI()
     
+    var attendeeList = [EmailAddress]()
+    var eventTitle = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureInitiallyView()
-        // Do any additional setup after loading the view.
+        self.hideKeyboardWhenTappedAround()
         
     }
     
@@ -66,6 +76,10 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
             for item in list {
                 let t = item as! SEUserModel
                 attendeeName.append("\(t.displayName!) ")
+                var attendeeDetail = EmailAddress()
+                attendeeDetail.address = t.mail
+                attendeeDetail.name = t.displayName
+                attendeeList.append(attendeeDetail)
             }
             tblCreateEvent.reloadData()
         }
@@ -104,21 +118,29 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
         
         cell?.txtField.isHidden = false
+        cell?.txtField.isUserInteractionEnabled = false
         var placeHolderText  = ""
         switch indexPath.row {
         case 0:
             placeHolderText = "Write your title here"
+            
+            cell?.txtField.tag = indexPath.row
+            cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
+            cell?.txtField.isUserInteractionEnabled = true
+            
+            if self.eventTitle != "" {
+                cell?.txtField.text = self.eventTitle
+            }
+            
         case 1:
             
             if self.meetingRoomDetails.meetingRoomName != ""
             {
                 cell?.txtField.text = self.meetingRoomDetails.meetingRoomName
-                cell?.txtField.isUserInteractionEnabled = false
             }
             else
             {
                 placeHolderText = "Write your title here"
-                cell?.txtField.isUserInteractionEnabled = true
             }
             
         case 2:
@@ -139,10 +161,13 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             placeHolderText = "10:00 AM"
         case 6:
             placeHolderText = "Never"
+            cell?.txtField.text = ""
         case 7:
             placeHolderText = "15 minutes before"
+            cell?.txtField.text = ""
         case 8:
             placeHolderText = "Write your description here"
+            cell?.txtField.text = ""
             
         default:
             break
@@ -187,39 +212,36 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     @objc func createEventAction() {
         print("Add event!!")
-        /*
-         if currentReachabilityStatus == .notReachable {
-         self.handleWebServicePopup(messageStr: AuthenticatedErrorMessages.NetworkAlert.NOT_REACHABLE)
-         return
-         }
-         
-         self.startMerlinLoading()
-         */
         
         self.startLoading()
         let url = SEWebserviceClient.eventURL
         
         let bodyDict: [String: String] = ["contentType": "HTML",
-                                          "content": "Let's kick-start this event planning!"]
+                                          "content": "Seven-Eleven Book Meeting room testing - POC."]
         
-        let startDict: [String: String] = ["dateTime": "2018-06-15T22:00:00",
+        let startDict: [String: String] = ["dateTime": "2018-06-16T22:00:00",
                                            "timeZone": "India Standard Time"]
         
-        let endDict: [String: String] = ["dateTime": "2018-06-15T23:00:00",
+        let endDict: [String: String] = ["dateTime": "2018-06-16T23:00:00",
                                          "timeZone": "India Standard Time"]
         
         
         var attendeesArray = [[String: Any]]()
         
-        let emailDetailsDict: [String: String] = ["address": "Harish.Rathuri@infovisionlabs.com",
-                                                  "name": "Harish Rathuri"]
         
-        let emailAddressDict: [String: Any] = ["emailAddress": emailDetailsDict,
-                                               "type": "Required"]
+        for item in self.attendeeList {
+            let emailDetailsDict: [String: String] = ["address": item.address,
+                                                      "name": item.name]
+            
+            let emailAddressDict: [String: Any] = ["emailAddress": emailDetailsDict,
+                                                   "type": "Required"]
+            
+            attendeesArray.append(emailAddressDict)
+        }
         
-        attendeesArray.append(emailAddressDict)
         
-        let locationDict: [String: String] = ["displayName": "Estonia",
+        
+        let locationDict: [String: String] = ["displayName": self.meetingRoomDetails.meetingRoomName,
                                               "locationType": "conferenceRoom"]
         
         
@@ -227,7 +249,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         let locationsDict: [String: String] = ["displayName": "Estonia"]
         locationsArray.append(locationsDict)
         
-        let parameters : Parameters = ["subject": "Plan summer company picnic",
+        let parameters : Parameters = ["subject": self.eventTitle,
                                        "body": bodyDict,
                                        "start": startDict,
                                        "end": endDict,
@@ -282,6 +304,16 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     //Check commit
+    
+    
+    @objc func textFieldValueChangedAction(textField: UITextField) {
+        
+        if textField.tag == 0 {
+            self.eventTitle = textField.text!
+        }
+    }
+    
+    
     
 }
 
