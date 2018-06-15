@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate {
+class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, UpdateAttendeeListDelegate {
     
     func showMeetingRoomDetails(meetingRoomDetails: MeetingRoomDetails) {
         self.meetingRoomDetails = meetingRoomDetails
@@ -32,7 +32,7 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate {
     @IBOutlet weak var tblCreateEvent: UITableView!
     @IBOutlet weak var tblBGFadeView: UIView!
     var meetingRoomDetails = MeetingRoomDetails()
-    
+    var attendeeName : String! = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureInitiallyView()
@@ -57,7 +57,16 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate {
         self.tblBGFadeView.layer.cornerRadius = 10.0
     }
     
-    
+    func updateAttendeesList(list: Array<Any>) {
+        if list.count != 0 {
+            attendeeName = ""
+            for item in list {
+                let t = item as! SEUserModel
+                attendeeName.append("\(t.displayName!) ")
+            }
+            tblCreateEvent.reloadData()
+        }
+    }
 }
 
 extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSource {
@@ -110,7 +119,13 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             }
             
         case 2:
-            placeHolderText = "Tap to add people from contacts"
+            if attendeeName == ""{
+                placeHolderText = "Tap to add people from contacts"
+            }
+            else{
+                placeHolderText = attendeeName
+            }
+            
             
         case 3:
             placeHolderText = "Tuesday, 5 Jun"
@@ -176,6 +191,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         switch indexPath.row {
         case 1:
             self.performSegue(withIdentifier: "event2RoomSearch", sender: nil)
+            break
+        case 2:
+            self.performSegue(withIdentifier: "addAttendee", sender: nil)
+            break
         default:
             break
         }
@@ -184,6 +203,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "event2RoomSearch") {
             let vc = segue.destination as! SERoomSearchViewController
+            vc.delegate = self
+        }
+        if (segue.identifier == "addAttendee") {
+            let vc = segue.destination as! SEAttendeesListViewController
             vc.delegate = self
         }
     }

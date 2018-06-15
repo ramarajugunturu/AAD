@@ -36,6 +36,9 @@
 		D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */; };
 		D2D1D1C620D2316300766351 /* SESettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C520D2316300766351 /* SESettingsViewController.swift */; };
 		D2D1D1C820D3DE8500766351 /* MeetingRoom.json in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1C720D3DE8500766351 /* MeetingRoom.json */; };
+		D2D1D1CC20D3E14700766351 /* SEAttendeesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1CB20D3E14700766351 /* SEAttendeesListViewController.swift */; };
+		D2D1D1CF20D3E2B400766351 /* SEAttendeesListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1CD20D3E2B400766351 /* SEAttendeesListCell.xib */; };
+		D2D1D1D020D3E2B400766351 /* SEAttendeesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1CE20D3E2B400766351 /* SEAttendeesListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +98,9 @@
 		D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMianTabBarViewController.swift; sourceTree = "<group>"; };
 		D2D1D1C520D2316300766351 /* SESettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SESettingsViewController.swift; sourceTree = "<group>"; };
 		D2D1D1C720D3DE8500766351 /* MeetingRoom.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MeetingRoom.json; sourceTree = "<group>"; };
+		D2D1D1CB20D3E14700766351 /* SEAttendeesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEAttendeesListViewController.swift; sourceTree = "<group>"; };
+		D2D1D1CD20D3E2B400766351 /* SEAttendeesListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SEAttendeesListCell.xib; sourceTree = "<group>"; };
+		D2D1D1CE20D3E2B400766351 /* SEAttendeesListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEAttendeesListCell.swift; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -284,6 +290,7 @@
 		D2D1D1B120D10D5500766351 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2D1D1CB20D3E14700766351 /* SEAttendeesListViewController.swift */,
 				D2D1D1B220D10D7F00766351 /* SERoomSearchViewController.swift */,
 				D2D1D1B420D10E0800766351 /* SEPeopleSearchViewController.swift */,
 				D2D1D1B620D110F400766351 /* SEFilterViewController.swift */,
@@ -302,6 +309,8 @@
 		D2D1D1B920D1200100766351 /* TblViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				D2D1D1CE20D3E2B400766351 /* SEAttendeesListCell.swift */,
+				D2D1D1CD20D3E2B400766351 /* SEAttendeesListCell.xib */,
 				52B679CD20D13F12001D58E8 /* CreateEventCell */,
 				D2D1D1BA20D1205B00766351 /* SERoomSearchTableViewCell.swift */,
 				D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */,
@@ -438,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D1D1BF20D124E000766351 /* cr4.jpg in Resources */,
+				D2D1D1CF20D3E2B400766351 /* SEAttendeesListCell.xib in Resources */,
 				D2D1D1BD20D1205B00766351 /* SERoomSearchTableViewCell.xib in Resources */,
 				D23D1DCD20C4FF5F00022CD2 /* LaunchScreen.storyboard in Resources */,
 				D23D1DCA20C4FF5F00022CD2 /* Assets.xcassets in Resources */,
@@ -568,6 +578,7 @@
 				D2D1D1BC20D1205B00766351 /* SERoomSearchTableViewCell.swift in Sources */,
 				D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */,
 				D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */,
+				D2D1D1D020D3E2B400766351 /* SEAttendeesListCell.swift in Sources */,
 				D2D1D1B720D110F400766351 /* SEFilterViewController.swift in Sources */,
 				D2D1D1B320D10D7F00766351 /* SERoomSearchViewController.swift in Sources */,
 				52B679DA20D3A752001D58E8 /* SEGlobalConstant.swift in Sources */,
@@ -581,6 +592,7 @@
 				52B679D220D13F5C001D58E8 /* SECreateEventTableViewCell.swift in Sources */,
 				52B679DE20D3A933001D58E8 /* SEWebServiceAPI.swift in Sources */,
 				D2D1D1AC20D1094800766351 /* SECreateEventViewController.swift in Sources */,
+				D2D1D1CC20D3E14700766351 /* SEAttendeesListViewController.swift in Sources */,
 				D2D1D1C620D2316300766351 /* SESettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
