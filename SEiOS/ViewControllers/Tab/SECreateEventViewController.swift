@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, UpdateAttendeeListDelegate {
     
@@ -33,6 +34,8 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     @IBOutlet weak var tblBGFadeView: UIView!
     var meetingRoomDetails = MeetingRoomDetails()
     var attendeeName : String! = ""
+    var webServiceAPI = SEWebServiceAPI()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureInitiallyView()
@@ -186,6 +189,73 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     @objc func createEventAction() {
         print("Add event!!")
+        /*
+         if currentReachabilityStatus == .notReachable {
+         self.handleWebServicePopup(messageStr: AuthenticatedErrorMessages.NetworkAlert.NOT_REACHABLE)
+         return
+         }
+         
+         self.startMerlinLoading()
+         */
+        
+        self.startLoading()
+        let url = SEWebserviceClient.eventURL
+        
+        let bodyDict: [String: String] = ["contentType": "HTML",
+                                          "content": "Let's kick-start this event planning!"]
+        
+        let startDict: [String: String] = ["dateTime": "2018-06-15T22:00:00",
+                                           "timeZone": "India Standard Time"]
+        
+        let endDict: [String: String] = ["dateTime": "2018-06-15T23:00:00",
+                                         "timeZone": "India Standard Time"]
+        
+        
+        var attendeesArray = [[String: Any]]()
+        
+        let emailDetailsDict: [String: String] = ["address": "Harish.Rathuri@infovisionlabs.com",
+                                                  "name": "Harish Rathuri"]
+        
+        let emailAddressDict: [String: Any] = ["emailAddress": emailDetailsDict,
+                                               "type": "Required"]
+        
+        attendeesArray.append(emailAddressDict)
+        
+        let locationDict: [String: String] = ["displayName": "Estonia",
+                                              "locationType": "conferenceRoom"]
+        
+        
+        var locationsArray = [[String: Any]]()
+        let locationsDict: [String: String] = ["displayName": "Estonia"]
+        locationsArray.append(locationsDict)
+        
+        let parameters : Parameters = ["subject": "Plan summer company picnic",
+                                       "body": bodyDict,
+                                       "start": startDict,
+                                       "end": endDict,
+                                       "attendees": attendeesArray,
+                                       "location": locationDict,
+                                       "locations": locationsArray]
+        
+        
+        webServiceAPI.createEventAPI(url: url, parameters: parameters, onSuccess: { (response) in
+            print("createEventAPI.createEventAPI")
+            self.stopLoading()
+            if response is [String : Any]
+            {
+                
+                
+                
+            }
+            else
+            {
+                //self.handleWebServicePopup(messageStr: response as! String)
+            }
+        }, onError:{ error in
+            print("Error Results:\(error)")
+            self.stopLoading()
+        })
+
     }
     
     
