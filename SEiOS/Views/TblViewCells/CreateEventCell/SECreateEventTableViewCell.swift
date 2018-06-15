@@ -16,6 +16,12 @@ class SECreateEventTableViewCell: UITableViewCell {
     @IBOutlet weak var txtField: UITextField!
     @IBOutlet weak var lblLine: UILabel!
     
+    @IBOutlet weak var lblStartMeetingBottom: UILabel!
+    @IBOutlet weak var lblEndMeetingBottom: UILabel!
+
+    @IBOutlet weak var txtEndMeetingTime: UITextField!
+    @IBOutlet weak var txtStartMeetingTime: UITextField!
+    @IBOutlet weak var lblMeetingInterval: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
