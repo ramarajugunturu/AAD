@@ -387,10 +387,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
 
         let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
-                                           "timeZone": "India Standard Time"]
+                                           "timeZone": "Central Standard Time"]
         
         let endDict: [String: String] = ["dateTime": "\(dateForService)T\(endMeetingTimeForService)",
-                                         "timeZone": "India Standard Time"]
+                                         "timeZone": "Central Standard Time"]
 
         
         var attendeesArray = [[String: Any]]()
