@@ -34,8 +34,8 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         self.configureInitiallyView()
         
         //  Meeting Rooms Details Service Call
-        //self.serviceForMeetingRoom()
-        self.createMeetingRoomList()
+        self.serviceForMeetingRoom()
+//        self.createMeetingRoomList()
         
     }
     
@@ -140,7 +140,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         let urlString = "https://graph.microsoft.com/v1.0/me/findMeetingTimes"
         
         let headerDict = [
-            "Authorization" : "Bearer  ",
+            "Authorization" : "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)",
             "Content-Type" : "application/json"
         ]
         
@@ -151,28 +151,25 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
             case .success(_):
                 print("Success")
                 if response.result.value != nil{
-                    var result = response.result.value
-                    print("Result : \(result)")
-                    do
-                    {
-                        guard let responseJson = try JSONSerialization.jsonObject(with: response.data!,
-                                                                                  options: []) as? [String: Any] else {
-                                                                                    print("Could not get JSON from responseData as dictionary")
-                                                                                    return
+                    do {
+                        let object = try JSONSerialization.jsonObject(with: response.data!, options: .allowFragments)
+                        if let dictionary = object as? [String: AnyObject] {
+                            
+                            
+                            let jsonDict = dictionary["meetingTimeSuggestions"] as! [[String : Any]]
+                            let meetingTimeSuggestions = jsonDict[0] as! [String : Any]
+                            let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
+                            
+                            for room in meetingRoomArray {
+                                var meetingRoom = MeetingRoomDetails()
+                                meetingRoom.meetingRoomName = room["displayName"] as! String
+                                meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
+                                meetingRoom.availabilityStaus = true
+                                self.meetingRoomList.append(meetingRoom)
+                            }
+                            self.availableRoomsInfoTableView.reloadData()
                         }
-                        print("The responseJson is: " + responseJson.description)
-                        var meetingRoom = MeetingRoomDetails()
-                        guard case let meetingRoom.meetingRoomName = responseJson["id"] as? String else {
-                            print("Could not get todoID as int from JSON")
-                            return
-                        }
-                        
-                        
-                        
-                    }
-                    catch
-                    {
-                        print("Error")
+                    } catch {
                     }
                 }
                 
