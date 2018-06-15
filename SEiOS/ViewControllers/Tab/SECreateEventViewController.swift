@@ -14,6 +14,28 @@ struct EmailAddress {
     var address = ""
     var name = ""
 }
+extension UIToolbar {
+    
+    func ToolbarPiker(doneSelect : Selector, cancelSelect : Selector) -> UIToolbar {
+        
+        let toolBar = UIToolbar()
+        
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: cancelSelect)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: doneSelect)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([ cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
+    }
+    
+}
 
 class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, UpdateAttendeeListDelegate {
     
@@ -44,6 +66,20 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     
     var attendeeList = [EmailAddress]()
     var eventTitle = ""
+    
+    
+    
+    var datePickerView:UIDatePicker = UIDatePicker()
+    
+    //var timePickerView:UIDatePicker = UIDatePicker()
+    var startMeetingTimePickerView:UIDatePicker = UIDatePicker()
+    var endMeetingTimePickerView:UIDatePicker = UIDatePicker()
+    
+    var dateFromDatePicker = ""
+    var timeFromDatePicker = ""
+    var startMeetingTime = ""
+    var endMeetingTime = ""
+    
     
     
     override func viewDidLoad() {
@@ -116,6 +152,24 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         cell?.lblTitle.text = titleStr
         
         
+        if(indexPath.row == 5)
+        {
+            cell?.txtEndMeetingTime.isHidden = false
+            cell?.txtStartMeetingTime.isHidden = false
+            cell?.lblMeetingInterval.isHidden = false
+            cell?.lblLine.isHidden = true
+            
+        }
+        else
+        {
+            cell?.txtEndMeetingTime.isHidden = true
+            cell?.txtStartMeetingTime.isHidden = true
+            cell?.lblMeetingInterval.isHidden = true
+            cell?.lblLine.isHidden = false
+            
+            
+        }
+        
         
         cell?.txtField.isHidden = false
         cell?.txtField.isUserInteractionEnabled = false
@@ -155,12 +209,58 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             
             
         case 3:
-            placeHolderText = "Tuesday, 5 Jun"
+            //placeHolderText = "Tuesday, 5 Jun"
+            cell?.txtField.isUserInteractionEnabled = true
+            
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            cell?.txtField.inputView = datePickerView
+            datePickerView.addTarget(self, action: #selector(SECreateEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+            
+            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.donePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
+            
+            cell?.txtField.inputAccessoryView = toolBar
+            
+            if(self.dateFromDatePicker != "")
+            {
+                cell?.txtField.text = self.dateFromDatePicker
+            }
+            else{
+                placeHolderText = "Please select date!"
+            }
+            
         case 4:
             cell?.txtField.isHidden = true
             break
         case 5:
-            placeHolderText = "10:00 AM"
+            //placeHolderText = "10:00 AM"
+            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.donePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
+            
+            startMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
+            startMeetingTimePickerView.addTarget(self, action: #selector(SECreateEventViewController.startTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
+            cell?.txtStartMeetingTime.inputView = startMeetingTimePickerView
+            cell?.txtStartMeetingTime.inputAccessoryView = toolBar
+            
+            if(self.startMeetingTime != "")
+            {
+                cell?.txtStartMeetingTime.text = self.startMeetingTime
+            }
+            else{
+                placeHolderText = "HH:MM AM"
+            }
+            
+            endMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
+            endMeetingTimePickerView.addTarget(self, action: #selector(SECreateEventViewController.endTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
+            cell?.txtEndMeetingTime.inputView = endMeetingTimePickerView
+            cell?.txtEndMeetingTime.inputAccessoryView = toolBar
+            
+            if(self.endMeetingTime != "")
+            {
+                cell?.txtEndMeetingTime.text = self.endMeetingTime
+            }
+            else{
+                placeHolderText = "HH:MM AM"
+            }
+            
         case 6:
             placeHolderText = "Never"
             cell?.txtField.text = ""
@@ -211,6 +311,47 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         return footerView
         
     }
+    
+    
+    
+    @objc func donePicker() {
+        self.tblCreateEvent.reloadData()
+        view.endEditing(true)
+    }
+    
+    @objc func cancelPicker() {
+        view.endEditing(true)
+    }
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        self.dateFromDatePicker = dateFormatter.string(from: sender.date)
+        
+    }
+    
+    
+    
+    @objc func startTimePickerValueChanged(sender:UIDatePicker) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        self.startMeetingTime = dateFormatter.string(from: sender.date)
+        
+        
+    }
+    
+    @objc func endTimePickerValueChanged(sender:UIDatePicker) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        self.endMeetingTime = dateFormatter.string(from: sender.date)
+        
+    }
+
+    
     
     @objc func createEventAction() {
         print("Add event!!")
