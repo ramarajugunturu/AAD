@@ -92,7 +92,6 @@ class SEWebServiceAPI: NSObject {
     // ----------------------------------------------------------------------------------------
     func createEventAPI(url:String, parameters: Parameters, onSuccess:@escaping(_ response: Any) ->Void, onError:@escaping(_ error:NSError)->Void) {
         let headers: HTTPHeaders = ["Content-Type": SEStoreSharedManager.sharedInstance.jsonContentType,
-                                    "Prefer":"IST",
                                     "Authorization": "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
         
         print(url)
