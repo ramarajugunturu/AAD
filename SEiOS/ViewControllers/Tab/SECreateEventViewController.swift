@@ -7,26 +7,31 @@
 //
 
 import UIKit
-import Alamofire
 
-class SECreateEventViewController: SEBaseViewController {
-
+class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate {
+    
+    func showMeetingRoomDetails(meetingRoomDetails: MeetingRoomDetails) {
+        self.meetingRoomDetails = meetingRoomDetails
+        self.tblCreateEvent.reloadData()
+    }
+    
+    
     //let roomTitles_Array  = ["Jupiter", "Venus", "America", "Singapoor"]
     
     let eventHeadingArray = [["name": "Event Title", "image": "icon_event_title"],
-                           ["name": "Location", "image": "icon_location"],
-                           ["name": "Select People", "image": "icon_people"],
-                           ["name": "Select Date", "image": "icon_date"],
-                           ["name": "All-day Event", "image": ""],
-                           ["name": "Select Time", "image": "icon_time"],
-                           ["name": "Repeat", "image": "icon_repeat"],
-                           ["name": "Alert", "image": "icon_alert"],
-                           ["name": "Description", "image": "icon_description"]]
-
+                             ["name": "Location", "image": "icon_location"],
+                             ["name": "Select People", "image": "icon_people"],
+                             ["name": "Select Date", "image": "icon_date"],
+                             ["name": "All-day Event", "image": ""],
+                             ["name": "Select Time", "image": "icon_time"],
+                             ["name": "Repeat", "image": "icon_repeat"],
+                             ["name": "Alert", "image": "icon_alert"],
+                             ["name": "Description", "image": "icon_description"]]
+    
     
     @IBOutlet weak var tblCreateEvent: UITableView!
     @IBOutlet weak var tblBGFadeView: UIView!
-    var webServiceAPI = SEWebServiceAPI()
+    var meetingRoomDetails = MeetingRoomDetails()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +44,7 @@ class SECreateEventViewController: SEBaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func configureInitiallyView()
     {
         self.setBackGroundGradient()
@@ -52,7 +57,7 @@ class SECreateEventViewController: SEBaseViewController {
         self.tblBGFadeView.layer.cornerRadius = 10.0
     }
     
-   
+    
 }
 
 extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSource {
@@ -83,8 +88,8 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         let titleImage = item["image"]
         cell?.imageView?.image = UIImage(named: titleImage!)
         cell?.lblTitle.text = titleStr
-
-
+        
+        
         
         cell?.txtField.isHidden = false
         var placeHolderText  = ""
@@ -92,7 +97,17 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         case 0:
             placeHolderText = "Write your title here"
         case 1:
-            placeHolderText = "Write your title here"
+            
+            if self.meetingRoomDetails.meetingRoomName != ""
+            {
+                cell?.txtField.text = self.meetingRoomDetails.meetingRoomName
+                cell?.txtField.isUserInteractionEnabled = false
+            }
+            else
+            {
+                placeHolderText = "Write your title here"
+                cell?.txtField.isUserInteractionEnabled = true
+            }
             
         case 2:
             placeHolderText = "Tap to add people from contacts"
@@ -110,7 +125,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             placeHolderText = "15 minutes before"
         case 8:
             placeHolderText = "Write your description here"
-
+            
         default:
             break
         }
@@ -129,7 +144,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
         return cell!
     }
-
+    
     
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -154,74 +169,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     @objc func createEventAction() {
         print("Add event!!")
-        /*
-        if currentReachabilityStatus == .notReachable {
-            self.handleWebServicePopup(messageStr: AuthenticatedErrorMessages.NetworkAlert.NOT_REACHABLE)
-            return
-        }
-        
-        self.startMerlinLoading()
-        */
-        
-        self.startLoading()
-        let url = SEWebserviceClient.eventURL
-        
-        let bodyDict: [String: String] = ["contentType": "HTML",
-                                          "content": "Let's kick-start this event planning!"]
-        
-        let startDict: [String: String] = ["dateTime": "2018-06-15T22:00:00",
-                                          "timeZone": "India Standard Time"]
-
-        let endDict: [String: String] = ["dateTime": "2018-06-15T23:00:00",
-                                          "timeZone": "India Standard Time"]
-        
-        
-        var attendeesArray = [[String: Any]]()
-        
-        let emailDetailsDict: [String: String] = ["address": "Harish.Rathuri@infovisionlabs.com",
-                                         "name": "Harish Rathuri"]
-
-        let emailAddressDict: [String: Any] = ["emailAddress": emailDetailsDict,
-                                                  "type": "Required"]
-
-        attendeesArray.append(emailAddressDict)
-
-        let locationDict: [String: String] = ["displayName": "Estonia",
-                                               "locationType": "conferenceRoom"]
-
-        
-        var locationsArray = [[String: Any]]()
-        let locationsDict: [String: String] = ["displayName": "Estonia"]
-        locationsArray.append(locationsDict)
-        
-        let parameters : Parameters = ["subject": "Plan summer company picnic",
-                                       "body": bodyDict,
-                                       "start": startDict,
-                                       "end": endDict,
-                                       "attendees": attendeesArray,
-                                       "location": locationDict,
-                                       "locations": locationsArray]
-        
-
-        webServiceAPI.createEventAPI(url: url, parameters: parameters, onSuccess: { (response) in
-            print("createEventAPI.createEventAPI")
-            self.stopLoading()
-            if response is [String : Any]
-            {
-                
-                
-                
-            }
-            else
-            {
-                //self.handleWebServicePopup(messageStr: response as! String)
-            }
-        }, onError:{ error in
-            print("Error Results:\(error)")
-            self.stopLoading()
-        })
-        
-        
     }
     
     
@@ -234,9 +181,14 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "event2RoomSearch") {
+            let vc = segue.destination as! SERoomSearchViewController
+            vc.delegate = self
+        }
+    }
+    
 }
-
-
 
 
 

@@ -9,21 +9,22 @@
 import UIKit
 
 class SERoomSearchTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var confRoomTitleLbl: UILabel!
     @IBOutlet weak var roomCapacityCount: UILabel!
-    
+    @IBOutlet weak var roomAvailabilityStatus: UILabel!
     @IBOutlet weak var confRoomImg: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
 }
+

@@ -1,0 +1,267 @@
+
+{
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#microsoft.graph.meetingTimeSuggestionsResult",
+    "emptySuggestionsReason": "",
+    "meetingTimeSuggestions": [
+                               {
+                               "confidence": 100,
+                               "organizerAvailability": "free",
+                               "meetingTimeSlot": {
+                               "start": {
+                               "dateTime": "2018-06-13T10:30:00.0000000",
+                               "timeZone": "UTC"
+                               },
+                               "end": {
+                               "dateTime": "2018-06-13T11:00:00.0000000",
+                               "timeZone": "UTC"
+                               }
+                               },
+                               "attendeeAvailability": [],
+                               "locations": [
+                                             {
+                                             "displayName": "Estonia",
+                                             "locationEmailAddress": "IVLI.Estonia@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Estonia@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "USA",
+                                             "locationEmailAddress": "USA@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "USA@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Paris",
+                                             "locationEmailAddress": "IVLI.Paris@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Paris@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Jupiter",
+                                             "locationEmailAddress": "jupiter@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "jupiter@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Fiji",
+                                             "locationEmailAddress": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             }
+                                             ]
+                               },
+                               {
+                               "confidence": 100,
+                               "organizerAvailability": "free",
+                               "meetingTimeSlot": {
+                               "start": {
+                               "dateTime": "2018-06-13T11:00:00.0000000",
+                               "timeZone": "UTC"
+                               },
+                               "end": {
+                               "dateTime": "2018-06-13T11:30:00.0000000",
+                               "timeZone": "UTC"
+                               }
+                               },
+                               "attendeeAvailability": [],
+                               "locations": [
+                                             {
+                                             "displayName": "Estonia",
+                                             "locationEmailAddress": "IVLI.Estonia@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Estonia@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "USA",
+                                             "locationEmailAddress": "USA@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "USA@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Paris",
+                                             "locationEmailAddress": "IVLI.Paris@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Paris@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Jupiter",
+                                             "locationEmailAddress": "jupiter@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "jupiter@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Fiji",
+                                             "locationEmailAddress": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             }
+                                             ]
+                               },
+                               {
+                               "confidence": 100,
+                               "organizerAvailability": "free",
+                               "meetingTimeSlot": {
+                               "start": {
+                               "dateTime": "2018-06-14T02:30:00.0000000",
+                               "timeZone": "UTC"
+                               },
+                               "end": {
+                               "dateTime": "2018-06-14T03:00:00.0000000",
+                               "timeZone": "UTC"
+                               }
+                               },
+                               "attendeeAvailability": [],
+                               "locations": [
+                                             {
+                                             "displayName": "Estonia",
+                                             "locationEmailAddress": "IVLI.Estonia@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Estonia@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "USA",
+                                             "locationEmailAddress": "USA@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "USA@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Paris",
+                                             "locationEmailAddress": "IVLI.Paris@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Paris@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Jupiter",
+                                             "locationEmailAddress": "jupiter@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "jupiter@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Fiji",
+                                             "locationEmailAddress": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             }
+                                             ]
+                               },
+                               {
+                               "confidence": 100,
+                               "organizerAvailability": "free",
+                               "meetingTimeSlot": {
+                               "start": {
+                               "dateTime": "2018-06-14T03:00:00.0000000",
+                               "timeZone": "UTC"
+                               },
+                               "end": {
+                               "dateTime": "2018-06-14T03:30:00.0000000",
+                               "timeZone": "UTC"
+                               }
+                               },
+                               "attendeeAvailability": [],
+                               "locations": [
+                                             {
+                                             "displayName": "Estonia",
+                                             "locationEmailAddress": "IVLI.Estonia@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Estonia@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "USA",
+                                             "locationEmailAddress": "USA@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "USA@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Paris",
+                                             "locationEmailAddress": "IVLI.Paris@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Paris@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Jupiter",
+                                             "locationEmailAddress": "jupiter@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "jupiter@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Fiji",
+                                             "locationEmailAddress": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             }
+                                             ]
+                               },
+                               {
+                               "confidence": 100,
+                               "organizerAvailability": "free",
+                               "meetingTimeSlot": {
+                               "start": {
+                               "dateTime": "2018-06-14T03:30:00.0000000",
+                               "timeZone": "UTC"
+                               },
+                               "end": {
+                               "dateTime": "2018-06-14T04:00:00.0000000",
+                               "timeZone": "UTC"
+                               }
+                               },
+                               "attendeeAvailability": [],
+                               "locations": [
+                                             {
+                                             "displayName": "Estonia",
+                                             "locationEmailAddress": "IVLI.Estonia@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Estonia@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "USA",
+                                             "locationEmailAddress": "USA@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "USA@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Paris",
+                                             "locationEmailAddress": "IVLI.Paris@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "IVLI.Paris@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Jupiter",
+                                             "locationEmailAddress": "jupiter@infovisionlabs.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "jupiter@infovisionlabs.com",
+                                             "uniqueIdType": "unknown"
+                                             },
+                                             {
+                                             "displayName": "Meeting Room - Fiji",
+                                             "locationEmailAddress": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "locationType": "conferenceRoom",
+                                             "uniqueId": "Fiji@infovisionlab.onmicrosoft.com",
+                                             "uniqueIdType": "unknown"
+                                             }
+                                             ]
+                               }
+                               ]
+}

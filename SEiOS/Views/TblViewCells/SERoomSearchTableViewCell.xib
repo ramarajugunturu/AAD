@@ -71,6 +71,7 @@
             <connections>
                 <outlet property="confRoomImg" destination="a5C-gR-j0B" id="e1I-KN-OjN"/>
                 <outlet property="confRoomTitleLbl" destination="60j-X4-nxB" id="G7l-0s-4bb"/>
+                <outlet property="roomAvailabilityStatus" destination="lZa-U0-lRs" id="5yy-Jy-xB2"/>
                 <outlet property="roomCapacityCount" destination="gOd-LE-q1g" id="aHg-yi-Hyt"/>
             </connections>
             <point key="canvasLocation" x="-348.5" y="-284"/>

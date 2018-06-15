@@ -35,6 +35,7 @@
 		D2D1D1C220D2259900766351 /* SEViewControllerSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C120D2259900766351 /* SEViewControllerSwitcher.swift */; };
 		D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */; };
 		D2D1D1C620D2316300766351 /* SESettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1C520D2316300766351 /* SESettingsViewController.swift */; };
+		D2D1D1C820D3DE8500766351 /* MeetingRoom.json in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1C720D3DE8500766351 /* MeetingRoom.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		D2D1D1C120D2259900766351 /* SEViewControllerSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEViewControllerSwitcher.swift; sourceTree = "<group>"; };
 		D2D1D1C320D2261600766351 /* SEMianTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMianTabBarViewController.swift; sourceTree = "<group>"; };
 		D2D1D1C520D2316300766351 /* SESettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SESettingsViewController.swift; sourceTree = "<group>"; };
+		D2D1D1C720D3DE8500766351 /* MeetingRoom.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MeetingRoom.json; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -241,6 +243,7 @@
 		D23D1DF120C5031900022CD2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D2D1D1C720D3DE8500766351 /* MeetingRoom.json */,
 				D2D1D1BE20D124E000766351 /* cr4.jpg */,
 				D23D1DC920C4FF5F00022CD2 /* Assets.xcassets */,
 			);
@@ -439,6 +442,7 @@
 				D23D1DCD20C4FF5F00022CD2 /* LaunchScreen.storyboard in Resources */,
 				D23D1DCA20C4FF5F00022CD2 /* Assets.xcassets in Resources */,
 				52B679D320D13F5C001D58E8 /* SECreateEventTableViewCell.xib in Resources */,
+				D2D1D1C820D3DE8500766351 /* MeetingRoom.json in Resources */,
 				D23D1DC820C4FF5A00022CD2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
