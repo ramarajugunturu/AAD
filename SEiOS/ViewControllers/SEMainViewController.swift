@@ -25,7 +25,7 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     var applicationContext = MSALPublicClientApplication.init()
     
     
-    @IBOutlet weak var signoutButton: UIButton!
+    //@IBOutlet weak var signoutButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
 
     override func viewDidLoad() {
@@ -81,8 +81,8 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     
     @IBAction func callSignInButton(_ sender: UIButton) {
     
-        self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
-        /*
+        
+        
         do {
             
             // We check to see if we have a current logged in user. If we don't, then we need to sign someone in.
@@ -113,8 +113,8 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
                         //self.loggingText.text = "Refreshed Access token is \(self.accessToken)"
                         print("Refreshed Access token is \(self.accessToken)")
                         
-                        self.signoutButton.isEnabled = true;
-                        self.signoutButton.alpha = 1.0
+                        //self.signoutButton.isEnabled = true;
+                        //self.signoutButton.alpha = 1.0
                         self.getContentWithToken()
                         
                     } else {
@@ -136,8 +136,8 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
                         self.accessToken = (result?.accessToken)!
                         //self.loggingText.text = "Access token is \(self.accessToken)"
                         print("Access token is \(self.accessToken)")
-                        self.signoutButton.isEnabled = true;
-                        self.signoutButton.alpha = 1.0
+                        //self.signoutButton.isEnabled = true;
+                        //self.signoutButton.alpha = 1.0
                         self.getContentWithToken()
                         
                     } else  {
@@ -158,7 +158,7 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
             print("Unable to acquire token. Got error: \(error)")
             
         }
-        */
+ 
     }
     
     /**
@@ -192,6 +192,7 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
                 //self.loggingText.text = result.debugDescription
                 
                 print(result.debugDescription)
+                self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
             }
             }.resume()
     }
@@ -200,12 +201,12 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
      This button will invoke the signout APIs to clear the token cache.
      
      */
-    
+    /*
     @IBAction func signoutButton(_ sender: UIButton) {
         print("signoutButton")
         self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
         
-        /*
+        
         do {
             
             /**
@@ -224,8 +225,10 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
             //self.loggingText.text = "Received error signing user out: \(error)"
             print("Received error signing user out: \(error)")
         }
-        */
+        
     }
+    */
+    
     
     func configureInitiallyView()
     {
