@@ -66,7 +66,9 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     
     var attendeeList = [EmailAddress]()
     var eventTitle = ""
-    
+    var startMeetingTimeForService = ""
+    var endMeetingTimeForService = ""
+    var dateForService = ""
     
     
     var datePickerView:UIDatePicker = UIDatePicker()
@@ -245,7 +247,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.txtStartMeetingTime.text = self.startMeetingTime
             }
             else{
-                placeHolderText = "HH:MM AM"
+                //placeHolderText = "HH:MM AM"
             }
             
             endMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
@@ -258,7 +260,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.txtEndMeetingTime.text = self.endMeetingTime
             }
             else{
-                placeHolderText = "HH:MM AM"
+                //placeHolderText = "HH:MM AM"
             }
             
         case 6:
@@ -328,6 +330,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateFormatter.timeStyle = DateFormatter.Style.none
         self.dateFromDatePicker = dateFormatter.string(from: sender.date)
         
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateForService = dateFormatter.string(from: sender.date)
+
+        
     }
     
     
@@ -339,6 +345,9 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateFormatter.timeStyle = DateFormatter.Style.short
         self.startMeetingTime = dateFormatter.string(from: sender.date)
         
+        dateFormatter.dateFormat = "HH:mm"
+        self.startMeetingTimeForService = dateFormatter.string(from: sender.date)
+
         
     }
     
@@ -349,6 +358,9 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateFormatter.timeStyle = DateFormatter.Style.short
         self.endMeetingTime = dateFormatter.string(from: sender.date)
         
+        dateFormatter.dateFormat = "HH:mm"
+        self.endMeetingTimeForService  = dateFormatter.string(from: sender.date)
+
     }
 
     
