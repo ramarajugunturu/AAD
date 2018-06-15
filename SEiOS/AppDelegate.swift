@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
+//        BITHockeyManager.shared().configure(withIdentifier: "")
+//        BITHockeyManager.shared().isUpdateManagerDisabled = false
+//        BITHockeyManager.shared().start()
+//        BITHockeyManager.shared().authenticator.authenticateInstallation()
+        
+        
         // The MSAL Logger should be set as early as possible in the app launch sequence, before any MSAL
         // requests are made.
         
