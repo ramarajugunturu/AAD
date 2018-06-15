@@ -10,6 +10,9 @@
 		0DB7ABBFC02C26B84B281C2D /* Pods_SEiOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A1A1458B586C99D4D1F7BF /* Pods_SEiOSUITests.framework */; };
 		52B679D220D13F5C001D58E8 /* SECreateEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B679D020D13F5C001D58E8 /* SECreateEventTableViewCell.swift */; };
 		52B679D320D13F5C001D58E8 /* SECreateEventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B679D120D13F5C001D58E8 /* SECreateEventTableViewCell.xib */; };
+		52B679DA20D3A752001D58E8 /* SEGlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B679D920D3A752001D58E8 /* SEGlobalConstant.swift */; };
+		52B679DC20D3A7B2001D58E8 /* SELocalStoreSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B679DB20D3A7B2001D58E8 /* SELocalStoreSharedManager.swift */; };
+		52B679DE20D3A933001D58E8 /* SEWebServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B679DD20D3A933001D58E8 /* SEWebServiceAPI.swift */; };
 		6A1F1A583EB0323DEABB87E7 /* Pods_SEiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B242EE7E0C2B14867CA56D13 /* Pods_SEiOS.framework */; };
 		C43939A0FDEB75637103B37E /* Pods_SEiOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DE44BA6EDA7EDB9935905D /* Pods_SEiOSTests.framework */; };
 		D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23D1DC220C4FF5A00022CD2 /* AppDelegate.swift */; };
@@ -56,6 +59,9 @@
 		21212F3FCCE7039416745910 /* Pods-SEiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.release.xcconfig"; sourceTree = "<group>"; };
 		52B679D020D13F5C001D58E8 /* SECreateEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECreateEventTableViewCell.swift; sourceTree = "<group>"; };
 		52B679D120D13F5C001D58E8 /* SECreateEventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SECreateEventTableViewCell.xib; sourceTree = "<group>"; };
+		52B679D920D3A752001D58E8 /* SEGlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEGlobalConstant.swift; sourceTree = "<group>"; };
+		52B679DB20D3A7B2001D58E8 /* SELocalStoreSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SELocalStoreSharedManager.swift; sourceTree = "<group>"; };
+		52B679DD20D3A933001D58E8 /* SEWebServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEWebServiceAPI.swift; path = "SEiOS/New Group/SEWebServiceAPI.swift"; sourceTree = SOURCE_ROOT; };
 		7919B5C3A51BDCB724E014E3 /* Pods-SEiOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7D4D89B50BB51904B6CF9B21 /* Pods-SEiOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSUITests/Pods-SEiOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B242EE7E0C2B14867CA56D13 /* Pods_SEiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +136,7 @@
 		528A6A8720C514ED004C7FA7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				52B679DD20D3A933001D58E8 /* SEWebServiceAPI.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -153,6 +160,8 @@
 		52B679D520D277B4001D58E8 /* Utilties */ = {
 			isa = PBXGroup;
 			children = (
+				52B679D920D3A752001D58E8 /* SEGlobalConstant.swift */,
+				52B679DB20D3A7B2001D58E8 /* SELocalStoreSharedManager.swift */,
 			);
 			name = Utilties;
 			path = "New Group";
@@ -538,13 +547,16 @@
 				D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */,
 				D2D1D1B720D110F400766351 /* SEFilterViewController.swift in Sources */,
 				D2D1D1B320D10D7F00766351 /* SERoomSearchViewController.swift in Sources */,
+				52B679DA20D3A752001D58E8 /* SEGlobalConstant.swift in Sources */,
 				D2D1D1A920D0E15000766351 /* SEBaseViewController.swift in Sources */,
 				D2D1D1C220D2259900766351 /* SEViewControllerSwitcher.swift in Sources */,
 				D2D1D1B520D10E0800766351 /* SEPeopleSearchViewController.swift in Sources */,
 				D2D1D1B020D109C500766351 /* SEMyContactsViewController.swift in Sources */,
 				D23D1DF820C5040F00022CD2 /* SEMainViewController.swift in Sources */,
 				D2D1D1AE20D1096300766351 /* SEMyBookingsViewController.swift in Sources */,
+				52B679DC20D3A7B2001D58E8 /* SELocalStoreSharedManager.swift in Sources */,
 				52B679D220D13F5C001D58E8 /* SECreateEventTableViewCell.swift in Sources */,
+				52B679DE20D3A933001D58E8 /* SEWebServiceAPI.swift in Sources */,
 				D2D1D1AC20D1094800766351 /* SECreateEventViewController.swift in Sources */,
 				D2D1D1C620D2316300766351 /* SESettingsViewController.swift in Sources */,
 			);
