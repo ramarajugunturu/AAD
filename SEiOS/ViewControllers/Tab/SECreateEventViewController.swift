@@ -71,8 +71,8 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     }
     
     func updateAttendeesList(list: Array<Any>) {
+        attendeeName = ""
         if list.count != 0 {
-            attendeeName = ""
             for item in list {
                 let t = item as! SEUserModel
                 attendeeName.append("\(t.displayName!) ")
@@ -145,10 +145,12 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             
         case 2:
             if attendeeName == ""{
+                cell?.txtField.text = ""
                 placeHolderText = "Tap to add people from contacts"
             }
             else{
-                placeHolderText = attendeeName
+                cell?.txtField.isUserInteractionEnabled = false
+                cell?.txtField.text = attendeeName
             }
             
             
