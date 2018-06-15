@@ -416,6 +416,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         webServiceAPI.createEventAPI(url: url, parameters: parameters, onSuccess: { (response) in
             print("createEventAPI.createEventAPI")
             self.stopLoading()
+            self.clearForm()
             if response is [String : Any]
             {
                 
@@ -466,6 +467,20 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         if textField.tag == 0 {
             self.eventTitle = textField.text!
         }
+    }
+    
+    func clearForm() {
+        attendeeList.removeAll()
+        eventTitle = ""
+        startMeetingTimeForService = ""
+        endMeetingTimeForService = ""
+        dateForService = ""
+        attendeeName = ""
+        dateFromDatePicker = ""
+        timeFromDatePicker = ""
+        startMeetingTime = ""
+        endMeetingTime = ""
+        tblCreateEvent.reloadData()
     }
     
     

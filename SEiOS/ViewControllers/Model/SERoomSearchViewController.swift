@@ -156,18 +156,21 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
                         if let dictionary = object as? [String: AnyObject] {
                             
                             
-                            let jsonDict = dictionary["meetingTimeSuggestions"] as! [[String : Any]]
-                            let meetingTimeSuggestions = jsonDict[0] as! [String : Any]
-                            let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
-                            
-                            for room in meetingRoomArray {
-                                var meetingRoom = MeetingRoomDetails()
-                                meetingRoom.meetingRoomName = room["displayName"] as! String
-                                meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
-                                meetingRoom.availabilityStaus = true
-                                self.meetingRoomList.append(meetingRoom)
+                            let jsonDict = dictionary["meetingTimeSuggestions"] as? [[String : Any]]
+                            if jsonDict != nil {
+                                let meetingTimeSuggestions = jsonDict![0] as? [String : Any]
+                                let meetingRoomArray =  meetingTimeSuggestions!["locations"] as? [[String : Any]]
+                                
+                                for room in meetingRoomArray! {
+                                    var meetingRoom = MeetingRoomDetails()
+                                    meetingRoom.meetingRoomName = room["displayName"] as! String
+                                    meetingRoom.meetingRoomCapacity = meetingTimeSuggestions!["confidence"] as! Int
+                                    meetingRoom.availabilityStaus = true
+                                    self.meetingRoomList.append(meetingRoom)
+                                }
+                                self.availableRoomsInfoTableView.reloadData()
                             }
-                            self.availableRoomsInfoTableView.reloadData()
+                            
                         }
                     } catch {
                     }
