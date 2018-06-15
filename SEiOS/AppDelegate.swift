@@ -8,6 +8,7 @@
 
 import UIKit
 import MSAL
+import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

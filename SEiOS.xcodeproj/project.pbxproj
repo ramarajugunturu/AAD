@@ -327,6 +327,7 @@
 				D23D1DBC20C4FF5A00022CD2 /* Frameworks */,
 				D23D1DBD20C4FF5A00022CD2 /* Resources */,
 				EF107F084A837B510CA8F32D /* [CP] Embed Pods Frameworks */,
+				43C633BE8EFD0E2296ADB440 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -450,6 +451,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		43C633BE8EFD0E2296ADB440 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		48277068898E8A7B5217DC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
