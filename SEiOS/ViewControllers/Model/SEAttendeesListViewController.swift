@@ -96,25 +96,28 @@ class SEAttendeesListViewController: SEBaseViewController {
                 do {
                     let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
                     let jsonDict = response as! Dictionary<String, Any>
-                    let value = jsonDict["value"] as! Array<Any>
-                    for item in value {
-                        let result =  item as! Dictionary<String, Any>
-                        let modObj = SEUserModel()
-                        modObj.id = result["id"] as? String
-                        modObj.businessPhones = result["businessPhones"] as? Array
-                        modObj.displayName = result["displayName"] as? String
-                        modObj.givenName = result["givenName"] as? String
-                        modObj.jobTitle = result["jobTitle"] as? String
-                        modObj.mail = result["mail"] as? String
-                        modObj.mobilePhone = result["mobilePhone"] as? String
-                        modObj.officeLocation = result["officeLocation"] as? String
-                        modObj.preferredLanguage = result["preferredLanguage"] as? String
-                        modObj.surname = result["surname"] as? String
-                        modObj.userPrincipalName = result["userPrincipalName"] as? String
-                        self.userDataSource.append(modObj)
+                    let value = jsonDict["value"] as? Array<Any>
+                    if value != nil {
+                        for item in value! {
+                            let result =  item as! Dictionary<String, Any>
+                            let modObj = SEUserModel()
+                            modObj.id = result["id"] as? String
+                            modObj.businessPhones = result["businessPhones"] as? Array
+                            modObj.displayName = result["displayName"] as? String
+                            modObj.givenName = result["givenName"] as? String
+                            modObj.jobTitle = result["jobTitle"] as? String
+                            modObj.mail = result["mail"] as? String
+                            modObj.mobilePhone = result["mobilePhone"] as? String
+                            modObj.officeLocation = result["officeLocation"] as? String
+                            modObj.preferredLanguage = result["preferredLanguage"] as? String
+                            modObj.surname = result["surname"] as? String
+                            modObj.userPrincipalName = result["userPrincipalName"] as? String
+                            self.userDataSource.append(modObj)
+                        }
+                        self.AttendeesTable.reloadData()
+
                     }
-                    self.AttendeesTable.reloadData()
-                } catch _ {
+                    } catch _ {
                     print("Somethhin went wrong!")
                 }
             //}
