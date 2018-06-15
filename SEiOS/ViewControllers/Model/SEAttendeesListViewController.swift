@@ -81,18 +81,18 @@ class SEAttendeesListViewController: SEBaseViewController {
         let headers = ["Content-Type" : "application/json", "Authorization":"Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON { (data) in
             
-//            if (data.response?.statusCode)! >= 400 {
-//                do {
-//                    let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
-//                    let jsonDict = response as! Dictionary<String, Any>
-//                    let error = jsonDict["error"] as! Dictionary<String, Any>
-//                    let message = error["message"] as! String
-//                    print(message)
-//                }catch _ {
-//                    print("Somethhin went wrong!")
-//                }
-//
-//            }else{
+            if (data.response?.statusCode)! >= 400 {
+                do {
+                    let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
+                    let jsonDict = response as! Dictionary<String, Any>
+                    let error = jsonDict["error"] as! Dictionary<String, Any>
+                    let message = error["message"] as! String
+                    print(message)
+                }catch _ {
+                    print("Somethhin went wrong!")
+                }
+
+            }else{
                 do {
                     let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
                     let jsonDict = response as! Dictionary<String, Any>
@@ -120,7 +120,7 @@ class SEAttendeesListViewController: SEBaseViewController {
                     } catch _ {
                     print("Somethhin went wrong!")
                 }
-            //}
+            }
         }
     }
 
