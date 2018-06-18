@@ -25,7 +25,8 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var tblBGFadeView: UIView!
     @IBOutlet weak var availableRoomsInfoTableView: UITableView!
-    
+    @IBOutlet weak var filterBarButton: UIBarButtonItem!
+
     var meetingRoomList = [MeetingRoomDetails]()
     var delegate : SERoomDetailsDelegate!
     
@@ -56,9 +57,11 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func filterButton(_ sender: UIButton) {
+    @IBAction func filterBarButton(_ sender: Any) {
         self.performSegue(withIdentifier: "roomSearch2Filter", sender: nil)
+
     }
+   
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
