@@ -78,7 +78,6 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     var endMeetingTimePickerView:UIDatePicker = UIDatePicker()
     
     var dateFromDatePicker = ""
-    var timeFromDatePicker = ""
     var startMeetingTime = ""
     var endMeetingTime = ""
     
@@ -153,23 +152,21 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         cell?.imageView?.image = UIImage(named: titleImage!)
         cell?.lblTitle.text = titleStr
         
-        
-        if(indexPath.row == 5)
-        {
-            cell?.txtEndMeetingTime.isHidden = false
-            cell?.txtStartMeetingTime.isHidden = false
-            cell?.lblMeetingInterval.isHidden = false
-            cell?.lblLine.isHidden = true
-            
-        }
-        else
-        {
-            cell?.txtEndMeetingTime.isHidden = true
-            cell?.txtStartMeetingTime.isHidden = true
-            cell?.lblMeetingInterval.isHidden = true
-            cell?.lblLine.isHidden = false
-            
-            
+        OperationQueue.main.addOperation {
+            if(indexPath.row == 5)
+            {
+                cell?.txtEndMeetingTime.isHidden = false
+                cell?.txtStartMeetingTime.isHidden = false
+                cell?.lblMeetingInterval.isHidden = false
+                cell?.lblLine.isHidden = true
+            }
+            else
+            {
+                cell?.txtEndMeetingTime.isHidden = true
+                cell?.txtStartMeetingTime.isHidden = true
+                cell?.lblMeetingInterval.isHidden = true
+                cell?.lblLine.isHidden = false
+            }
         }
         
         
@@ -489,7 +486,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateForService = ""
         attendeeName = ""
         dateFromDatePicker = ""
-        timeFromDatePicker = ""
         startMeetingTime = ""
         endMeetingTime = ""
         tblCreateEvent.reloadData()

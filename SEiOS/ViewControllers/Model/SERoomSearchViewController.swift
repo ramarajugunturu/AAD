@@ -33,40 +33,12 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         self.configureInitiallyView()
         
-        //  Meeting Rooms Details Service Call
+      //  Meeting Rooms Details Service Call
         self.serviceForMeetingRoom()
-//        self.createMeetingRoomList()
-        
+      //    self.createMeetingRoomList()
     }
     
-    
-    func createMeetingRoomList()
-    {
-        if let url = Bundle.main.url(forResource: "MeetingRoom", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let object = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                if let dictionary = object as? [String: AnyObject] {
-                    
-                    
-                    let jsonDict = dictionary["meetingTimeSuggestions"] as! [[String : Any]]
-                    let meetingTimeSuggestions = jsonDict[0] as! [String : Any]
-                    let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
-                    
-                    for room in meetingRoomArray {
-                        var meetingRoom = MeetingRoomDetails()
-                        meetingRoom.meetingRoomName = room["displayName"] as! String
-                        meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
-                        meetingRoom.availabilityStaus = true
-                        self.meetingRoomList.append(meetingRoom)
-                    }
-                    
-                }
-            } catch {
-            }
-        }
-        
-    }
+   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -135,6 +107,35 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     }
     
     
+    
+    func createMeetingRoomList()
+    {
+        if let url = Bundle.main.url(forResource: "MeetingRoom", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let object = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                if let dictionary = object as? [String: AnyObject] {
+                    
+                    
+                    let jsonDict = dictionary["meetingTimeSuggestions"] as! [[String : Any]]
+                    let meetingTimeSuggestions = jsonDict[0] as! [String : Any]
+                    let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
+                    
+                    for room in meetingRoomArray {
+                        var meetingRoom = MeetingRoomDetails()
+                        meetingRoom.meetingRoomName = room["displayName"] as! String
+                        meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
+                        meetingRoom.availabilityStaus = true
+                        self.meetingRoomList.append(meetingRoom)
+                    }
+                    
+                }
+            } catch {
+            }
+        }
+        
+    }
+    
     func serviceForMeetingRoom()
     {
         let urlString = "https://graph.microsoft.com/v1.0/me/findMeetingTimes"
@@ -143,6 +144,8 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
             "Authorization" : "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)",
             "Content-Type" : "application/json"
         ]
+        
+        print("headerDict : \(headerDict)")
         
         Alamofire.request(urlString, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headerDict).responseJSON { (response:DataResponse<Any>) in
             
@@ -153,14 +156,15 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
                 if response.result.value != nil{
                     do {
                         let object = try JSONSerialization.jsonObject(with: response.data!, options: .allowFragments)
+                        
+                       
                         if let dictionary = object as? [String: AnyObject] {
-                            
-                            
+                            print("dictionary : \(dictionary)")
                             let jsonDict = dictionary["meetingTimeSuggestions"] as? [[String : Any]]
                             if jsonDict != nil {
+                                
                                 let meetingTimeSuggestions = jsonDict![0] as? [String : Any]
                                 let meetingRoomArray =  meetingTimeSuggestions!["locations"] as? [[String : Any]]
-                                
                                 for room in meetingRoomArray! {
                                     var meetingRoom = MeetingRoomDetails()
                                     meetingRoom.meetingRoomName = room["displayName"] as! String
