@@ -71,6 +71,10 @@ class SEFilterViewController: SEBaseViewController {
     }
     
   
+    @IBAction func btnBack(_ sender: Any) {
+        print("Back")
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func btnApplyFilter(_ sender: Any) {
         
     }

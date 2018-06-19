@@ -37,7 +37,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         
       //  Meeting Rooms Details Service Call
         self.serviceForMeetingRoom()
-      //    self.createMeetingRoomList()
+        //  self.createMeetingRoomList()
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,8 +53,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func backButton(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
+        self.navigationController?.popViewController(animated: true)    }
     
     @IBAction func filterBarButton(_ sender: Any) {
         self.performSegue(withIdentifier: "roomSearch2Filter", sender: nil)
@@ -104,7 +103,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
         self.delegate.showMeetingRoomDetails(meetingRoomDetails: self.meetingRoomList[indexPath.row])
     }
     

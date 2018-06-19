@@ -105,7 +105,7 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
         tblCreateEvent.showsHorizontalScrollIndicator = false
         tblCreateEvent.showsVerticalScrollIndicator = false
         self.tblBGFadeView.layer.cornerRadius = 10.0
-        self.navigationController?.navigationBar.isHidden = true
+       // self.navigationController?.navigationBar.isHidden = true
     }
     
     func updateAttendeesList(list: Array<Any>) {
