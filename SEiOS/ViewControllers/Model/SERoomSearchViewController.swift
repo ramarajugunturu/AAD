@@ -15,6 +15,7 @@ struct MeetingRoomDetails
     var meetingRoomName = ""
     var meetingRoomCapacity = 0
     var availabilityStaus = true
+    
 }
 
 protocol  SERoomDetailsDelegate{
@@ -38,8 +39,6 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         self.serviceForMeetingRoom()
       //    self.createMeetingRoomList()
     }
-    
-   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

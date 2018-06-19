@@ -71,9 +71,9 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     var dateForService = ""
     
     
-    var datePickerView:UIDatePicker = UIDatePicker()
     
     //var timePickerView:UIDatePicker = UIDatePicker()
+    var datePickerView:UIDatePicker = UIDatePicker()
     var startMeetingTimePickerView:UIDatePicker = UIDatePicker()
     var endMeetingTimePickerView:UIDatePicker = UIDatePicker()
     
@@ -321,6 +321,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     @objc func cancelPicker() {
         view.endEditing(true)
     }
+    
     @objc func datePickerValueChanged(sender:UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.medium

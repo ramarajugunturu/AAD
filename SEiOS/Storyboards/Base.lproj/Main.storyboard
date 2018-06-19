@@ -389,7 +389,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXN-em-UnT">
-                                        <rect key="frame" x="10" y="484" width="295" height="50"/>
+                                        <rect key="frame" x="0.0" y="484" width="315" height="50"/>
                                         <color key="backgroundColor" red="0.37254901960784315" green="0.36470588235294116" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="BwY-jY-aLo"/>
@@ -411,8 +411,8 @@
                                     <constraint firstItem="PXN-em-UnT" firstAttribute="top" secondItem="Tvs-fz-ReZ" secondAttribute="bottom" id="G51-9a-dO9"/>
                                     <constraint firstAttribute="trailing" secondItem="5xa-x7-W5g" secondAttribute="trailing" constant="10" id="aw2-cd-pSa"/>
                                     <constraint firstItem="Tvs-fz-ReZ" firstAttribute="leading" secondItem="RHW-ae-CE2" secondAttribute="leading" id="bha-ko-sCu"/>
-                                    <constraint firstAttribute="trailing" secondItem="PXN-em-UnT" secondAttribute="trailing" constant="10" id="mEb-Yq-lGY"/>
-                                    <constraint firstItem="PXN-em-UnT" firstAttribute="leading" secondItem="RHW-ae-CE2" secondAttribute="leading" constant="10" id="tLd-CK-aUA"/>
+                                    <constraint firstAttribute="trailing" secondItem="PXN-em-UnT" secondAttribute="trailing" id="mEb-Yq-lGY"/>
+                                    <constraint firstItem="PXN-em-UnT" firstAttribute="leading" secondItem="RHW-ae-CE2" secondAttribute="leading" id="tLd-CK-aUA"/>
                                     <constraint firstAttribute="bottom" secondItem="PXN-em-UnT" secondAttribute="bottom" id="vRv-fR-trt"/>
                                     <constraint firstItem="5xa-x7-W5g" firstAttribute="leading" secondItem="RHW-ae-CE2" secondAttribute="leading" constant="20" id="vf6-N1-HtG"/>
                                 </constraints>
