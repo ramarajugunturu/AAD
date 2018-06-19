@@ -39,6 +39,7 @@
 		D2D1D1CC20D3E14700766351 /* SEAttendeesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1CB20D3E14700766351 /* SEAttendeesListViewController.swift */; };
 		D2D1D1CF20D3E2B400766351 /* SEAttendeesListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1CD20D3E2B400766351 /* SEAttendeesListCell.xib */; };
 		D2D1D1D020D3E2B400766351 /* SEAttendeesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1CE20D3E2B400766351 /* SEAttendeesListCell.swift */; };
+		F589B8CB20D918D1004A3A18 /* SEAttendeeUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F589B8CA20D918D1004A3A18 /* SEAttendeeUserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		D2D1D1CD20D3E2B400766351 /* SEAttendeesListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SEAttendeesListCell.xib; sourceTree = "<group>"; };
 		D2D1D1CE20D3E2B400766351 /* SEAttendeesListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEAttendeesListCell.swift; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F589B8CA20D918D1004A3A18 /* SEAttendeeUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEAttendeeUserModel.swift; path = SEiOS/Views/TblViewCells/AttendeesCell/SEAttendeeUserModel.swift; sourceTree = SOURCE_ROOT; };
 		FC6404E477EC32A496A6EDBE /* Pods-SEiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				52B679DD20D3A933001D58E8 /* SEWebServiceAPI.swift */,
+				F589B8CA20D918D1004A3A18 /* SEAttendeeUserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 			files = (
 				D2D1D1BC20D1205B00766351 /* SERoomSearchTableViewCell.swift in Sources */,
 				D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */,
+				F589B8CB20D918D1004A3A18 /* SEAttendeeUserModel.swift in Sources */,
 				D23D1DC320C4FF5A00022CD2 /* AppDelegate.swift in Sources */,
 				D2D1D1D020D3E2B400766351 /* SEAttendeesListCell.swift in Sources */,
 				D2D1D1B720D110F400766351 /* SEFilterViewController.swift in Sources */,

@@ -106,13 +106,15 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
         tblCreateEvent.showsVerticalScrollIndicator = false
         self.tblBGFadeView.layer.cornerRadius = 10.0
         self.navigationController?.navigationBar.isHidden = true
+        let nib = UINib(nibName: "SECreateEventTableViewCell", bundle: nil)
+        self.tblCreateEvent.register(nib, forCellReuseIdentifier: "CreateEventCell")
     }
     
     func updateAttendeesList(list: Array<Any>) {
         attendeeName = ""
         if list.count != 0 {
             for item in list {
-                let t = item as! SEUserModel
+                let t = item as! SEAttendeeUserModel
                 attendeeName.append("\(t.displayName!) ")
                 var attendeeDetail = EmailAddress()
                 attendeeDetail.address = t.mail
@@ -137,7 +139,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "CreateEventCell"
-        var cell : SECreateEventTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SECreateEventTableViewCell?
+        var cell : SECreateEventTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SECreateEventTableViewCell//tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SECreateEventTableViewCell?
         if (cell == nil) {
             cell = Bundle.main.loadNibNamed("SECreateEventTableViewCell", owner: nil, options: nil)?[0] as? SECreateEventTableViewCell
             cell?.accessoryType = UITableViewCellAccessoryType.none
@@ -176,7 +178,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         var placeHolderText  = ""
         switch indexPath.row {
         case 0:
-            cell?.txtField.text = SEStoreSharedManager.sharedInstance.username
+            cell?.txtField.text = username
             cell?.txtField.tag = indexPath.row
             cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
             cell?.txtField.isUserInteractionEnabled = false
@@ -187,7 +189,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             break
         case 1:
             if firsttime {
-                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
+                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)! - 40, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
                 btnAdd.addTarget(self, action: #selector(tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
                 btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
                 cell?.addSubview(btnAdd)
@@ -203,7 +205,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             break
         case 2:
             if firsttime {
-                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
+                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!-40, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
                 btnAdd.addTarget(self, action: #selector(tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
                 btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
                 cell?.addSubview(btnAdd)
@@ -241,7 +243,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         case 4:
             if firsttime {
                 firsttime = false
-                let toggle = UISwitch.init(frame: CGRect.init(x: (cell?.frame.width)!-30, y: (cell?.lblTitle.frame.height)!-10, width: 30, height: 20))
+                let toggle = UISwitch.init(frame: CGRect.init(x: (cell?.frame.width)!-70, y: (cell?.lblTitle.frame.height)!-10, width: 30, height: 20))
                 cell?.addSubview(toggle)
                 cell?.lblLine.isHidden = true
             }
@@ -483,6 +485,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             let neverActionButton = UIAlertAction(title: "Never", style: .default) { action -> Void in
                 self.occurString = "Never"
                 self.tblCreateEvent.reloadData()
+            
             }
             actionSheetController.addAction(neverActionButton)
             let everyDayActionButton = UIAlertAction(title: "Every day", style: .default) { action -> Void in
