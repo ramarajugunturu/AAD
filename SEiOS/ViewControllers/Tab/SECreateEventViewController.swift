@@ -63,13 +63,13 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     var meetingRoomDetails = MeetingRoomDetails()
     var attendeeName : String! = ""
     var webServiceAPI = SEWebServiceAPI()
-    
+    var firsttime = true
     var attendeeList = [EmailAddress]()
     var eventTitle = ""
     var startMeetingTimeForService = ""
     var endMeetingTimeForService = ""
     var dateForService = ""
-    
+    var occurString : String = "Never"
     
     
     //var timePickerView:UIDatePicker = UIDatePicker()
@@ -105,6 +105,7 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
         tblCreateEvent.showsHorizontalScrollIndicator = false
         tblCreateEvent.showsVerticalScrollIndicator = false
         self.tblBGFadeView.layer.cornerRadius = 10.0
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     func updateAttendeesList(list: Array<Any>) {
@@ -175,28 +176,38 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         var placeHolderText  = ""
         switch indexPath.row {
         case 0:
-            placeHolderText = "Write your title here"
-            
+            cell?.txtField.text = SEStoreSharedManager.sharedInstance.username
             cell?.txtField.tag = indexPath.row
             cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
-            cell?.txtField.isUserInteractionEnabled = true
+            cell?.txtField.isUserInteractionEnabled = false
             
-            if self.eventTitle != "" {
-                cell?.txtField.text = self.eventTitle
-            }
-            
+//            if self.eventTitle != "" {
+//                cell?.txtField.text = self.eventTitle
+//            }
+            break
         case 1:
-            
+            if firsttime {
+                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
+                btnAdd.addTarget(self, action: #selector(tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
+                btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
+                cell?.addSubview(btnAdd)
+            }
             if self.meetingRoomDetails.meetingRoomName != ""
             {
                 cell?.txtField.text = self.meetingRoomDetails.meetingRoomName
             }
             else
             {
-                placeHolderText = "Write your title here"
+                placeHolderText = "Select meeting room"
             }
-            
+            break
         case 2:
+            if firsttime {
+                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
+                btnAdd.addTarget(self, action: #selector(tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
+                btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
+                cell?.addSubview(btnAdd)
+            }
             if attendeeName == ""{
                 cell?.txtField.text = ""
                 placeHolderText = "Tap to add people from contacts"
@@ -206,7 +217,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.txtField.text = attendeeName
             }
             
-            
+            break
         case 3:
             //placeHolderText = "Tuesday, 5 Jun"
             cell?.txtField.isUserInteractionEnabled = true
@@ -226,8 +237,15 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             else{
                 placeHolderText = "Please select date!"
             }
-            
+            break
         case 4:
+            if firsttime {
+                firsttime = false
+                let toggle = UISwitch.init(frame: CGRect.init(x: (cell?.frame.width)!-30, y: (cell?.lblTitle.frame.height)!-10, width: 30, height: 20))
+                cell?.addSubview(toggle)
+                cell?.lblLine.isHidden = true
+            }
+            
             cell?.txtField.isHidden = true
             break
         case 5:
@@ -259,16 +277,19 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             else{
                 //placeHolderText = "HH:MM AM"
             }
-            
+            break
         case 6:
-            placeHolderText = "Never"
-            cell?.txtField.text = ""
+            //placeHolderText = "Never"
+            cell?.txtField.text = self.occurString
+            break
         case 7:
             placeHolderText = "15 minutes before"
             cell?.txtField.text = ""
+            break
         case 8:
             placeHolderText = "Write your description here"
             cell?.txtField.text = ""
+            break
             
         default:
             break
@@ -453,6 +474,30 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         case 2:
             self.performSegue(withIdentifier: "addAttendee", sender: nil)
             break
+        case 6:
+            let actionSheetController = UIAlertController(title: "Select occurrence", message: nil, preferredStyle: .actionSheet)
+            let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+                print("Cancel")
+            }
+            actionSheetController.addAction(cancelActionButton)
+            
+            let neverActionButton = UIAlertAction(title: "Never", style: .default) { action -> Void in
+                self.occurString = "Never"
+                self.tblCreateEvent.reloadData()
+            }
+            actionSheetController.addAction(neverActionButton)
+            let everyDayActionButton = UIAlertAction(title: "Every day", style: .default) { action -> Void in
+                self.occurString = "Every day"
+                self.tblCreateEvent.reloadData()
+            }
+            actionSheetController.addAction(everyDayActionButton)
+            
+            let everyWeekActionButton = UIAlertAction(title: "Every week", style: .default) { action -> Void in
+                self.occurString = "Every week"
+                self.tblCreateEvent.reloadData()
+            }
+            actionSheetController.addAction(everyWeekActionButton)
+            self.present(actionSheetController, animated: true, completion: nil)
         default:
             break
         }
@@ -492,9 +537,23 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         tblCreateEvent.reloadData()
     }
     
+    @objc func tblCellBtn_AddRoom_Tapped(){
+        self.performSegue(withIdentifier: "event2RoomSearch", sender: nil)
+    }
+    
+    @objc func tblCellBtn_AddAttendee_Tapped(){
+        self.performSegue(withIdentifier: "addAttendee", sender: nil)
+    }
+    
     
     
 }
 
+
+extension SECreateEventViewController : UIActionSheetDelegate {
+    
+    
+    
+}
 
 

@@ -43,56 +43,28 @@ class SEAttendeesListViewController: SEBaseViewController {
     
     @IBAction func btn_Back_Tapped(_ sender: Any) {
         delegate.updateAttendeesList(list: selectedAttendee)
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
         
-    }
-    func getFromLocal() {
-        if let path = Bundle.main.path(forResource: "user", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                let jsonDict = jsonResult as! Dictionary<String, Any>
-                let value = jsonDict["value"] as! Array<Any>
-                for item in value {
-                    let result =  item as! Dictionary<String, Any>
-                    let modObj = SEUserModel()
-                    modObj.id = result["id"] as! String
-                    modObj.businessPhones = result["businessPhones"] as! Array
-                    modObj.displayName = result["displayName"] as! String
-                    modObj.givenName = result["givenName"] as? String
-                    modObj.jobTitle = result["jobTitle"] as? String
-                    modObj.mail = result["mail"] as! String
-                    modObj.mobilePhone = result["mobilePhone"] as? String
-                    modObj.officeLocation = result["officeLocation"] as? String
-                    modObj.preferredLanguage = result["preferredLanguage"] as? String
-                    modObj.surname = result["surname"] as? String
-                    modObj.userPrincipalName = result["userPrincipalName"] as! String
-                    self.userDataSource.append(modObj)
-                }
-                self.AttendeesTable.reloadData()
-            } catch {
-                // handle error
-            }
-        }
     }
     
     func getUserDetails() {
+        self.startLoading()
         let url: String = "https://graph.microsoft.com/v1.0/users?$orderby=displayName"
         let headers = ["Content-Type" : "application/json", "Authorization":"Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON { (data) in
             
-            if (data.response?.statusCode)! >= 400 {
-                do {
-                    let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
-                    let jsonDict = response as! Dictionary<String, Any>
-                    let error = jsonDict["error"] as! Dictionary<String, Any>
-                    let message = error["message"] as! String
-                    print(message)
-                }catch _ {
-                    print("Somethhin went wrong!")
-                }
-
-            }else{
+//            if (data.response?.statusCode)! >= 400 {
+//                do {
+//                    let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
+//                    let jsonDict = response as! Dictionary<String, Any>
+//                    let error = jsonDict["error"] as! Dictionary<String, Any>
+//                    let message = error["message"] as! String
+//                    print(message)
+//                }catch _ {
+//                    print("Somethhin went wrong!")
+//                }
+//
+//            }else{
                 do {
                     let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
                     let jsonDict = response as! Dictionary<String, Any>
@@ -115,11 +87,11 @@ class SEAttendeesListViewController: SEBaseViewController {
                             self.userDataSource.append(modObj)
                         }
                         self.AttendeesTable.reloadData()
-
+                        self.stopLoading()
                     }
                     } catch _ {
                     print("Somethhin went wrong!")
-                }
+//                }
             }
         }
     }
