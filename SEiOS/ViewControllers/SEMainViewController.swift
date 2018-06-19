@@ -192,6 +192,8 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
                 //self.loggingText.text = result.debugDescription
                 
                 print(result.debugDescription)
+                let arr = result as! Dictionary<String,Any>
+                SEStoreSharedManager.sharedInstance.username = arr["displayName"] as! String
                 self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
             }
             }.resume()
