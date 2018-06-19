@@ -47,11 +47,13 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     
     //let roomTitles_Array  = ["Jupiter", "Venus", "America", "Singapoor"]
     
-    let eventHeadingArray = [["name": "Event Title", "image": "icon_event_title"],
+    let eventHeadingArray = [
                              ["name": "Location", "image": "icon_location"],
                              ["name": "Select People", "image": "icon_people"],
                              ["name": "Select Date", "image": "icon_date"],
                              ["name": "All-day Event", "image": ""],
+                             ["name": "Event Created By", "image": "icon_my_contacts"],
+                             ["name": "Event Title", "image": "icon_event_title"],
                              ["name": "Select Time", "image": "icon_time"],
                              ["name": "Repeat", "image": "icon_repeat"],
                              ["name": "Alert", "image": "icon_alert"],
@@ -156,7 +158,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         cell?.lblTitle.text = titleStr
         
         OperationQueue.main.addOperation {
-            if(indexPath.row == 5)
+            if(indexPath.row == 6)
             {
                 cell?.txtEndMeetingTime.isHidden = false
                 cell?.txtStartMeetingTime.isHidden = false
@@ -178,21 +180,11 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         var placeHolderText  = ""
         switch indexPath.row {
         case 0:
-            cell?.txtField.text = username
-            cell?.txtField.tag = indexPath.row
-            cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
-            cell?.txtField.isUserInteractionEnabled = false
-            
-//            if self.eventTitle != "" {
-//                cell?.txtField.text = self.eventTitle
-//            }
-            break
-        case 1:
             if firsttime {
                 let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)! - 40, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
                 btnAdd.addTarget(self, action: #selector(tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
                 btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
-                cell?.addSubview(btnAdd)
+                cell?.contentView.addSubview(btnAdd)
             }
             if self.meetingRoomDetails.meetingRoomName != ""
             {
@@ -203,12 +195,12 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 placeHolderText = "Select meeting room"
             }
             break
-        case 2:
+        case 1:
             if firsttime {
                 let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!-40, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
                 btnAdd.addTarget(self, action: #selector(tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
                 btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
-                cell?.addSubview(btnAdd)
+                cell?.contentView.addSubview(btnAdd)
             }
             if attendeeName == ""{
                 cell?.txtField.text = ""
@@ -218,9 +210,8 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.txtField.isUserInteractionEnabled = false
                 cell?.txtField.text = attendeeName
             }
-            
             break
-        case 3:
+        case 2:
             //placeHolderText = "Tuesday, 5 Jun"
             cell?.txtField.isUserInteractionEnabled = true
             
@@ -240,17 +231,37 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 placeHolderText = "Please select date!"
             }
             break
-        case 4:
+        case 3:
             if firsttime {
                 firsttime = false
                 let toggle = UISwitch.init(frame: CGRect.init(x: (cell?.frame.width)!-70, y: (cell?.lblTitle.frame.height)!-10, width: 30, height: 20))
-                cell?.addSubview(toggle)
-                cell?.lblLine.isHidden = true
+                cell?.contentView.addSubview(toggle)
+                
             }
-            
+            cell?.lblLine.isHidden = true
             cell?.txtField.isHidden = true
             break
+        case 4:
+            cell?.txtField.text = username
+            cell?.txtField.tag = indexPath.row
+            cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
+            cell?.txtField.isUserInteractionEnabled = false
+            
+            //            if self.eventTitle != "" {
+            //                cell?.txtField.text = self.eventTitle
+            //            }
+            break
         case 5:
+            cell?.txtField.tag = indexPath.row
+            cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
+            cell?.txtField.isUserInteractionEnabled = true
+            if self.eventTitle != "" {
+                cell?.txtField.text = self.eventTitle
+            }else{
+                placeHolderText = "Enter title"
+            }
+            break
+        case 6:
             //placeHolderText = "10:00 AM"
             let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.donePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
             
@@ -280,15 +291,15 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 //placeHolderText = "HH:MM AM"
             }
             break
-        case 6:
+        case 7:
             //placeHolderText = "Never"
             cell?.txtField.text = self.occurString
             break
-        case 7:
+        case 8:
             placeHolderText = "15 minutes before"
             cell?.txtField.text = ""
             break
-        case 8:
+        case 9:
             placeHolderText = "Write your description here"
             cell?.txtField.text = ""
             break
@@ -470,13 +481,13 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 1:
+        case 0:
             self.performSegue(withIdentifier: "event2RoomSearch", sender: nil)
             break
-        case 2:
+        case 1:
             self.performSegue(withIdentifier: "addAttendee", sender: nil)
             break
-        case 6:
+        case 7:
             let actionSheetController = UIAlertController(title: "Select occurrence", message: nil, preferredStyle: .actionSheet)
             let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
                 print("Cancel")
