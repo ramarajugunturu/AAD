@@ -11,6 +11,8 @@ import UIKit
 class SECreateEventTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var switchToggleday: UISwitch!
+    @IBOutlet weak var btnAdd: UIButton!
     @IBOutlet weak var imgageView: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var txtField: UITextField!
@@ -25,6 +27,8 @@ class SECreateEventTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        btnAdd.isHidden = true
+        switchToggleday.isHidden = true
        
     }
 

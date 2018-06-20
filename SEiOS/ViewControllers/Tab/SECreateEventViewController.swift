@@ -65,7 +65,6 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     var meetingRoomDetails = MeetingRoomDetails()
     var attendeeName : String! = ""
     var webServiceAPI = SEWebServiceAPI()
-    var firsttime = true
     var attendeeList = [EmailAddress]()
     var eventTitle = ""
     var startMeetingTimeForService = ""
@@ -174,18 +173,38 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             }
         }
         
+        OperationQueue.main.addOperation {
+            if(indexPath.row == 0 || indexPath.row == 1)
+            {
+                cell?.btnAdd.isHidden = false
+                switch indexPath.row {
+                case 0 :
+                    cell?.btnAdd.addTarget(self, action: #selector(self.tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
+                    break
+                case 1 :
+                    cell?.btnAdd.addTarget(self, action: #selector(self.tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
+                    break
+                default:
+                    break
+                }
+            }
+            else
+            {
+                cell?.btnAdd.isHidden = true
+            }
+            if indexPath.row == 3{
+                cell?.switchToggleday.isHidden = false
+            }else{
+                cell?.switchToggleday.isHidden = true
+            }
+        }
+        
         
         cell?.txtField.isHidden = false
         cell?.txtField.isUserInteractionEnabled = false
         var placeHolderText  = ""
         switch indexPath.row {
         case 0:
-            if firsttime {
-                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)! - 40, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
-                btnAdd.addTarget(self, action: #selector(tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
-                btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
-                cell?.contentView.addSubview(btnAdd)
-            }
             if self.meetingRoomDetails.meetingRoomName != ""
             {
                 cell?.txtField.text = self.meetingRoomDetails.meetingRoomName
@@ -196,12 +215,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             }
             break
         case 1:
-            if firsttime {
-                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!-40, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
-                btnAdd.addTarget(self, action: #selector(tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
-                btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
-                cell?.contentView.addSubview(btnAdd)
-            }
             if attendeeName == ""{
                 cell?.txtField.text = ""
                 placeHolderText = "Tap to add people from contacts"
@@ -232,12 +245,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             }
             break
         case 3:
-            if firsttime {
-                firsttime = false
-                let toggle = UISwitch.init(frame: CGRect.init(x: (cell?.frame.width)!-70, y: (cell?.lblTitle.frame.height)!-10, width: 30, height: 20))
-                cell?.contentView.addSubview(toggle)
-                
-            }
             cell?.lblLine.isHidden = true
             cell?.txtField.isHidden = true
             break
