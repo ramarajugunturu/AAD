@@ -155,7 +155,8 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         let titleImage = item["image"]
         cell?.imageView?.image = UIImage(named: titleImage!)
         cell?.lblTitle.text = titleStr
-        
+        cell?.btnAdd.isHidden = true
+        cell?.btnAddAttendees.isHidden = true
         OperationQueue.main.addOperation {
             if(indexPath.row == 6)
             {
@@ -176,13 +177,17 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         OperationQueue.main.addOperation {
             if(indexPath.row == 0 || indexPath.row == 1)
             {
-                cell?.btnAdd.isHidden = false
+                
                 switch indexPath.row {
                 case 0 :
+                    cell?.btnAdd.isHidden = false
+                    cell?.btnAddAttendees.isHidden = true
                     cell?.btnAdd.addTarget(self, action: #selector(self.tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
                     break
                 case 1 :
-                    cell?.btnAdd.addTarget(self, action: #selector(self.tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
+                    cell?.btnAdd.isHidden = true
+                    cell?.btnAddAttendees.isHidden = false
+                    cell?.btnAddAttendees.addTarget(self, action: #selector(self.tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
                     break
                 default:
                     break

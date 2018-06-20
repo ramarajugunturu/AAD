@@ -11,6 +11,7 @@ import UIKit
 class SECreateEventTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var btnAddAttendees: UIButton!
     @IBOutlet weak var switchToggleday: UISwitch!
     @IBOutlet weak var btnAdd: UIButton!
     @IBOutlet weak var imgageView: UIImageView!
@@ -29,6 +30,7 @@ class SECreateEventTableViewCell: UITableViewCell {
         // Initialization code
         btnAdd.isHidden = true
         switchToggleday.isHidden = true
+        btnAddAttendees.isHidden = true
        
     }
 
