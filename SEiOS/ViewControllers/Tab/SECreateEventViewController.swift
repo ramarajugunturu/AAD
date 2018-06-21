@@ -338,6 +338,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 //placeHolderText = "Tuesday, 5 Jun"
                 cell?.txtField.isUserInteractionEnabled = true
                 
+                datePickerView.minimumDate = Date()
                 datePickerView.datePickerMode = UIDatePickerMode.date
                 cell?.txtField.inputView = datePickerView
                 let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneDatePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
@@ -389,7 +390,8 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                     cell?.txtStartMeetingTime.text = self.startMeetingTime
                 }
                 else{
-                    //placeHolderText = "HH:MM AM"
+                    let placeholderString = "Start Time"
+                    cell?.txtStartMeetingTime.attributedPlaceholder = placeholderString.getPlaceholderString()
                 }
                 
                 
@@ -404,7 +406,8 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                     cell?.txtEndMeetingTime.text = self.endMeetingTime
                 }
                 else{
-                    //placeHolderText = "HH:MM AM"
+                    let placeholderString = "End Time"
+                    cell?.txtEndMeetingTime.attributedPlaceholder = placeholderString.getPlaceholderString()
                 }
                 break
             case 5:
@@ -520,59 +523,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         view.endEditing(true)
     }
     
-    
-    
-    //-------------------
-//
-//    @objc func donePicker() {
-//        DispatchQueue.main.async {
-//            self.tblCreateEvent.reloadData()
-//        }
-//
-//        view.endEditing(true)
-//    }
-//
-//    @objc func cancelPicker() {
-//        view.endEditing(true)
-//    }
-//
-//    @objc func datePickerValueChanged(sender:UIDatePicker) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = DateFormatter.Style.medium
-//        dateFormatter.timeStyle = DateFormatter.Style.none
-//        self.dateFromDatePicker = dateFormatter.string(from: sender.date)
-//
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateForService = dateFormatter.string(from: sender.date)
-//    }
-//
-//
-//
-//    @objc func startTimePickerValueChanged(sender:UIDatePicker) {
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = DateFormatter.Style.none
-//        dateFormatter.timeStyle = DateFormatter.Style.short
-//        self.startMeetingTime = dateFormatter.string(from: sender.date)
-//
-//        dateFormatter.dateFormat = "HH:mm:ss"
-//        self.startMeetingTimeForService = dateFormatter.string(from: sender.date)
-//    }
-//
-//    @objc func endTimePickerValueChanged(sender:UIDatePicker) {
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = DateFormatter.Style.none
-//        dateFormatter.timeStyle = DateFormatter.Style.short
-//        self.endMeetingTime = dateFormatter.string(from: sender.date)
-//
-//        dateFormatter.dateFormat = "HH:mm:ss"
-//        self.endMeetingTimeForService  = dateFormatter.string(from: sender.date)
-//
-//        print(self.endMeetingTimeForService)
-//    }
-//
-//
     
     @objc func createEventAction() {
         print("Add event!!")

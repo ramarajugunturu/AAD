@@ -291,6 +291,8 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
             
             // date Picker
             datePickerView.datePickerMode = UIDatePickerMode.date
+            datePickerView.minimumDate = Date()
+
             cell?.txtField.inputView = datePickerView
             cell?.txtField.tag = 1003
             
