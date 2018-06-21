@@ -8,6 +8,8 @@
 
 import Foundation
 
+var username : String!
+
 struct SEWebserviceClient {
     static let eventURL = "https://graph.microsoft.com/v1.0/me/events"
     static let filterMeetingURL = "https://graph.microsoft.com/v1.0/me/findMeetingTimes"

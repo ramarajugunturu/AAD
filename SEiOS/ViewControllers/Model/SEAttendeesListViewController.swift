@@ -15,9 +15,10 @@ protocol UpdateAttendeeListDelegate {
 class SEAttendeesListViewController: SEBaseViewController {
 
     @IBOutlet weak var AttendeesTable: UITableView!
-    var userDataSource = Array<SEUserModel>()
+    var userDataSource = Array<SEAttendeeUserModel>()
     var delegate : UpdateAttendeeListDelegate!
-    var selectedAttendee = Array<SEUserModel>()
+    var selectedAttendee = Array<SEAttendeeUserModel>()
+    var webServiceAPI = SEWebServiceAPI()
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserDetails()
@@ -49,50 +50,31 @@ class SEAttendeesListViewController: SEBaseViewController {
     
     func getUserDetails() {
         self.startLoading()
-        let url: String = "https://graph.microsoft.com/v1.0/users?$orderby=displayName"
-        let headers = ["Content-Type" : "application/json", "Authorization":"Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
-        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON { (data) in
-            
-//            if (data.response?.statusCode)! >= 400 {
-//                do {
-//                    let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
-//                    let jsonDict = response as! Dictionary<String, Any>
-//                    let error = jsonDict["error"] as! Dictionary<String, Any>
-//                    let message = error["message"] as! String
-//                    print(message)
-//                }catch _ {
-//                    print("Somethhin went wrong!")
-//                }
-//
-//            }else{
-                do {
-                    let response = try JSONSerialization.jsonObject(with: data.data!, options: .allowFragments)
-                    let jsonDict = response as! Dictionary<String, Any>
-                    let value = jsonDict["value"] as? Array<Any>
-                    if value != nil {
-                        for item in value! {
-                            let result =  item as! Dictionary<String, Any>
-                            let modObj = SEUserModel()
-                            modObj.id = result["id"] as? String
-                            modObj.businessPhones = result["businessPhones"] as? Array
-                            modObj.displayName = result["displayName"] as? String
-                            modObj.givenName = result["givenName"] as? String
-                            modObj.jobTitle = result["jobTitle"] as? String
-                            modObj.mail = result["mail"] as? String
-                            modObj.mobilePhone = result["mobilePhone"] as? String
-                            modObj.officeLocation = result["officeLocation"] as? String
-                            modObj.preferredLanguage = result["preferredLanguage"] as? String
-                            modObj.surname = result["surname"] as? String
-                            modObj.userPrincipalName = result["userPrincipalName"] as? String
-                            self.userDataSource.append(modObj)
-                        }
-                        self.AttendeesTable.reloadData()
-                        self.stopLoading()
-                    }
-                    } catch _ {
-                    print("Somethhin went wrong!")
-//                }
+        let url = SEWebserviceClient.attendeesListURL
+        webServiceAPI.getAttendeesList(url: url, onSuccess: { (result) in
+            if result is Array<SEAttendeeUserModel>{
+                self.userDataSource = result as! [SEAttendeeUserModel]
+                self.AttendeesTable.reloadData()
+                self.stopLoading()
+            }else{
+                let alertController = UIAlertController(title: "", message: "Error while fetcing users.", preferredStyle: .alert)
+                
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true, completion: nil)
             }
+        }) { (error) in
+            let alertController = UIAlertController(title: "", message: "Error while fetcing users.", preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                self.navigationController?.popViewController(animated: true)
+            })
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 
@@ -148,18 +130,3 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
     }
 
 }
-
-public class SEUserModel {
-    var id : String!
-    var businessPhones  : Array<String>!
-    var displayName : String!
-    var givenName : String!
-    var jobTitle : String!
-    var mail : String!
-    var mobilePhone : String!
-    var officeLocation : String!
-    var preferredLanguage : String!
-    var surname : String!
-    var userPrincipalName : String!
-}
-

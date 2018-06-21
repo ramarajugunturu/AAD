@@ -22,7 +22,6 @@ class SEStoreSharedManager {
     // Local Variables
     var accessToken: String = ""
     var jsonContentType = "application/json"
-    var username : String = ""
 
 }
 

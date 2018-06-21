@@ -43,15 +43,20 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     
     func showMeetingRoomDetails(meetingRoomDetails: MeetingRoomDetails) {
         self.meetingRoomDetails = meetingRoomDetails
-        self.tblCreateEvent.reloadData()
+        DispatchQueue.main.async {
+            self.tblCreateEvent.reloadData()
+        }
     }
     //let roomTitles_Array  = ["Jupiter", "Venus", "America", "Singapoor"]
     
-    let eventHeadingArray = [["name": "Event Title", "image": "icon_event_title"],
-                             ["name": "Location", "image": "icon_location"],
-                             ["name": "Select People", "image": "icon_people"],
-                             ["name": "Select Date", "image": "icon_date"],
+    let eventHeadingArray1 = [
+                             ["name": "Location", "image": "icon_location"]]
+    let eventHeadingArray2 =  [
+                                ["name": "Select People", "image": "icon_people"]]
+    let eventHeadingArray3 = [ ["name": "Select Date", "image": "icon_date"],
                              ["name": "All-day Event", "image": ""],
+                             ["name": "Event Created By", "image": "icon_my_contacts"],
+                             ["name": "Event Title", "image": "icon_event_title"],
                              ["name": "Select Time", "image": "icon_time"],
                              ["name": "Repeat", "image": "icon_repeat"],
                              ["name": "Alert", "image": "icon_alert"],
@@ -61,9 +66,8 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     @IBOutlet weak var tblCreateEvent: UITableView!
     @IBOutlet weak var tblBGFadeView: UIView!
     var meetingRoomDetails = MeetingRoomDetails()
-    var attendeeName : String! = ""
+    var attendeeName = [SEAttendeeUserModel]()
     var webServiceAPI = SEWebServiceAPI()
-    var firsttime = true
     var attendeeList = [EmailAddress]()
     var eventTitle = ""
     var startMeetingTimeForService = ""
@@ -105,93 +109,98 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
         tblCreateEvent.showsHorizontalScrollIndicator = false
         tblCreateEvent.showsVerticalScrollIndicator = false
         self.tblBGFadeView.layer.cornerRadius = 10.0
-       // self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
+        let nib = UINib(nibName: "SECreateEventTableViewCell", bundle: nil)
+        let nib1 = UINib(nibName: "SEAttendeesListCell", bundle: nil)
+        self.tblCreateEvent.register(nib, forCellReuseIdentifier: "CreateEventCell")
+        self.tblCreateEvent.register(nib1, forCellReuseIdentifier: "attendeesListCell")
     }
     
     func updateAttendeesList(list: Array<Any>) {
-        attendeeName = ""
-        if list.count != 0 {
-            for item in list {
-                let t = item as! SEUserModel
-                attendeeName.append("\(t.displayName!) ")
-                var attendeeDetail = EmailAddress()
-                attendeeDetail.address = t.mail
-                attendeeDetail.name = t.displayName
-                attendeeList.append(attendeeDetail)
-            }
-            tblCreateEvent.reloadData()
+        attendeeName = list as! [SEAttendeeUserModel]
+        DispatchQueue.main.async {
+            self.tblCreateEvent.reloadData()
         }
     }
 }
 
 extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 1:
+            switch indexPath.row{
+            case 0:
+                return 90
+            default:
+                return 40
+            }
+        default:
+            return 90
+        }
         
-        return 90
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventHeadingArray.count
+        switch section {
+        case 0:
+            return eventHeadingArray1.count
+        case 1:
+            return eventHeadingArray2.count + attendeeName.count
+        default:
+            return eventHeadingArray3.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "CreateEventCell"
-        var cell : SECreateEventTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SECreateEventTableViewCell?
-        if (cell == nil) {
-            cell = Bundle.main.loadNibNamed("SECreateEventTableViewCell", owner: nil, options: nil)?[0] as? SECreateEventTableViewCell
-            cell?.accessoryType = UITableViewCellAccessoryType.none
-        }
-        UITableViewCell.appearance().backgroundColor = .clear
-        cell?.contentView.backgroundColor = UIColor.clear
-        cell?.layer.backgroundColor = UIColor.clear.cgColor
-        cell?.selectionStyle = .none
-        
-        let item = eventHeadingArray[indexPath.row]
-        let titleStr = item["name"]
-        let titleImage = item["image"]
-        cell?.imageView?.image = UIImage(named: titleImage!)
-        cell?.lblTitle.text = titleStr
-        
-        OperationQueue.main.addOperation {
-            if(indexPath.row == 5)
-            {
-                cell?.txtEndMeetingTime.isHidden = false
-                cell?.txtStartMeetingTime.isHidden = false
-                cell?.lblMeetingInterval.isHidden = false
-                cell?.lblLine.isHidden = true
-            }
-            else
-            {
-                cell?.txtEndMeetingTime.isHidden = true
-                cell?.txtStartMeetingTime.isHidden = true
-                cell?.lblMeetingInterval.isHidden = true
-                cell?.lblLine.isHidden = false
-            }
-        }
-        
-        
-        cell?.txtField.isHidden = false
-        cell?.txtField.isUserInteractionEnabled = false
-        var placeHolderText  = ""
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            cell?.txtField.text = SEStoreSharedManager.sharedInstance.username
-            cell?.txtField.tag = indexPath.row
-            cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
+            
+            let cellIdentifier = "CreateEventCell"
+            var cell : SECreateEventTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SECreateEventTableViewCell//tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SECreateEventTableViewCell?
+            if (cell == nil) {
+                cell = Bundle.main.loadNibNamed("SECreateEventTableViewCell", owner: nil, options: nil)?[0] as? SECreateEventTableViewCell
+                cell?.accessoryType = UITableViewCellAccessoryType.none
+            }
+            
+            
+//            for subview in (cell?.contentView.subviews)! {
+//                subview.removeFromSuperview()
+//            }
+            
+            UITableViewCell.appearance().backgroundColor = .clear
+            cell?.contentView.backgroundColor = UIColor.clear
+            cell?.layer.backgroundColor = UIColor.clear.cgColor
+            cell?.selectionStyle = .none
+            
+            let item = eventHeadingArray1[indexPath.row]
+            let titleStr = item["name"]
+            let titleImage = item["image"]
+            cell?.imageView?.image = UIImage(named: titleImage!)
+            cell?.lblTitle.text = titleStr
+            
+            
+            
+            cell?.btnAdd.isHidden = false
+            cell?.btnAddAttendees.isHidden = true
+            cell?.lblLine.isHidden = false
+            
+            cell?.txtField.isHidden = false
             cell?.txtField.isUserInteractionEnabled = false
             
-//            if self.eventTitle != "" {
-//                cell?.txtField.text = self.eventTitle
-//            }
-            break
-        case 1:
-            if firsttime {
-                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
-                btnAdd.addTarget(self, action: #selector(tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
-                btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
-                cell?.addSubview(btnAdd)
-            }
+            cell?.lblMeetingInterval.isHidden = true
+            cell?.txtStartMeetingTime.isHidden = true
+            cell?.txtEndMeetingTime.isHidden = true
+            
+            
+            
+            
+            var placeHolderText  = ""
             if self.meetingRoomDetails.meetingRoomName != ""
             {
                 cell?.txtField.text = self.meetingRoomDetails.meetingRoomName
@@ -200,21 +209,74 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             {
                 placeHolderText = "Select meeting room"
             }
-            break
-        case 2:
-            if firsttime {
-                let btnAdd = UIButton.init(frame: CGRect.init(x: (cell?.frame.width)!, y: (cell?.txtField.frame.origin.y)!, width: 30, height: 30))
-                btnAdd.addTarget(self, action: #selector(tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
-                btnAdd.setImage(#imageLiteral(resourceName: "icon_add"), for: .normal)
-                cell?.addSubview(btnAdd)
-            }
-            if attendeeName == ""{
-                cell?.txtField.text = ""
-                placeHolderText = "Tap to add people from contacts"
-            }
-            else{
+            
+            var placeHolder = NSMutableAttributedString()
+            // Set the Font
+            placeHolder = NSMutableAttributedString(string: placeHolderText, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 12)])
+            // Set the color
+            placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white, range:NSRange(location:0, length:placeHolderText.count))
+            // Add attribute
+            cell?.txtField.attributedPlaceholder = placeHolder
+            cell?.btnAdd.addTarget(self, action: #selector(tblCellBtn_AddRoom_Tapped), for: .touchUpInside)
+            return cell!
+        case 1:
+            switch indexPath.row{
+            case 0 :
+                let cellIdentifier = "CreateEventCell"
+                var cell : SECreateEventTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SECreateEventTableViewCell//tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SECreateEventTableViewCell?
+                if (cell == nil) {
+                    cell = Bundle.main.loadNibNamed("SECreateEventTableViewCell", owner: nil, options: nil)?[0] as? SECreateEventTableViewCell
+                    cell?.accessoryType = UITableViewCellAccessoryType.none
+                }
+                UITableViewCell.appearance().backgroundColor = .clear
+                cell?.contentView.backgroundColor = UIColor.clear
+                cell?.layer.backgroundColor = UIColor.clear.cgColor
+                cell?.selectionStyle = .none
+                let item = eventHeadingArray2[indexPath.row]
+                let titleStr = item["name"]
+                let titleImage = item["image"]
+                cell?.imageView?.image = UIImage(named: titleImage!)
+                cell?.lblTitle.text = titleStr
+                cell?.btnAdd.isHidden = true
+                cell?.btnAddAttendees.isHidden = false
+                cell?.txtField.isHidden = false
                 cell?.txtField.isUserInteractionEnabled = false
-                cell?.txtField.text = attendeeName
+                cell?.lblLine.isHidden = false
+                cell?.lblMeetingInterval.isHidden = true
+                cell?.txtStartMeetingTime.isHidden = true
+                cell?.txtEndMeetingTime.isHidden = true
+
+                
+                var placeHolderText  = ""
+                placeHolderText = "Tap to add people from contacts"
+                var placeHolder = NSMutableAttributedString()
+                // Set the Font
+                placeHolder = NSMutableAttributedString(string: placeHolderText, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 12)])
+                // Set the color
+                placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white, range:NSRange(location:0, length:placeHolderText.count))
+                // Add attribute
+                cell?.txtField.attributedPlaceholder = placeHolder
+                cell?.btnAddAttendees.addTarget(self, action: #selector(tblCellBtn_AddAttendee_Tapped), for: .touchUpInside)
+                return cell!
+            default:
+                let cellIdentifier = "attendeesListCell"
+                var cell : SEAttendeesListCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SEAttendeesListCell
+                if (cell == nil) {
+                    cell = Bundle.main.loadNibNamed("SEAttendeesListCell", owner: nil, options: nil)?[0] as? SEAttendeesListCell
+                    cell?.accessoryType = UITableViewCellAccessoryType.none
+                }
+                UITableViewCell.appearance().backgroundColor = .clear
+                cell?.contentView.backgroundColor = UIColor.clear
+                cell?.layer.backgroundColor = UIColor.clear.cgColor
+                cell?.selectionStyle = .none
+                
+                
+                let model = attendeeName[indexPath.row-1]
+                cell?.lblUsername.text = model.displayName
+                cell?.imgProfilePic.image = UIImage.init(named: "icon_my_contacts")
+                cell?.btnRemove.isHidden = false
+                cell?.btnRemove.addTarget(self, action: #selector(tblCellBtn_RemoveAttendee_Tapped), for: .touchUpInside)
+                return cell!
             }
             
             break
@@ -228,22 +290,132 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
 
             let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneDatePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
             
-            cell?.txtField.inputAccessoryView = toolBar
+            cell?.txtStartMeetingTime.isHidden = true
+            cell?.txtEndMeetingTime.isHidden = true
+
             
-            if(self.dateFromDatePicker != "")
-            {
-                cell?.txtField.text = self.dateFromDatePicker
+            let item = eventHeadingArray3[indexPath.row]
+            let titleStr = item["name"]
+            let titleImage = item["image"]
+            cell?.imageView?.image = UIImage(named: titleImage!)
+            cell?.lblTitle.text = titleStr
+            cell?.btnAdd.isHidden = true
+            cell?.btnAddAttendees.isHidden = true
+            OperationQueue.main.addOperation {
+                if(indexPath.row == 4)
+                {
+                    cell?.txtEndMeetingTime.isHidden = false
+                    cell?.txtStartMeetingTime.isHidden = false
+                    cell?.lblMeetingInterval.isHidden = false
+                    cell?.lblLine.isHidden = true
+                }
+                else
+                {
+                    cell?.txtEndMeetingTime.isHidden = true
+                    cell?.txtStartMeetingTime.isHidden = true
+                    cell?.lblMeetingInterval.isHidden = true
+                    cell?.lblLine.isHidden = false
+                }
             }
             else{
                 placeHolderText = "Please select date"
             }
-            break
-        case 4:
-            if firsttime {
-                firsttime = false
-                let toggle = UISwitch.init(frame: CGRect.init(x: (cell?.frame.width)!-30, y: (cell?.lblTitle.frame.height)!-10, width: 30, height: 20))
-                cell?.addSubview(toggle)
+            
+            
+            cell?.txtField.isHidden = false
+            cell?.txtField.isUserInteractionEnabled = false
+            var placeHolderText  = ""
+            switch indexPath.row {
+
+            case 0:
+                //placeHolderText = "Tuesday, 5 Jun"
+                cell?.txtField.isUserInteractionEnabled = true
+                
+                datePickerView.datePickerMode = UIDatePickerMode.date
+                cell?.txtField.inputView = datePickerView
+                datePickerView.addTarget(self, action: #selector(SECreateEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+                
+                let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.donePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
+                
+                cell?.txtField.inputAccessoryView = toolBar
+                
+                if(self.dateFromDatePicker != "")
+                {
+                    cell?.txtField.text = self.dateFromDatePicker
+                }
+                else{
+                    placeHolderText = "Please select date!"
+                }
+                break
+            case 1:
                 cell?.lblLine.isHidden = true
+                cell?.txtField.isHidden = true
+                break
+            case 2:
+                cell?.txtField.text = username
+                cell?.txtField.tag = indexPath.row
+                cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
+                cell?.txtField.isUserInteractionEnabled = false
+                
+                //            if self.eventTitle != "" {
+                //                cell?.txtField.text = self.eventTitle
+                //            }
+                break
+            case 3:
+                cell?.txtField.tag = indexPath.row
+                cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
+                cell?.txtField.isUserInteractionEnabled = true
+                if self.eventTitle != "" {
+                    cell?.txtField.text = self.eventTitle
+                }else{
+                    placeHolderText = "Enter title"
+                }
+                break
+            case 4:
+                //placeHolderText = "10:00 AM"
+                let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.donePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
+                
+                startMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
+                startMeetingTimePickerView.addTarget(self, action: #selector(SECreateEventViewController.startTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
+                cell?.txtStartMeetingTime.inputView = startMeetingTimePickerView
+                cell?.txtStartMeetingTime.inputAccessoryView = toolBar
+                
+                if(self.startMeetingTime != "")
+                {
+                    cell?.txtStartMeetingTime.text = self.startMeetingTime
+                }
+                else{
+                    //placeHolderText = "HH:MM AM"
+                }
+                
+                endMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
+                endMeetingTimePickerView.addTarget(self, action: #selector(SECreateEventViewController.endTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
+                cell?.txtEndMeetingTime.inputView = endMeetingTimePickerView
+                cell?.txtEndMeetingTime.inputAccessoryView = toolBar
+                
+                if(self.endMeetingTime != "")
+                {
+                    cell?.txtEndMeetingTime.text = self.endMeetingTime
+                }
+                else{
+                    //placeHolderText = "HH:MM AM"
+                }
+                break
+            case 5:
+                //placeHolderText = "Never"
+                cell?.txtField.text = self.occurString
+                break
+            case 6:
+                placeHolderText = "15 minutes before"
+                cell?.txtField.text = ""
+                break
+            case 7:
+                placeHolderText = "Write your description here"
+                cell?.txtField.text = ""
+                break
+                
+            default:
+                break
             }
             
             cell?.txtField.isHidden = true
@@ -258,13 +430,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
 
             cell?.txtStartMeetingTime.inputAccessoryView = toolBar
             
-            if(self.startMeetingTime != "")
-            {
-                cell?.txtStartMeetingTime.text = self.startMeetingTime
-            }
-            else{
-                //placeHolderText = "HH:MM AM"
-            }
             
             let endToolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneEndTimePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
             
@@ -274,50 +439,20 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
 
             cell?.txtEndMeetingTime.inputAccessoryView = endToolBar
             
-            if(self.endMeetingTime != "")
-            {
-                cell?.txtEndMeetingTime.text = self.endMeetingTime
-            }
-            else{
-                //placeHolderText = "HH:MM AM"
-            }
-            break
-        case 6:
-            //placeHolderText = "Never"
-            cell?.txtField.text = self.occurString
-            break
-        case 7:
-            placeHolderText = "15 minutes before"
-            cell?.txtField.text = ""
-            break
-        case 8:
-            placeHolderText = "Write your description here"
-            cell?.txtField.text = ""
-            break
             
-        default:
-            break
+            return cell!
         }
         
-        
-        var placeHolder = NSMutableAttributedString()
-        // Set the Font
-        placeHolder = NSMutableAttributedString(string: placeHolderText, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 12)])
-        // Set the color
-        placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white, range:NSRange(location:0, length:placeHolderText.count))
-        
-        
-        // Add attribute
-        cell?.txtField.attributedPlaceholder = placeHolder
-        
-        
-        return cell!
     }
     
     
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 50
+        if section == 2{
+            return 50
+        }else{
+           return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -395,10 +530,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                                           "content": "Seven-Eleven Book Meeting room testing - POC."]
   
         let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
-                                           "timeZone": "Central Standard Time"]
+                                           "timeZone": "India Standard Time"]
         
         let endDict: [String: String] = ["dateTime": "\(dateForService)T\(endMeetingTimeForService)",
-                                         "timeZone": "Central Standard Time"]
+                                         "timeZone": "India Standard Time"]
 
         
         var attendeesArray = [[String: Any]]()
@@ -456,37 +591,49 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
+        switch indexPath.section {
         case 1:
-            self.performSegue(withIdentifier: "event2RoomSearch", sender: nil)
-            break
-        case 2:
             self.performSegue(withIdentifier: "addAttendee", sender: nil)
             break
-        case 6:
-            let actionSheetController = UIAlertController(title: "Select occurrence", message: nil, preferredStyle: .actionSheet)
-            let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-                print("Cancel")
-            }
-            actionSheetController.addAction(cancelActionButton)
+        case 2 :
             
-            let neverActionButton = UIAlertAction(title: "Never", style: .default) { action -> Void in
-                self.occurString = "Never"
-                self.tblCreateEvent.reloadData()
+            switch indexPath.row{
+            case 5:
+                let actionSheetController = UIAlertController(title: "Select occurrence", message: nil, preferredStyle: .actionSheet)
+                let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+                    print("Cancel")
+                }
+                actionSheetController.addAction(cancelActionButton)
+                
+                let neverActionButton = UIAlertAction(title: "Never", style: .default) { action -> Void in
+                    self.occurString = "Never"
+                    DispatchQueue.main.async {
+                        self.tblCreateEvent.reloadData()
+                    }
+                    
+                }
+                actionSheetController.addAction(neverActionButton)
+                let everyDayActionButton = UIAlertAction(title: "Every day", style: .default) { action -> Void in
+                    self.occurString = "Every day"
+                    DispatchQueue.main.async {
+                        self.tblCreateEvent.reloadData()
+                    }
+                }
+                actionSheetController.addAction(everyDayActionButton)
+                
+                let everyWeekActionButton = UIAlertAction(title: "Every week", style: .default) { action -> Void in
+                    self.occurString = "Every week"
+                    DispatchQueue.main.async {
+                        self.tblCreateEvent.reloadData()
+                    }
+                }
+                actionSheetController.addAction(everyWeekActionButton)
+                self.present(actionSheetController, animated: true, completion: nil)
+                break
+            default:
+                break
+                
             }
-            actionSheetController.addAction(neverActionButton)
-            let everyDayActionButton = UIAlertAction(title: "Every day", style: .default) { action -> Void in
-                self.occurString = "Every day"
-                self.tblCreateEvent.reloadData()
-            }
-            actionSheetController.addAction(everyDayActionButton)
-            
-            let everyWeekActionButton = UIAlertAction(title: "Every week", style: .default) { action -> Void in
-                self.occurString = "Every week"
-                self.tblCreateEvent.reloadData()
-            }
-            actionSheetController.addAction(everyWeekActionButton)
-            self.present(actionSheetController, animated: true, completion: nil)
         default:
             break
         }
@@ -507,7 +654,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     @objc func textFieldValueChangedAction(textField: UITextField) {
         
-        if textField.tag == 0 {
+        if textField.tag == 3 {
             self.eventTitle = textField.text!
         }
     }
@@ -518,11 +665,13 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         startMeetingTimeForService = ""
         endMeetingTimeForService = ""
         dateForService = ""
-        attendeeName = ""
+        attendeeName.removeAll()
         dateFromDatePicker = ""
         startMeetingTime = ""
         endMeetingTime = ""
-        tblCreateEvent.reloadData()
+        DispatchQueue.main.async {
+            self.tblCreateEvent.reloadData()
+        }
     }
     
     @objc func tblCellBtn_AddRoom_Tapped(){
@@ -531,6 +680,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     
     @objc func tblCellBtn_AddAttendee_Tapped(){
         self.performSegue(withIdentifier: "addAttendee", sender: nil)
+    }
+    
+    @objc func tblCellBtn_RemoveAttendee_Tapped(){
+        print("df")
     }
     
     

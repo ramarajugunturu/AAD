@@ -208,6 +208,143 @@ class SEWebServiceAPI: NSObject {
         })
         
     }
+    
+    
+    func getAttendeesList(url:String, onSuccess:@escaping(_ response: Any) ->Void, onError:@escaping(_ error:NSError)->Void) {
+        let headers: HTTPHeaders = ["Content-Type": SEStoreSharedManager.sharedInstance.jsonContentType,
+                                    "Authorization": "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
+        Alamofire.request(url, method: HTTPMethod.get, parameters: nil , encoding: JSONEncoding.default, headers: headers).responseString(completionHandler:{
+            response in
+            if response.response != nil
+            {
+                if response.result.isSuccess {
+                    
+                    if let data = response.result.value!.data(using: String.Encoding.utf8) {
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data as Data, options: .mutableContainers) as? [String:Any]
+                            
+                            //-- success 200 condition
+                            if response.response!.statusCode == 200
+                            {
+                                var userDataSource = Array<SEAttendeeUserModel>()
+                                let jsonDict = json as! Dictionary<String, Any>
+                                let value = jsonDict["value"] as? Array<Any>
+                                if value != nil {
+                                    for item in value! {
+                                        let result =  item as! Dictionary<String, Any>
+                                        let modObj = SEAttendeeUserModel()
+                                        modObj.id = result["id"] as? String
+                                        modObj.businessPhones = result["businessPhones"] as? Array
+                                        modObj.displayName = result["displayName"] as? String
+                                        modObj.givenName = result["givenName"] as? String
+                                        modObj.jobTitle = result["jobTitle"] as? String
+                                        modObj.mail = result["mail"] as? String
+                                        modObj.mobilePhone = result["mobilePhone"] as? String
+                                        modObj.officeLocation = result["officeLocation"] as? String
+                                        modObj.preferredLanguage = result["preferredLanguage"] as? String
+                                        modObj.surname = result["surname"] as? String
+                                        modObj.userPrincipalName = result["userPrincipalName"] as? String
+                                        userDataSource.append(modObj)
+                                    }
+                                    onSuccess(userDataSource)
+                                }
+                            }
+                            else if(response.response!.statusCode < 200 || response.response!.statusCode > 300)
+                            {
+                                let erroHandlerObj = ErrorHandler.handleError(responseDictionary: json!)
+                                onSuccess(erroHandlerObj.responseMessage)
+                            }
+                            else{
+                                //onSuccess(messageStr!)
+                                onSuccess("")
+                            }
+                            
+                        } catch {
+                            onSuccess("Some thing went wrong!")
+                        }
+                    }
+                }//failure
+                else{
+                    onError(response.result.error! as NSError)
+                    
+                }
+            }
+            else
+            {
+                onError(response.result.error! as NSError)
+            }
+        })
+        
+    }
+    
+    func getMyMeetingList(url:String, onSuccess:@escaping(_ response: Any) ->Void, onError:@escaping(_ error:NSError)->Void) {
+        let headers: HTTPHeaders = ["Content-Type": SEStoreSharedManager.sharedInstance.jsonContentType,
+                                    "Authorization": "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
+        Alamofire.request(url, method: HTTPMethod.get, parameters: nil , encoding: JSONEncoding.default, headers: headers).responseString(completionHandler:{
+            response in
+            if response.response != nil
+            {
+                if response.result.isSuccess {
+                    
+                    if let data = response.result.value!.data(using: String.Encoding.utf8) {
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data as Data, options: .mutableContainers) as? [String:Any]
+                            
+                            //-- success 200 condition
+                            if response.response!.statusCode == 200
+                            {
+                                var userDataSource = [SEMyMeetingModel]()
+                                let jsonDict = json as! Dictionary<String, Any>
+                                let value = jsonDict["value"] as? Array<Any>
+                                for item in value!{
+                                    let resultItem = item as! Dictionary<String,Any>
+                                    let modObj = SEMyMeetingModel()
+                                    modObj.subject = resultItem["subject"] as! String
+                                    let dateTimeDict = resultItem["start"] as! Dictionary<String,Any>
+                                    modObj.dateTime = dateTimeDict["dateTime"] as! String
+                                    modObj.date = getDate(dateString: modObj.dateTime)
+                                    modObj.time = getTime(dateString: modObj.dateTime)
+                                    let locationDict = resultItem["location"] as! Dictionary<String,Any>
+                                    modObj.location = locationDict["displayName"] as! String
+                                    let attendeesArray = resultItem["attendees"] as! Array<Dictionary<String,Any>>
+                                    for item1 in attendeesArray{
+                                        let emailDict = item1["emailAddress"] as! Dictionary<String,Any>
+                                        let name = emailDict["name"] as! String
+                                        modObj.attendeesName.append(name)
+                                    }
+                                   userDataSource.append(modObj)
+                                    
+                                }
+                                onSuccess(userDataSource)
+                                
+                            }
+                            else if(response.response!.statusCode < 200 || response.response!.statusCode > 300)
+                            {
+                                let erroHandlerObj = ErrorHandler.handleError(responseDictionary: json!)
+                                onSuccess(erroHandlerObj.responseMessage)
+                            }
+                            else{
+                                //onSuccess(messageStr!)
+                                onSuccess("")
+                            }
+                            
+                        } catch {
+                            onSuccess("Some thing went wrong!")
+                        }
+                    }
+                }//failure
+                else{
+                    onError(response.result.error! as NSError)
+                    
+                }
+            }
+            else
+            {
+                onError(response.result.error! as NSError)
+            }
+        })
+        
+    }
 }
 
 
