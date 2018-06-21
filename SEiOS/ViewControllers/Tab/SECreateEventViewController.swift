@@ -539,10 +539,10 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
 
         let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
-                                           "timeZone": "Central Standard Time"]
+                                           "timeZone": "India Standard Time"]
         
         let endDict: [String: String] = ["dateTime": "\(dateForService)T\(endMeetingTimeForService)",
-                                         "timeZone": "Central Standard Time"]
+                                         "timeZone": "India Standard Time"]
 
         
         var attendeesArray = [[String: Any]]()
@@ -662,7 +662,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
  
     @objc func textFieldValueChangedAction(textField: UITextField) {
         
-        if textField.tag == 0 {
+        if textField.tag == 3 {
             self.eventTitle = textField.text!
         }
     }
