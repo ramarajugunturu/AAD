@@ -26,9 +26,7 @@ extension UIToolbar {
         toolBar.sizeToFit()
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: cancelSelect)
-        
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: doneSelect)
-        
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
         toolBar.setItems([ cancelButton, spaceButton, doneButton], animated: false)
@@ -47,20 +45,22 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
             self.tblCreateEvent.reloadData()
         }
     }
+    
+    
     //let roomTitles_Array  = ["Jupiter", "Venus", "America", "Singapoor"]
     
     let eventHeadingArray1 = [
-                             ["name": "Location", "image": "icon_location"]]
+        ["name": "Location", "image": "icon_location"]]
     let eventHeadingArray2 =  [
-                                ["name": "Select People", "image": "icon_people"]]
+        ["name": "Select People", "image": "icon_people"]]
     let eventHeadingArray3 = [ ["name": "Select Date", "image": "icon_date"],
-                             ["name": "All-day Event", "image": ""],
-                             ["name": "Event Created By", "image": "icon_my_contacts"],
-                             ["name": "Event Title", "image": "icon_event_title"],
-                             ["name": "Select Time", "image": "icon_time"],
-                             ["name": "Repeat", "image": "icon_repeat"],
-                             ["name": "Alert", "image": "icon_alert"],
-                             ["name": "Description", "image": "icon_description"]]
+                               ["name": "All-day Event", "image": ""],
+                               ["name": "Event Created By", "image": "icon_my_contacts"],
+                               ["name": "Event Title", "image": "icon_event_title"],
+                               ["name": "Select Time", "image": "icon_time"],
+                               ["name": "Repeat", "image": "icon_repeat"],
+                               ["name": "Alert", "image": "icon_alert"],
+                               ["name": "Description", "image": "icon_description"]]
     
     
     @IBOutlet weak var tblCreateEvent: UITableView!
@@ -169,9 +169,9 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             }
             
             
-//            for subview in (cell?.contentView.subviews)! {
-//                subview.removeFromSuperview()
-//            }
+            //            for subview in (cell?.contentView.subviews)! {
+            //                subview.removeFromSuperview()
+            //            }
             
             UITableViewCell.appearance().backgroundColor = .clear
             cell?.contentView.backgroundColor = UIColor.clear
@@ -245,7 +245,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.lblMeetingInterval.isHidden = true
                 cell?.txtStartMeetingTime.isHidden = true
                 cell?.txtEndMeetingTime.isHidden = true
-
+                
                 
                 var placeHolderText  = ""
                 placeHolderText = "Tap to add people from contacts"
@@ -279,20 +279,22 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 return cell!
             }
             
-            break
-        case 3:
-            //placeHolderText = "Tuesday, 5 Jun"
-            cell?.txtField.isUserInteractionEnabled = true
+        default:
+            let cellIdentifier = "CreateEventCell"
+            var cell : SECreateEventTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SECreateEventTableViewCell
+            if (cell == nil) {
+                cell = Bundle.main.loadNibNamed("SECreateEventTableViewCell", owner: nil, options: nil)?[0] as? SECreateEventTableViewCell
+                cell?.accessoryType = UITableViewCellAccessoryType.none
+            }
+            UITableViewCell.appearance().backgroundColor = .clear
+            cell?.contentView.backgroundColor = UIColor.clear
+            cell?.layer.backgroundColor = UIColor.clear.cgColor
+            cell?.selectionStyle = .none
             
-            datePickerView.datePickerMode = UIDatePickerMode.date
-            cell?.txtField.inputView = datePickerView
-            cell?.txtField.tag = 1001
-
-            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneDatePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
             
             cell?.txtStartMeetingTime.isHidden = true
             cell?.txtEndMeetingTime.isHidden = true
-
+            
             
             let item = eventHeadingArray3[indexPath.row]
             let titleStr = item["name"]
@@ -317,8 +319,13 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                     cell?.lblLine.isHidden = false
                 }
             }
-            else{
-                placeHolderText = "Please select date"
+            
+            OperationQueue.main.addOperation {
+                if indexPath.row == 1{
+                    cell?.switchToggleday.isHidden = false
+                }else{
+                    cell?.switchToggleday.isHidden = true
+                }
             }
             
             
@@ -326,7 +333,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             cell?.txtField.isUserInteractionEnabled = false
             var placeHolderText  = ""
             switch indexPath.row {
-
+                
             case 0:
                 //placeHolderText = "Tuesday, 5 Jun"
                 cell?.txtField.isUserInteractionEnabled = true
@@ -418,26 +425,16 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 break
             }
             
-            cell?.txtField.isHidden = true
-            break
-        case 5:
-            //placeHolderText = "10:00 AM"
-            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneStartTimePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
             
-            startMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
-             cell?.txtStartMeetingTime.inputView = startMeetingTimePickerView
-            cell?.txtStartMeetingTime.tag = 1002
-
-            cell?.txtStartMeetingTime.inputAccessoryView = toolBar
+            var placeHolder = NSMutableAttributedString()
+            // Set the Font
+            placeHolder = NSMutableAttributedString(string: placeHolderText, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 12)])
+            // Set the color
+            placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white, range:NSRange(location:0, length:placeHolderText.count))
             
             
-            let endToolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneEndTimePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
-            
-            endMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
-             cell?.txtEndMeetingTime.inputView = endMeetingTimePickerView
-            cell?.txtEndMeetingTime.tag = 1003
-
-            cell?.txtEndMeetingTime.inputAccessoryView = endToolBar
+            // Add attribute
+            cell?.txtField.attributedPlaceholder = placeHolder
             
             
             return cell!
@@ -451,7 +448,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         if section == 2{
             return 50
         }else{
-           return 0
+            return 0
         }
     }
     
@@ -471,53 +468,56 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
     }
     
-    //=====ToolBar Method
-    @objc func doneDatePicker() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.medium
-        dateFormatter.timeStyle = DateFormatter.Style.none
-        self.dateFromDatePicker = dateFormatter.string(from: self.datePickerView.date)
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateForService = dateFormatter.string(from: self.datePickerView.date)
-
-        self.tblCreateEvent.reloadData()
-        view.endEditing(true)
-    }
-    @objc func doneStartTimePicker() {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        self.startMeetingTime = dateFormatter.string(from: self.startMeetingTimePickerView.date)
-        
-       
-        dateFormatter.dateFormat = "HH:mm:ss"
-        self.startMeetingTimeForService = dateFormatter.string(from: self.startMeetingTimePickerView.date)
-        print(self.startMeetingTimeForService)
-        
-        self.tblCreateEvent.reloadData()
-        view.endEditing(true)
-    }
     
-    @objc func doneEndTimePicker() {
+    
+    @objc func donePicker() {
+        DispatchQueue.main.async {
+            self.tblCreateEvent.reloadData()
+        }
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        self.endMeetingTime = dateFormatter.string(from: self.endMeetingTimePickerView.date)
-        
-        dateFormatter.dateFormat = "HH:mm:ss"
-        self.endMeetingTimeForService  = dateFormatter.string(from:  self.endMeetingTimePickerView.date)
-        
-        
-        self.tblCreateEvent.reloadData()
         view.endEditing(true)
     }
     
     @objc func cancelPicker() {
         view.endEditing(true)
     }
+    
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        self.dateFromDatePicker = dateFormatter.string(from: sender.date)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateForService = dateFormatter.string(from: sender.date)
+    }
+    
+    
+    
+    @objc func startTimePickerValueChanged(sender:UIDatePicker) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        self.startMeetingTime = dateFormatter.string(from: sender.date)
+        
+        dateFormatter.dateFormat = "HH:mm:ss"
+        self.startMeetingTimeForService = dateFormatter.string(from: sender.date)
+    }
+    
+    @objc func endTimePickerValueChanged(sender:UIDatePicker) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        self.endMeetingTime = dateFormatter.string(from: sender.date)
+        
+        dateFormatter.dateFormat = "HH:mm:ss"
+        self.endMeetingTimeForService  = dateFormatter.string(from: sender.date)
+        
+        print(self.endMeetingTimeForService)
+    }
+    
     
     
     @objc func createEventAction() {
@@ -528,13 +528,22 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
         let bodyDict: [String: String] = ["contentType": "HTML",
                                           "content": "Seven-Eleven Book Meeting room testing - POC."]
-  
+        
+        
+        
+        //        let startDict: [String: String] = ["dateTime": "2018-06-16T22:00:00",
+        //                                           "timeZone": "India Standard Time"]
+        //
+        //        let endDict: [String: String] = ["dateTime": "2018-06-16T23:00:00",
+        //                                         "timeZone": "India Standard Time"]
+        
+        
         let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
-                                           "timeZone": "India Standard Time"]
+            "timeZone": "India Standard Time"]
         
         let endDict: [String: String] = ["dateTime": "\(dateForService)T\(endMeetingTimeForService)",
-                                         "timeZone": "India Standard Time"]
-
+            "timeZone": "India Standard Time"]
+        
         
         var attendeesArray = [[String: Any]]()
         
@@ -586,7 +595,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             print("Error Results:\(error)")
             self.stopLoading()
         })
-
+        
     }
     
     
@@ -650,7 +659,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         }
     }
     
-   
     
     @objc func textFieldValueChangedAction(textField: UITextField) {
         
