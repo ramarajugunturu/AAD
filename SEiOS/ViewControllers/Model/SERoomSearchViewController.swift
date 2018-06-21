@@ -19,24 +19,31 @@ struct MeetingRoomDetails
 
 struct  MeetingDetails
 {
-    var meetingDate : Date?//= ""
-    var meetingStartTime : Date?//= ""
-    var meetingEndTime : Date?//= ""
+    var meetingDate : Date?
+    var meetingStartTime : Date?
+    var meetingEndTime : Date?
     var availMeetingRooms: [MeetingRoomDetails]?
 }
 
 protocol  SERoomDetailsDelegate{
-    func showMeetingRoomDetails( meetingRoomDetails : MeetingRoomDetails)
+    func showMeetingRoomDetails( meetingRoomDetails : MeetingRoomDetails, meetingStartTime:String, meetingEndTime : String, MeetingDate : String )
 }
 
 protocol SEFilteredRoomDetailsDelegate {
-    func showFilteredMeetingRoomDetails(filteredMeetingRoomArray: [MeetingRoomDetails])
+    func showFilteredMeetingRoomDetails(filteredMeetingRoomArray: [MeetingRoomDetails], meetingStartTime:String, meetingEndTime : String, MeetingDate:String)
 }
 
 extension SERoomSearchViewController:SEFilteredRoomDetailsDelegate
 {
-    func showFilteredMeetingRoomDetails(filteredMeetingRoomArray: [MeetingRoomDetails]) {
+    func showFilteredMeetingRoomDetails(filteredMeetingRoomArray: [MeetingRoomDetails], meetingStartTime: String, meetingEndTime: String, MeetingDate:String) {
+
         print("===filteredMeetingRoomArray  \(filteredMeetingRoomArray)===")
+        print("meetingStartTime : \(meetingStartTime), meetingEndTime : \(meetingEndTime), MeetingDate : \(MeetingDate) ")
+        
+        self.meetingStartTime = meetingStartTime
+        self.meetingEndTime = meetingEndTime
+        self.meetingDate = MeetingDate
+        
         self.meetingRoomList = filteredMeetingRoomArray
         self.availableRoomsInfoTableView.reloadData()
     }
@@ -51,6 +58,11 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     var meetingRoomList = [MeetingRoomDetails]()
     var delegate : SERoomDetailsDelegate!
     var availableMeetingRoomsList = [MeetingDetails]()
+   
+    var meetingStartTime = ""
+    var meetingEndTime = ""
+    var meetingDate = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,10 +145,8 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.popViewController(animated: true)
-        self.delegate.showMeetingRoomDetails(meetingRoomDetails: self.meetingRoomList[indexPath.row])
+        self.delegate.showMeetingRoomDetails(meetingRoomDetails: self.meetingRoomList[indexPath.row], meetingStartTime: self.meetingStartTime, meetingEndTime: self.meetingEndTime, MeetingDate: self.meetingDate)
     }
-    
-    
     
     func createMeetingRoomList()
     {

@@ -38,13 +38,45 @@ extension UIToolbar {
 }
 
 class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, UpdateAttendeeListDelegate {
-    
-    func showMeetingRoomDetails(meetingRoomDetails: MeetingRoomDetails) {
+    func showMeetingRoomDetails(meetingRoomDetails: MeetingRoomDetails, meetingStartTime: String, meetingEndTime: String, MeetingDate: String) {
+        
+        //================================================================//
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        
+        if(MeetingDate != "")
+        {
+            self.dateFromDatePicker = MeetingDate
+            self.dateForService = MeetingDate
+        }
+        if(meetingStartTime != "")
+        {
+            self.startMeetingTime = meetingStartTime
+            
+            dateFormatter.dateFormat = "hh:mm a"
+            let _time = dateFormatter.date(from: meetingStartTime)
+            dateFormatter.dateFormat = "HH:mm:ss"
+            self.startMeetingTimeForService = dateFormatter.string(from: _time!)
+        }
+        if(meetingEndTime != "")
+        {
+            self.endMeetingTime = meetingEndTime
+            print("endMeetingTime :\(endMeetingTime)")
+            dateFormatter.dateFormat = "hh:mm a"
+            let _time = dateFormatter.date(from: meetingEndTime)
+            dateFormatter.dateFormat = "HH:mm:ss"
+            self.endMeetingTimeForService = dateFormatter.string(from: _time!)
+        }
+        
+        //================================================================//
+       
         self.meetingRoomDetails = meetingRoomDetails
         DispatchQueue.main.async {
             self.tblCreateEvent.reloadData()
         }
     }
+
     
     
     //let roomTitles_Array  = ["Jupiter", "Venus", "America", "Singapoor"]
@@ -494,7 +526,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         dateFormatter.dateStyle = DateFormatter.Style.none
         dateFormatter.timeStyle = DateFormatter.Style.short
         self.startMeetingTime = dateFormatter.string(from: self.startMeetingTimePickerView.date)
-        
         
         dateFormatter.dateFormat = "HH:mm:ss"
         self.startMeetingTimeForService = dateFormatter.string(from: self.startMeetingTimePickerView.date)

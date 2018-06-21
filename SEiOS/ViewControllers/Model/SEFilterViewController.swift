@@ -186,7 +186,7 @@ class SEFilterViewController: SEBaseViewController {
                 if(availMeetigRooms.count > 0)
                 {
                     self.navigationController?.popViewController(animated: true)
-                    self.delegate.showFilteredMeetingRoomDetails(filteredMeetingRoomArray: availMeetigRooms)
+                    self.delegate.showFilteredMeetingRoomDetails(filteredMeetingRoomArray: availMeetigRooms, meetingStartTime: self.selectedStartMeetingTime, meetingEndTime: self.selectedEndMeetingTime, MeetingDate: self.selectedDate )
                 }
                 else{
                     
@@ -404,6 +404,10 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
             dateFormatter.dateFormat = "HH:mm"
             self.startMeetingTimeForService = dateFormatter.string(from: _date)
             self.endMeetingTimeForService  = dateFormatter.string(from: endDate)
+            
+            
+            dateFormatter.dateFormat = "HH:mm:ss"
+            
             tblFilterCriteria.reloadData()
         }
         else if (minute >= 30 && minute <= 60 )
