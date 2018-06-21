@@ -71,7 +71,7 @@ class SESettingsViewController: SEBaseViewController {
             try self.applicationContext.remove(self.applicationContext.users().first)
             //self.loggingText.text = ""
             print("Successfully sign-out")
-            
+            username = ""
             UserDefaults.standard.set(false, forKey: "status")
             SEViewControllerSwitcher.updateRootVC()
 
