@@ -118,6 +118,12 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     
     func updateAttendeesList(list: Array<Any>) {
         attendeeName = list as! [SEAttendeeUserModel]
+        for item in attendeeName{
+            var obj = EmailAddress()
+            obj.address = item.mail
+            obj.name = item.displayName
+            attendeeList.append(obj)
+        }
         DispatchQueue.main.async {
             self.tblCreateEvent.reloadData()
         }
@@ -384,7 +390,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 startMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
                 cell?.txtStartMeetingTime.inputView = startMeetingTimePickerView
                 cell?.txtStartMeetingTime.inputAccessoryView = toolBar
-                
+                cell?.txtField.isHidden = true
                 if(self.startMeetingTime != "")
                 {
                     cell?.txtStartMeetingTime.text = self.startMeetingTime
