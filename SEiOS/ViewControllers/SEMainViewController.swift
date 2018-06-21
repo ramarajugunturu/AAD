@@ -80,8 +80,6 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
     }
     
     @IBAction func callSignInButton(_ sender: UIButton) {
-    
-        
         
         do {
             
@@ -110,11 +108,11 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
                     
                     if error == nil {
                         self.accessToken = (result?.accessToken)!
-                        //self.loggingText.text = "Refreshed Access token is \(self.accessToken)"
+                        
                         print("Refreshed Access token is \(self.accessToken)")
+                        SEStoreSharedManager.sharedInstance.accessToken = ""
                         SEStoreSharedManager.sharedInstance.accessToken = self.accessToken
-                        //self.signoutButton.isEnabled = true;
-                        //self.signoutButton.alpha = 1.0
+                        
                         self.getContentWithToken()
                         
                     } else {

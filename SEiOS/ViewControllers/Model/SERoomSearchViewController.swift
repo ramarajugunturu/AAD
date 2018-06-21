@@ -235,7 +235,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     {
         
         self.startLoading()
-        let urlString = "https://graph.microsoft.com/v1.0/me/findMeetingTimes"
+        let urlString = SEWebserviceClient.filterMeetingURL
         
         let headerDict = [
             "Authorization" : "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)",
@@ -244,7 +244,29 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         
         print("headerDict : \(headerDict)")
         
-        Alamofire.request(urlString, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headerDict).responseJSON { (response:DataResponse<Any>) in
+        
+        let startDict: [String: String] = ["dateTime": "2018-06-22T17:00:00",
+            "timeZone": "UTC"]
+        
+        let endDict: [String: String] = ["dateTime": "2018-06-22T17:30:00",
+            "timeZone": "UTC"]
+        
+        let param: Parameters = ["timeConstraint":[
+            "activityDomain": "unrestricted",
+            "timeslots": [
+                [
+                    "start":startDict,
+                    "end":endDict
+                ]
+            ]
+            ]
+        ]
+        
+        
+        
+        print("param :\(param)")
+        
+        Alamofire.request(urlString, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headerDict).responseJSON { (response:DataResponse<Any>) in
             
             switch (response.result)
             {

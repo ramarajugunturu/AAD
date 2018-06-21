@@ -624,9 +624,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             self.clearForm()
             if response is [String : Any]
             {
-                
-                
-                
             }
             else
             {
