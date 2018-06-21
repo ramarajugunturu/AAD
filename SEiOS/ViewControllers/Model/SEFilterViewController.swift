@@ -66,12 +66,12 @@ class SEFilterViewController: SEBaseViewController {
     var selectedEndMeetingTime = ""
     
     var capacityPicker = UIPickerView()
-    var valueFromCapacityPicker = ""
     var selectedCapacity = ""
+    var selectedIndexCapacityPicker = 0
     
     var locationPicker = UIPickerView()
-    var valueFromLocationPicker = ""
     var selectedLocation = ""
+    var selectedIndexLocationPicker = 0
     
     var endMeetingTimeForService = ""
     var startMeetingTimeForService = ""
@@ -261,7 +261,7 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
             cell?.txtField.inputView = locationPicker
             cell?.txtField.inputAccessoryView = toolbar
             
-            if valueFromLocationPicker != ""
+            if selectedLocation != ""
             {
                 cell?.txtField.text = selectedLocation
                 
@@ -277,7 +277,7 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
             cell?.txtField.inputView = capacityPicker
             cell?.txtField.inputAccessoryView = toolbar
             
-            if valueFromCapacityPicker != ""
+            if selectedCapacity != ""
             {
                 cell?.txtField.text = selectedCapacity
                 
@@ -357,15 +357,15 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
     
     //ToolBar Methods
     @objc func doneLocationPicker(sender: Any) {
-       
-        self.selectedLocation = valueFromLocationPicker
+        
+        self.selectedLocation = locationArray[selectedIndexLocationPicker]
         tblFilterCriteria.reloadData()
         view.endEditing(true)
     }
     
     @objc func doneCapacityPicker(sender: Any) {
         
-        self.selectedCapacity = valueFromCapacityPicker
+        self.selectedCapacity = capacityArray[selectedIndexCapacityPicker]
         tblFilterCriteria.reloadData()
         view.endEditing(true)
     }
@@ -392,7 +392,7 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
         let components = Calendar.current.dateComponents([.hour, .minute], from: pickedDate)
         let minute = components.minute!
         print("minute : \(minute)")
-        if(minute > 0 && minute < 30 )
+        if(minute >= 0 && minute < 30 )
         {
             let diff:Float = Float(minute)
             let _date = (self.startMeetingTimePickerView.date).addingTimeInterval(TimeInterval(-diff * 60.0))
@@ -404,8 +404,9 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
             dateFormatter.dateFormat = "HH:mm"
             self.startMeetingTimeForService = dateFormatter.string(from: _date)
             self.endMeetingTimeForService  = dateFormatter.string(from: endDate)
+            tblFilterCriteria.reloadData()
         }
-        else if (minute > 30 && minute < 60 )
+        else if (minute >= 30 && minute <= 60 )
         {
             let diff:Float = Float(minute - 30)
             let _date = (self.startMeetingTimePickerView.date).addingTimeInterval(TimeInterval(-diff * 60.0))
@@ -417,6 +418,7 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
             dateFormatter.dateFormat = "HH:mm"
             self.startMeetingTimeForService = dateFormatter.string(from: _date)
             self.endMeetingTimeForService  = dateFormatter.string(from: endDate)
+            tblFilterCriteria.reloadData()
         }
         //===============================================================================
         
@@ -439,6 +441,9 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     @objc func cancelPicker(sender: Any) {
+        
+        selectedIndexLocationPicker = 0
+        selectedIndexCapacityPicker = 0
         view.endEditing(true)
     }
     
@@ -473,10 +478,10 @@ extension SEFilterViewController : UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView.tag == 100)
         {
-            valueFromCapacityPicker = self.capacityArray[row]
+            selectedIndexCapacityPicker = row
         }
         else{
-            valueFromLocationPicker = self.locationArray[row]
+            selectedIndexLocationPicker = row
         }
     }
     
