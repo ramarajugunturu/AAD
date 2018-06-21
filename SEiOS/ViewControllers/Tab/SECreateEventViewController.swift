@@ -26,7 +26,9 @@ extension UIToolbar {
         toolBar.sizeToFit()
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: cancelSelect)
+        
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: doneSelect)
+        
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
         toolBar.setItems([ cancelButton, spaceButton, doneButton], animated: false)
@@ -43,8 +45,6 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
         self.meetingRoomDetails = meetingRoomDetails
         self.tblCreateEvent.reloadData()
     }
-    
-    
     //let roomTitles_Array  = ["Jupiter", "Venus", "America", "Singapoor"]
     
     let eventHeadingArray = [["name": "Event Title", "image": "icon_event_title"],
@@ -224,9 +224,9 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             
             datePickerView.datePickerMode = UIDatePickerMode.date
             cell?.txtField.inputView = datePickerView
-            datePickerView.addTarget(self, action: #selector(SECreateEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
-            
-            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.donePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
+            cell?.txtField.tag = 1001
+
+            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneDatePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
             
             cell?.txtField.inputAccessoryView = toolBar
             
@@ -235,7 +235,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.txtField.text = self.dateFromDatePicker
             }
             else{
-                placeHolderText = "Please select date!"
+                placeHolderText = "Please select date"
             }
             break
         case 4:
@@ -250,11 +250,12 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             break
         case 5:
             //placeHolderText = "10:00 AM"
-            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.donePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
+            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneStartTimePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
             
             startMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
-            startMeetingTimePickerView.addTarget(self, action: #selector(SECreateEventViewController.startTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
-            cell?.txtStartMeetingTime.inputView = startMeetingTimePickerView
+             cell?.txtStartMeetingTime.inputView = startMeetingTimePickerView
+            cell?.txtStartMeetingTime.tag = 1002
+
             cell?.txtStartMeetingTime.inputAccessoryView = toolBar
             
             if(self.startMeetingTime != "")
@@ -265,10 +266,13 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 //placeHolderText = "HH:MM AM"
             }
             
+            let endToolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SECreateEventViewController.doneEndTimePicker), cancelSelect: #selector(SECreateEventViewController.cancelPicker))
+            
             endMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
-            endMeetingTimePickerView.addTarget(self, action: #selector(SECreateEventViewController.endTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
-            cell?.txtEndMeetingTime.inputView = endMeetingTimePickerView
-            cell?.txtEndMeetingTime.inputAccessoryView = toolBar
+             cell?.txtEndMeetingTime.inputView = endMeetingTimePickerView
+            cell?.txtEndMeetingTime.tag = 1003
+
+            cell?.txtEndMeetingTime.inputAccessoryView = endToolBar
             
             if(self.endMeetingTime != "")
             {
@@ -332,9 +336,46 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
     }
     
+    //=====ToolBar Method
+    @objc func doneDatePicker() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        self.dateFromDatePicker = dateFormatter.string(from: self.datePickerView.date)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateForService = dateFormatter.string(from: self.datePickerView.date)
+
+        self.tblCreateEvent.reloadData()
+        view.endEditing(true)
+    }
+    @objc func doneStartTimePicker() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        self.startMeetingTime = dateFormatter.string(from: self.startMeetingTimePickerView.date)
+        
+       
+        dateFormatter.dateFormat = "HH:mm:ss"
+        self.startMeetingTimeForService = dateFormatter.string(from: self.startMeetingTimePickerView.date)
+        print(self.startMeetingTimeForService)
+        
+        self.tblCreateEvent.reloadData()
+        view.endEditing(true)
+    }
     
-    
-    @objc func donePicker() {
+    @objc func doneEndTimePicker() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        self.endMeetingTime = dateFormatter.string(from: self.endMeetingTimePickerView.date)
+        
+        dateFormatter.dateFormat = "HH:mm:ss"
+        self.endMeetingTimeForService  = dateFormatter.string(from:  self.endMeetingTimePickerView.date)
+        
+        
         self.tblCreateEvent.reloadData()
         view.endEditing(true)
     }
@@ -342,49 +383,6 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     @objc func cancelPicker() {
         view.endEditing(true)
     }
-    
-    @objc func datePickerValueChanged(sender:UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.medium
-        dateFormatter.timeStyle = DateFormatter.Style.none
-        self.dateFromDatePicker = dateFormatter.string(from: sender.date)
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateForService = dateFormatter.string(from: sender.date)
-
-        
-        print(dateForService)
-    }
-    
-    
-    
-    @objc func startTimePickerValueChanged(sender:UIDatePicker) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        self.startMeetingTime = dateFormatter.string(from: sender.date)
-        
-        dateFormatter.dateFormat = "HH:mm:ss"
-        self.startMeetingTimeForService = dateFormatter.string(from: sender.date)
-
-        print(self.startMeetingTimeForService)
-        
-    }
-    
-    @objc func endTimePickerValueChanged(sender:UIDatePicker) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        self.endMeetingTime = dateFormatter.string(from: sender.date)
-        
-        dateFormatter.dateFormat = "HH:mm:ss"
-        self.endMeetingTimeForService  = dateFormatter.string(from: sender.date)
-
-        print(self.endMeetingTimeForService)
-    }
-
     
     
     @objc func createEventAction() {
@@ -395,16 +393,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
         let bodyDict: [String: String] = ["contentType": "HTML",
                                           "content": "Seven-Eleven Book Meeting room testing - POC."]
-        
-        
-        
-//        let startDict: [String: String] = ["dateTime": "2018-06-16T22:00:00",
-//                                           "timeZone": "India Standard Time"]
-//
-//        let endDict: [String: String] = ["dateTime": "2018-06-16T23:00:00",
-//                                         "timeZone": "India Standard Time"]
-        
-
+  
         let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
                                            "timeZone": "Central Standard Time"]
         
@@ -514,8 +503,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         }
     }
     
-    //Check commit
-    
+   
     
     @objc func textFieldValueChangedAction(textField: UITextField) {
         

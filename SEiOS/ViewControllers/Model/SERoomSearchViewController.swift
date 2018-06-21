@@ -15,11 +15,31 @@ struct MeetingRoomDetails
     var meetingRoomName = ""
     var meetingRoomCapacity = 0
     var availabilityStaus = true
-    
+}
+
+struct  MeetingDetails
+{
+    var meetingDate : Date?//= ""
+    var meetingStartTime : Date?//= ""
+    var meetingEndTime : Date?//= ""
+    var availMeetingRooms: [MeetingRoomDetails]?
 }
 
 protocol  SERoomDetailsDelegate{
     func showMeetingRoomDetails( meetingRoomDetails : MeetingRoomDetails)
+}
+
+protocol SEFilteredRoomDetailsDelegate {
+    func showFilteredMeetingRoomDetails(filteredMeetingRoomArray: [MeetingRoomDetails])
+}
+
+extension SERoomSearchViewController:SEFilteredRoomDetailsDelegate
+{
+    func showFilteredMeetingRoomDetails(filteredMeetingRoomArray: [MeetingRoomDetails]) {
+        print("===filteredMeetingRoomArray  \(filteredMeetingRoomArray)===")
+        self.meetingRoomList = filteredMeetingRoomArray
+        self.availableRoomsInfoTableView.reloadData()
+    }
 }
 
 class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UITableViewDataSource {
@@ -30,6 +50,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
 
     var meetingRoomList = [MeetingRoomDetails]()
     var delegate : SERoomDetailsDelegate!
+    var availableMeetingRoomsList = [MeetingDetails]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +58,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         
       //  Meeting Rooms Details Service Call
         self.serviceForMeetingRoom()
-        //  self.createMeetingRoomList()
+       // self.createMeetingRoomList()
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,7 +78,15 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     
     @IBAction func filterBarButton(_ sender: Any) {
         self.performSegue(withIdentifier: "roomSearch2Filter", sender: nil)
-
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "roomSearch2Filter" {
+            
+            let destinationVc = segue.destination as! SEFilterViewController
+            destinationVc.delegate = self
+            destinationVc.availMeetingRoomsList = self.availableMeetingRoomsList
+        }
     }
    
     
@@ -117,19 +146,51 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
                 let object = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                 if let dictionary = object as? [String: AnyObject] {
                     
-                    
                     let jsonDict = dictionary["meetingTimeSuggestions"] as! [[String : Any]]
-                    let meetingTimeSuggestions = jsonDict[0] as! [String : Any]
-                    let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
-                    
-                    for room in meetingRoomArray {
-                        var meetingRoom = MeetingRoomDetails()
-                        meetingRoom.meetingRoomName = room["displayName"] as! String
-                        meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
-                        meetingRoom.availabilityStaus = true
-                        self.meetingRoomList.append(meetingRoom)
+                   
+                    if let dictionary = object as? [String: AnyObject]
+                    {
+                        
+                        let meetingTimeSuggestionsArray = dictionary["meetingTimeSuggestions"] as! [[String : Any]]
+                        
+                        for item in 0..<meetingTimeSuggestionsArray.count
+                        {
+                            let meetingTimeSuggestions = meetingTimeSuggestionsArray[item] as! [String : Any]
+                            
+                            let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
+                            var availMeetigRooms = [MeetingRoomDetails]()
+                            for room in meetingRoomArray {
+                                //generate meeting room list
+                                var meetingRoom = MeetingRoomDetails()
+                                meetingRoom.meetingRoomName = room["displayName"] as! String
+                                meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
+                                meetingRoom.availabilityStaus = true
+                                availMeetigRooms.append(meetingRoom)
+                            }
+                            let meetingSlot = meetingTimeSuggestions["meetingTimeSlot"]  as! [String : Any]
+                            let startSlot  = meetingSlot["start"] as! [String : Any]
+                            let endSlot  = meetingSlot["end"] as! [String : Any]
+                            let startDateTime = startSlot["dateTime"] as! String
+                            let endDateTime = endSlot["dateTime"] as! String
+                            
+                            
+                            var meetingDetails = MeetingDetails()
+                            meetingDetails.meetingDate = meetingDateAndTime(dateTime: startDateTime).meetingDate
+                            meetingDetails.meetingStartTime = meetingDateAndTime(dateTime: startDateTime).meetingTime
+                            meetingDetails.meetingEndTime = meetingDateAndTime(dateTime: endDateTime).meetingTime
+                            meetingDetails.availMeetingRooms = availMeetigRooms
+                            
+                            self.availableMeetingRoomsList.append(meetingDetails)
+                        }
+                        
+                        self.meetingRoomList = self.availableMeetingRoomsList[0].availMeetingRooms!
+
                     }
                     
+                  //  print(" self.availableMeetingRoomsList : \( self.availableMeetingRoomsList)")
+                    
+                    self.availableRoomsInfoTableView.reloadData()
+
                 }
             } catch {
             }
@@ -137,8 +198,33 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         
     }
     
+   
+    func meetingDateAndTime( dateTime: String) -> (meetingDate:Date, meetingTime:Date)
+    {
+        let _date = formattedDateFromString(dateString: dateTime, withFormat: "dd-MM-yyy")
+        let _time = formattedDateFromString(dateString: dateTime, withFormat: "HH:mm:ss a")
+        print("date : \(_date) time : \(_time)")
+        return(_date!, _time!)
+    }
+    func formattedDateFromString(dateString: String, withFormat format: String) -> Date? {
+        
+        let dateInputFormatter = DateFormatter()
+        dateInputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssssss"
+        dateInputFormatter.timeZone =  TimeZone.current
+
+        if let formattedDate = dateInputFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = format
+            let dateString = outputFormatter.string(from: formattedDate)
+            return outputFormatter.date(from: dateString)
+        }
+        return nil
+    }
+    
     func serviceForMeetingRoom()
     {
+        
+        self.startLoading()
         let urlString = "https://graph.microsoft.com/v1.0/me/findMeetingTimes"
         
         let headerDict = [
@@ -154,6 +240,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
             {
             case .success(_):
                 print("Success")
+                self.stopLoading()
                 if response.result.value != nil{
                     do {
                         let object = try JSONSerialization.jsonObject(with: response.data!, options: .allowFragments)
@@ -164,15 +251,38 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
                             let jsonDict = dictionary["meetingTimeSuggestions"] as? [[String : Any]]
                             if jsonDict != nil {
                                 
-                                let meetingTimeSuggestions = jsonDict![0] as? [String : Any]
-                                let meetingRoomArray =  meetingTimeSuggestions!["locations"] as? [[String : Any]]
-                                for room in meetingRoomArray! {
-                                    var meetingRoom = MeetingRoomDetails()
-                                    meetingRoom.meetingRoomName = room["displayName"] as! String
-                                    meetingRoom.meetingRoomCapacity = meetingTimeSuggestions!["confidence"] as! Int
-                                    meetingRoom.availabilityStaus = true
-                                    self.meetingRoomList.append(meetingRoom)
+                                let meetingTimeSuggestionsArray = dictionary["meetingTimeSuggestions"] as! [[String : Any]]
+                                
+                                for item in 0..<meetingTimeSuggestionsArray.count
+                                {
+                                    let meetingTimeSuggestions = meetingTimeSuggestionsArray[item] as! [String : Any]
+                                    
+                                    let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
+                                    var availMeetigRooms = [MeetingRoomDetails]()
+                                    for room in meetingRoomArray {
+                                        //generate meeting room list
+                                        var meetingRoom = MeetingRoomDetails()
+                                        meetingRoom.meetingRoomName = room["displayName"] as! String
+                                        meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
+                                        meetingRoom.availabilityStaus = true
+                                        availMeetigRooms.append(meetingRoom)
+                                    }
+                                    let meetingSlot = meetingTimeSuggestions["meetingTimeSlot"]  as! [String : Any]
+                                    let startSlot  = meetingSlot["start"] as! [String : Any]
+                                    let endSlot  = meetingSlot["end"] as! [String : Any]
+                                    let startDateTime = startSlot["dateTime"] as! String
+                                    let endDateTime = endSlot["dateTime"] as! String
+                                    
+                                    var meetingDetails = MeetingDetails()
+                                    meetingDetails.meetingDate = self.meetingDateAndTime(dateTime: startDateTime).meetingDate
+                                    meetingDetails.meetingStartTime = self.meetingDateAndTime(dateTime: startDateTime).meetingTime
+                                    meetingDetails.meetingEndTime = self.meetingDateAndTime(dateTime: endDateTime).meetingTime
+                                    meetingDetails.availMeetingRooms = availMeetigRooms
+                                    
+                                    self.availableMeetingRoomsList.append(meetingDetails)
                                 }
+                                
+                                self.meetingRoomList = self.availableMeetingRoomsList[0].availMeetingRooms!
                                 self.availableRoomsInfoTableView.reloadData()
                             }
                             
@@ -182,8 +292,8 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
                 }
                 
             case .failure(_) :
+                self.stopLoading()
                 print("Failure")
-                
                 
             }
             

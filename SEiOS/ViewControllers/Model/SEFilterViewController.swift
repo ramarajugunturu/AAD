@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+
 extension UIButton{
     func roundCorners(_ corners:UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
@@ -17,35 +19,76 @@ extension UIButton{
 }
 
 
-class SEFilterViewController: SEBaseViewController {
+extension UIViewController
+{
+    
+    func addAlert(title:String, alertMsg:String)
+    {
+        let alert = UIAlertController(title: title, message: alertMsg, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+extension String
+{
+    func getPlaceholderString()-> NSMutableAttributedString
+    {
+        var placeHolder = NSMutableAttributedString()
+        placeHolder = NSMutableAttributedString(string: self, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 12)])
+        placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white, range:NSRange(location:0, length:self.count))
+        return placeHolder
+    }
+   
+}
 
+class SEFilterViewController: SEBaseViewController {
+    
     
     @IBOutlet weak var tblBGFadeView: UIView!
     @IBOutlet weak var tblFilterCriteria: UITableView!
     @IBOutlet weak var btnApplyFilter: UIButton!
     
-    let headingArray = [["name": "Available Date", "image": "icon_date"],
-                        ["name": "Available Time", "image": "icon_time"],
-                        ["name": "Capacity", "image": "icon_people"],
-                        ["name": "Location", "image": "icon_location"],
-                        ]
+    var delegate :SEFilteredRoomDetailsDelegate!
+    
+    let headingArray = [
+        ["name": "Floor", "image": "icon_location"],
+        ["name": "Capacity", "image": "icon_people"],
+        ["name": "Available Date", "image": "icon_date"],
+        ["name": "Available Time", "image": "icon_time"]
+    ]
     var datePickerView:UIDatePicker = UIDatePicker()
+    var selectedDate = ""
+    
     var startMeetingTimePickerView:UIDatePicker = UIDatePicker()
+    var selectedStartMeetingTime = ""
+    
     var endMeetingTimePickerView:UIDatePicker = UIDatePicker()
+    var selectedEndMeetingTime = ""
+    
     var capacityPicker = UIPickerView()
     var valueFromCapacityPicker = ""
+    var selectedCapacity = ""
+    
     var locationPicker = UIPickerView()
     var valueFromLocationPicker = ""
+    var selectedLocation = ""
+    
+    var endMeetingTimeForService = ""
+    var startMeetingTimeForService = ""
+    var dateForService = ""
+    
     var capacityArray = ["1-5 people", "1-10 people", "1-20 people", "1-30 people","1-50 people","1-100 people"]
     var locationArray = ["1st Floor", "2nd Floor", "3rd Floor", "4th Floor", "5th Floor"]
+    var availMeetingRoomsList = [MeetingDetails]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureInitiallyView()
         // Do any additional setup after loading the view.
+        print("availMeetingRoomsList : \(availMeetingRoomsList)")
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -58,8 +101,8 @@ class SEFilterViewController: SEBaseViewController {
         self.tblFilterCriteria.backgroundColor = UIColor.clear
         
         OperationQueue.main.addOperation {
-        self.btnApplyFilter.backgroundColor = UIColor(red: 95/255, green: 93/255, blue: 166/255, alpha: 1.0)
-        self.btnApplyFilter.roundCorners([.bottomRight, .bottomLeft], radius: 10)
+            self.btnApplyFilter.backgroundColor = UIColor(red: 95/255, green: 93/255, blue: 166/255, alpha: 1.0)
+            self.btnApplyFilter.roundCorners([.bottomRight, .bottomLeft], radius: 10)
         }
         capacityPicker.dataSource = self
         capacityPicker.delegate = self
@@ -70,14 +113,97 @@ class SEFilterViewController: SEBaseViewController {
         locationPicker.tag = 200
     }
     
-  
     @IBAction func btnBack(_ sender: Any) {
         print("Back")
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func btnApplyFilter(_ sender: Any) {
-        
+
+        if(self.selectedDate == "")
+        {
+           self.addAlert(title: "", alertMsg: "Please select Date")
+        }
+        else if(startMeetingTimeForService == "")
+        {
+            self.addAlert(title: "", alertMsg: "Please select Time")
+        }
+        else{
+            self.filterservice()
+            
+        }
     }
+    
+    var webServiceAPI = SEWebServiceAPI()
+    
+    func filterservice()
+    {
+        let startDict: [String: String] = ["dateTime": "\(selectedDate)T\(startMeetingTimeForService):00",
+            "timeZone": "UTC"]
+        
+        let endDict: [String: String] = ["dateTime": "\(selectedDate)T\(endMeetingTimeForService):00",
+            "timeZone": "UTC"]
+        
+        let param: Parameters = ["timeConstraint":[
+                "activityDomain": "unrestricted",
+                "timeslots": [
+                        [
+                            "start":startDict,
+                            "end":endDict
+                    ]
+                ]
+            ]
+        ]
+        
+        print("param :\(param)")
+        
+         self.startLoading()
+        let url = SEWebserviceClient.filterMeetingURL
+       
+        webServiceAPI.filterMeetingSlots(url: url, parameters: param, onSuccess: { (response) in
+             self.stopLoading()
+            if response is [String : Any]
+            {
+                let responseDict = response as! Dictionary<String,Any>
+                let meetingTimeSuggestionsArray = responseDict["meetingTimeSuggestions"] as! Array<Any>
+                var availMeetigRooms = [MeetingRoomDetails]()
+                for item in 0..<meetingTimeSuggestionsArray.count
+                {
+                    let meetingTimeSuggestions = meetingTimeSuggestionsArray[item] as! [String : Any]
+
+                    let meetingRoomArray =  meetingTimeSuggestions["locations"] as! [[String : Any]]
+                   // var availMeetigRooms = [MeetingRoomDetails]()
+                    for room in meetingRoomArray {
+                        //generate meeting room list
+                        var meetingRoom = MeetingRoomDetails()
+                        meetingRoom.meetingRoomName = room["displayName"] as! String
+                        meetingRoom.meetingRoomCapacity = meetingTimeSuggestions["confidence"] as! Int
+                        meetingRoom.availabilityStaus = true
+                        availMeetigRooms.append(meetingRoom)
+                    }
+                    print("availMeetigRooms :\(availMeetigRooms)")
+                }
+                
+                if(availMeetigRooms.count > 0)
+                {
+                    self.navigationController?.popViewController(animated: true)
+                    self.delegate.showFilteredMeetingRoomDetails(filteredMeetingRoomArray: availMeetigRooms)
+                }
+                else{
+                    
+                    self.addAlert(title: "", alertMsg: "No Suggestion found.")
+                }
+            }
+            else
+            {
+                print("response :Problem")
+            }
+            
+        }) { (error) in
+            print("Error Results:\(error)")
+            self.stopLoading()
+        }
+    }
+    
 }
 
 extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
@@ -111,7 +237,7 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
         cell?.imageView?.image = UIImage(named: titleImage!)
         cell?.lblTitle.text = titleStr
         OperationQueue.main.addOperation {
-            if(indexPath.row == 1)
+            if(indexPath.row == 3)
             {
                 cell?.txtEndMeetingTime.isHidden = false
                 cell?.txtStartMeetingTime.isHidden = false
@@ -127,50 +253,98 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
             }
         }
         
-        
-        
         switch indexPath.row {
         case  0:
-            print("zero")
+            // location Picker
+            var toolbar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.doneLocationPicker), cancelSelect: #selector(SEFilterViewController.cancelPicker))
+            cell?.txtField.tag = 1001
+            cell?.txtField.inputView = locationPicker
+            cell?.txtField.inputAccessoryView = toolbar
             
-            datePickerView.datePickerMode = UIDatePickerMode.date
-            cell?.txtField.inputView = datePickerView
-            datePickerView.addTarget(self, action: #selector(SEFilterViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
-            
-            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.donePicker), cancelSelect: #selector(SEFilterViewController.cancelPicker))
-            
-            cell?.txtField.inputAccessoryView = toolBar
+            if valueFromLocationPicker != ""
+            {
+                cell?.txtField.text = selectedLocation
+                
+            }else{
+                let placeholderString = "Please select floor"
+                cell?.txtField.attributedPlaceholder = placeholderString.getPlaceholderString()
+            }
             
         case  1:
-            var startTimetoolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.donePicker), cancelSelect: #selector(SEFilterViewController.cancelPicker))
-            startTimetoolBar.tag = 20
+            // capacity Picker
+            var toolbar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.doneCapacityPicker(sender:)), cancelSelect: #selector(SEFilterViewController.cancelPicker))
+            cell?.txtField.tag = 1002
+            cell?.txtField.inputView = capacityPicker
+            cell?.txtField.inputAccessoryView = toolbar
+            
+            if valueFromCapacityPicker != ""
+            {
+                cell?.txtField.text = selectedCapacity
+                
+            }else{
+                let placeholderString = "Please select capacity"
+                cell?.txtField.attributedPlaceholder = placeholderString.getPlaceholderString()
+            }
+            
+            
+        case  2:
+            
+            // date Picker
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            cell?.txtField.inputView = datePickerView
+            cell?.txtField.tag = 1003
+            
+            let toolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.doneDatePicker(sender:)), cancelSelect: #selector(SEFilterViewController.cancelPicker))
+            
+            cell?.txtField.inputAccessoryView = toolBar
+            if selectedDate != ""
+            {
+                cell?.txtField.text = "\(selectedDate)"
+                
+            }else{
+                let placeholderString = "Please select date"
+                cell?.txtField.attributedPlaceholder = placeholderString.getPlaceholderString()
+                
+            }
+            
+        case  3:
+            
+            // startTime Picker
+            var startTimetoolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.doneStartTimePicker(sender:)), cancelSelect: #selector(SEFilterViewController.cancelPicker))
+            cell?.txtField.tag = 1004
             
             startMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
-            startMeetingTimePickerView.addTarget(self, action: #selector(SEFilterViewController.startTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
+            startMeetingTimePickerView.minuteInterval = 30
             cell?.txtStartMeetingTime.inputView = startMeetingTimePickerView
             cell?.txtStartMeetingTime.inputAccessoryView = startTimetoolBar
             
+            if selectedStartMeetingTime != ""
+            {
+                cell?.txtStartMeetingTime.text = "\(selectedStartMeetingTime)"
+            }else{
+                let placeholderString = "Start Time"
+                cell?.txtStartMeetingTime.attributedPlaceholder = placeholderString.getPlaceholderString()
+                
+            }
             
-            var endTimetoolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.donePicker), cancelSelect: #selector(SEFilterViewController.cancelPicker))
-            endTimetoolBar.tag = 30
             
+            
+            // endTime Picker
+            var endTimetoolBar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.doneEndTimePicker(sender:)), cancelSelect: #selector(SEFilterViewController.cancelPicker))
             endMeetingTimePickerView.datePickerMode = UIDatePickerMode.time
-            endMeetingTimePickerView.addTarget(self, action: #selector(SEFilterViewController.endTimePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
-            cell?.txtEndMeetingTime.inputView = endMeetingTimePickerView
-            cell?.txtEndMeetingTime.inputAccessoryView = endTimetoolBar
+            endMeetingTimePickerView.minuteInterval = 30
+            // cell?.txtEndMeetingTime.inputView = endMeetingTimePickerView
+           // cell?.txtEndMeetingTime.inputAccessoryView = endTimetoolBar
+            cell?.txtEndMeetingTime.isUserInteractionEnabled = false
+            if selectedEndMeetingTime != ""
+            {
+                cell?.txtEndMeetingTime.text = "\(selectedEndMeetingTime)"
+            }else{
+                let placeholderString = "End Time"
+                cell?.txtEndMeetingTime.attributedPlaceholder = placeholderString.getPlaceholderString()
+            }
             
-        case  2:
-            print("zero")
-            var toolbar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.donePicker), cancelSelect: #selector(SEFilterViewController.cancelPicker))
-            cell?.txtField.inputView = capacityPicker
-            cell?.txtField.inputAccessoryView = toolbar
-
-        case  3:
-            print("zero")
-             var toolbar = UIToolbar().ToolbarPiker(doneSelect: #selector(SEFilterViewController.donePicker), cancelSelect: #selector(SEFilterViewController.cancelPicker))
-            cell?.txtField.inputView = locationPicker
-            cell?.txtField.inputAccessoryView = toolbar
-
+            
         default:
             break
         }
@@ -179,42 +353,93 @@ extension SEFilterViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     
-    
-    @objc func startTimePickerValueChanged(sender:UIDatePicker) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.short
-       let startMeetingTime = dateFormatter.string(from: sender.date)
-        
+    //ToolBar Methods
+    @objc func doneLocationPicker(sender: Any) {
+       
+        self.selectedLocation = valueFromLocationPicker
+        tblFilterCriteria.reloadData()
+        view.endEditing(true)
     }
     
-    @objc func endTimePickerValueChanged(sender:UIDatePicker) {
+    @objc func doneCapacityPicker(sender: Any) {
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        let endMeetingTime = dateFormatter.string(from: sender.date)
-        
-       }
+        self.selectedCapacity = valueFromCapacityPicker
+        tblFilterCriteria.reloadData()
+        view.endEditing(true)
+    }
     
-    @objc func datePickerValueChanged(sender:UIDatePicker) {
+    @objc func doneDatePicker(sender: Any) {
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.medium
         dateFormatter.timeStyle = DateFormatter.Style.none
-        var dateFromDatePicker = dateFormatter.string(from: sender.date)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.selectedDate = dateFormatter.string(from: self.datePickerView.date)
+        tblFilterCriteria.reloadData()
+        view.endEditing(true)
+    }
+    @objc func doneStartTimePicker(sender: Any) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        dateFormatter.timeZone =  TimeZone.current
+        
+        //======formate the start and end time with 30 min difference=======
+        let pickedDate = self.startMeetingTimePickerView.date
+        let components = Calendar.current.dateComponents([.hour, .minute], from: pickedDate)
+        let minute = components.minute!
+        print("minute : \(minute)")
+        if(minute > 0 && minute < 30 )
+        {
+            let diff:Float = Float(minute)
+            let _date = (self.startMeetingTimePickerView.date).addingTimeInterval(TimeInterval(-diff * 60.0))
+            self.selectedStartMeetingTime = dateFormatter.string(from: _date)
+           
+            let endDate = (_date).addingTimeInterval(TimeInterval(30.0 * 60.0))
+            self.selectedEndMeetingTime = dateFormatter.string(from: endDate)
+
+            dateFormatter.dateFormat = "HH:mm"
+            self.startMeetingTimeForService = dateFormatter.string(from: _date)
+            self.endMeetingTimeForService  = dateFormatter.string(from: endDate)
+        }
+        else if (minute > 30 && minute < 60 )
+        {
+            let diff:Float = Float(minute - 30)
+            let _date = (self.startMeetingTimePickerView.date).addingTimeInterval(TimeInterval(-diff * 60.0))
+            self.selectedStartMeetingTime = dateFormatter.string(from: _date)
+
+            let endDate = (_date).addingTimeInterval(TimeInterval(30.0 * 60.0))
+            self.selectedEndMeetingTime = dateFormatter.string(from: endDate)
+
+            dateFormatter.dateFormat = "HH:mm"
+            self.startMeetingTimeForService = dateFormatter.string(from: _date)
+            self.endMeetingTimeForService  = dateFormatter.string(from: endDate)
+        }
+        //===============================================================================
+        
+        tblFilterCriteria.reloadData()
+        view.endEditing(true)
     }
     
-    @objc func donePicker(sender: Any) {
-//        self.tblCreateEvent.reloadData()
-        print("tag : \((sender as AnyObject).tag)")
+    @objc func doneEndTimePicker(sender: Any) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        self.selectedEndMeetingTime = dateFormatter.string(from: self.endMeetingTimePickerView.date)
+        
+        dateFormatter.dateFormat = "HH:mm:ss"
+        self.endMeetingTimeForService  = dateFormatter.string(from:  self.endMeetingTimePickerView.date)
+        
+        tblFilterCriteria.reloadData()
         view.endEditing(true)
     }
     
     @objc func cancelPicker(sender: Any) {
-        print("tag : \((sender as AnyObject).tag)")
         view.endEditing(true)
     }
+    
 }
 
 
@@ -235,7 +460,7 @@ extension SEFilterViewController : UIPickerViewDelegate, UIPickerViewDataSource
         
         if (pickerView.tag == 100)
         {
-          pickerValue = self.capacityArray[row]
+            pickerValue = self.capacityArray[row]
         }
         else{
             pickerValue = self.locationArray[row]
