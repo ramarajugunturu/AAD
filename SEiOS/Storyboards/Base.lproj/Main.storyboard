@@ -185,7 +185,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconPlaceHolder.png" translatesAutoresizingMaskIntoConstraints="NO" id="VQE-68-TMy">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default_profile" translatesAutoresizingMaskIntoConstraints="NO" id="VQE-68-TMy">
                                 <rect key="frame" x="152" y="99" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="9Un-Ba-y4e"/>
@@ -647,10 +647,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppIconPlaceHolder.png" width="180" height="180"/>
         <image name="download" width="185" height="203"/>
         <image name="icon_back" width="20" height="17"/>
         <image name="icon_create_event" width="18" height="18"/>
+        <image name="icon_default_profile" width="100" height="100"/>
         <image name="icon_filter" width="17" height="16"/>
         <image name="icon_my_bookings" width="18" height="18"/>
         <image name="icon_my_contacts" width="15" height="18"/>

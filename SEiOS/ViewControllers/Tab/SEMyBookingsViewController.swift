@@ -51,7 +51,7 @@ class SEMyBookingsViewController: SEBaseViewController {
         viewMeetingDetails.layer.cornerRadius = 10
         viewMeetingDetails.clipsToBounds = true
         
-        imgProfilePic.image = UIImage(named: "icon_people")
+        imgProfilePic.image = UIImage(named: "icon_default_profile")
         lblUsername.text = username
         lblUserDesignation.text = "Software Engineer"
         lblMeetingDetails.text = "Welcome back, \(username!)!\nYou have a meeting today at 11:30 AM in Jupiter. You will be joined by 3 people"
