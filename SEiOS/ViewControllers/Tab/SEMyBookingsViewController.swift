@@ -23,8 +23,12 @@ class SEMyBookingsViewController: SEBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureInitiallyView()
+//        self.configureInitiallyView()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        configureInitiallyView()
     }
 
     override func didReceiveMemoryWarning() {
