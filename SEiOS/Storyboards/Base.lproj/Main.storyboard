@@ -122,8 +122,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search users" translatesAutoresizingMaskIntoConstraints="NO" id="INf-fD-tiS">
+                                <rect key="frame" x="0.0" y="70" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="lkt-TR-dJh"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="XgM-G0-Bn6" id="6I3-Lu-WkS"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LBW-1h-UAE">
-                                <rect key="frame" x="0.0" y="60" width="375" height="558"/>
+                                <rect key="frame" x="0.0" y="110" width="375" height="508"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="XgM-G0-Bn6" id="22v-yW-PBB"/>
@@ -145,16 +155,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2sq-F7-Am2" firstAttribute="top" secondItem="wRW-o2-DOi" secondAttribute="top" constant="5" id="2EV-WY-5RT"/>
+                            <constraint firstItem="INf-fD-tiS" firstAttribute="trailing" secondItem="wRW-o2-DOi" secondAttribute="trailing" id="9yC-JQ-gXV"/>
                             <constraint firstItem="LBW-1h-UAE" firstAttribute="leading" secondItem="wRW-o2-DOi" secondAttribute="leading" id="Cme-PN-UWA"/>
+                            <constraint firstItem="INf-fD-tiS" firstAttribute="leading" secondItem="wRW-o2-DOi" secondAttribute="leading" id="Iui-zD-Wxa"/>
                             <constraint firstItem="wRW-o2-DOi" firstAttribute="bottom" secondItem="LBW-1h-UAE" secondAttribute="bottom" id="TZV-hS-baT"/>
                             <constraint firstAttribute="trailing" secondItem="LBW-1h-UAE" secondAttribute="trailing" id="lYs-YF-ggi"/>
                             <constraint firstItem="2sq-F7-Am2" firstAttribute="leading" secondItem="wRW-o2-DOi" secondAttribute="leading" constant="20" id="qXI-AF-nmT"/>
-                            <constraint firstItem="LBW-1h-UAE" firstAttribute="top" secondItem="wRW-o2-DOi" secondAttribute="top" constant="40" id="vBc-wZ-Var"/>
+                            <constraint firstItem="LBW-1h-UAE" firstAttribute="top" secondItem="wRW-o2-DOi" secondAttribute="top" constant="90" id="vBc-wZ-Var"/>
+                            <constraint firstItem="LBW-1h-UAE" firstAttribute="top" secondItem="INf-fD-tiS" secondAttribute="bottom" id="xur-Uk-yhB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wRW-o2-DOi"/>
                     </view>
                     <connections>
                         <outlet property="AttendeesTable" destination="LBW-1h-UAE" id="bwj-ZO-NxI"/>
+                        <outlet property="searchBar" destination="INf-fD-tiS" id="zD9-7b-aZi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uy-TI-Gkb" userLabel="First Responder" sceneMemberID="firstResponder"/>

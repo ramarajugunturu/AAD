@@ -14,8 +14,11 @@ protocol UpdateAttendeeListDelegate {
 }
 class SEAttendeesListViewController: SEBaseViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var AttendeesTable: UITableView!
     var userDataSource = Array<SEAttendeeUserModel>()
+    var filtered = Array<SEAttendeeUserModel>()
+    var searchActive : Bool = false
     var delegate : UpdateAttendeeListDelegate!
     var selectedAttendee = Array<SEAttendeeUserModel>()
     var webServiceAPI = SEWebServiceAPI()
@@ -82,6 +85,9 @@ class SEAttendeesListViewController: SEBaseViewController {
 
 extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(searchActive) {
+            return filtered.count
+        }
         return userDataSource.count
     }
     
@@ -97,8 +103,13 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
         cell?.contentView.backgroundColor = UIColor.clear
         cell?.layer.backgroundColor = UIColor.clear.cgColor
         cell?.selectionStyle = .none
-        let obbject = userDataSource[indexPath.row]
-        cell?.configureCell(name: obbject.displayName)
+        if(searchActive){
+            let obbject = filtered[indexPath.row]
+            cell?.configureCell(name: obbject.displayName)
+        } else {
+            let obbject = userDataSource[indexPath.row]
+            cell?.configureCell(name: obbject.displayName)
+        }
         return cell!
     }
     
@@ -129,4 +140,46 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
         }
     }
 
+}
+
+extension SEAttendeesListViewController: UISearchBarDelegate{
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchString = searchText.trimWhiteSpace()
+        if searchString != "", searchString.count > 0 {
+            let filterData = userDataSource.filter {
+                return $0.displayName?.range(of: searchString, options: .caseInsensitive) != nil
+            }
+            filtered.removeAll()
+            filtered = filterData
+        }
+        if(filtered.count == 0){
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        self.AttendeesTable.reloadData()
+    }
+}
+
+extension String {
+    func trimWhiteSpace() -> String {
+        let string = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        return string
+    }
 }
