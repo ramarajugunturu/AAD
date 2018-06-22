@@ -25,11 +25,15 @@ class SECreateEventTableViewCell: UITableViewCell {
     @IBOutlet weak var txtEndMeetingTime: UITextField!
     @IBOutlet weak var txtStartMeetingTime: UITextField!
     @IBOutlet weak var lblMeetingInterval: UILabel!
+   
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         btnAdd.isHidden = true
         switchToggleday.isHidden = true
+        switchToggleday.isOn = false
         btnAddAttendees.isHidden = true
        
     }
