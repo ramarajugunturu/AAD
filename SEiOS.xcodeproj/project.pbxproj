@@ -39,6 +39,8 @@
 		D2D1D1CC20D3E14700766351 /* SEAttendeesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1CB20D3E14700766351 /* SEAttendeesListViewController.swift */; };
 		D2D1D1CF20D3E2B400766351 /* SEAttendeesListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D1D1CD20D3E2B400766351 /* SEAttendeesListCell.xib */; };
 		D2D1D1D020D3E2B400766351 /* SEAttendeesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1D1CE20D3E2B400766351 /* SEAttendeesListCell.swift */; };
+		EF98358320DCE2BF00353C72 /* SECreateEventDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF98358120DCE2BE00353C72 /* SECreateEventDatePickerTableViewCell.swift */; };
+		EF98358420DCE2BF00353C72 /* SECreateEventDatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF98358220DCE2BE00353C72 /* SECreateEventDatePickerTableViewCell.xib */; };
 		F589B8CB20D918D1004A3A18 /* SEAttendeeUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F589B8CA20D918D1004A3A18 /* SEAttendeeUserModel.swift */; };
 		F589B8D020DA6887004A3A18 /* SEMyMeetingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F589B8CE20DA6887004A3A18 /* SEMyMeetingsCell.swift */; };
 		F589B8D120DA6887004A3A18 /* SEMyMeetingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F589B8CF20DA6887004A3A18 /* SEMyMeetingsCell.xib */; };
@@ -106,6 +108,8 @@
 		D2D1D1CD20D3E2B400766351 /* SEAttendeesListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SEAttendeesListCell.xib; sourceTree = "<group>"; };
 		D2D1D1CE20D3E2B400766351 /* SEAttendeesListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEAttendeesListCell.swift; sourceTree = "<group>"; };
 		D37B88C6C5AC4F9A0564C21B /* Pods-SEiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOSTests/Pods-SEiOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		EF98358120DCE2BE00353C72 /* SECreateEventDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SECreateEventDatePickerTableViewCell.swift; sourceTree = "<group>"; };
+		EF98358220DCE2BE00353C72 /* SECreateEventDatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SECreateEventDatePickerTableViewCell.xib; sourceTree = "<group>"; };
 		F589B8CA20D918D1004A3A18 /* SEAttendeeUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEAttendeeUserModel.swift; path = SEiOS/Views/TblViewCells/AttendeesCell/SEAttendeeUserModel.swift; sourceTree = SOURCE_ROOT; };
 		F589B8CE20DA6887004A3A18 /* SEMyMeetingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEMyMeetingsCell.swift; sourceTree = "<group>"; };
 		F589B8CF20DA6887004A3A18 /* SEMyMeetingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SEMyMeetingsCell.xib; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 			children = (
 				52B679D020D13F5C001D58E8 /* SECreateEventTableViewCell.swift */,
 				52B679D120D13F5C001D58E8 /* SECreateEventTableViewCell.xib */,
+				EF98358120DCE2BE00353C72 /* SECreateEventDatePickerTableViewCell.swift */,
+				EF98358220DCE2BE00353C72 /* SECreateEventDatePickerTableViewCell.xib */,
 			);
 			path = CreateEventCell;
 			sourceTree = "<group>";
@@ -462,6 +468,7 @@
 				D2D1D1CF20D3E2B400766351 /* SEAttendeesListCell.xib in Resources */,
 				F589B8D120DA6887004A3A18 /* SEMyMeetingsCell.xib in Resources */,
 				D2D1D1BD20D1205B00766351 /* SERoomSearchTableViewCell.xib in Resources */,
+				EF98358420DCE2BF00353C72 /* SECreateEventDatePickerTableViewCell.xib in Resources */,
 				D23D1DCD20C4FF5F00022CD2 /* LaunchScreen.storyboard in Resources */,
 				D23D1DCA20C4FF5F00022CD2 /* Assets.xcassets in Resources */,
 				52B679D320D13F5C001D58E8 /* SECreateEventTableViewCell.xib in Resources */,
@@ -596,6 +603,7 @@
 				D2D1D1B720D110F400766351 /* SEFilterViewController.swift in Sources */,
 				D2D1D1B320D10D7F00766351 /* SERoomSearchViewController.swift in Sources */,
 				F589B8D320DA6F9E004A3A18 /* SEMyMeetingModel.swift in Sources */,
+				EF98358320DCE2BF00353C72 /* SECreateEventDatePickerTableViewCell.swift in Sources */,
 				52B679DA20D3A752001D58E8 /* SEGlobalConstant.swift in Sources */,
 				D2D1D1A920D0E15000766351 /* SEBaseViewController.swift in Sources */,
 				D2D1D1C220D2259900766351 /* SEViewControllerSwitcher.swift in Sources */,
