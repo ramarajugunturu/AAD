@@ -85,7 +85,7 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     let eventHeadingArray2 =  [
         ["name": "Select People", "image": "icon_people"]]
     let eventHeadingArray3 = [ ["name": "Description", "image": "icon_description"],
-                               ["name": "All-day Event", "image": ""],
+                               ["name": "All-day Event", "image": "icon_time"],
                                ["name": "Event Title", "image": "icon_event_title"],
                                ["name": "Repeat", "image": "icon_repeat"],
                                ["name": "Alert", "image": "icon_alert"]

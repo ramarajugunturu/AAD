@@ -244,12 +244,21 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         
         print("headerDict : \(headerDict)")
         
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: date)
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let startDate = "\(dateString)T\(hour):00:00"
+        let endDate = "\(dateString)T\(hour):30:00"
+       
+        let startDict: [String: String] = ["dateTime": startDate,
+                                           "timeZone": "UTC"]
         
-        let startDict: [String: String] = ["dateTime": "2018-06-22T17:00:00",
-            "timeZone": "UTC"]
+        let endDict: [String: String] = ["dateTime": endDate,
+                                         "timeZone": "UTC"]
         
-        let endDict: [String: String] = ["dateTime": "2018-06-22T17:30:00",
-            "timeZone": "UTC"]
         
         let param: Parameters = ["timeConstraint":[
             "activityDomain": "unrestricted",
@@ -261,8 +270,6 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
             ]
             ]
         ]
-        
-        
         
         print("param :\(param)")
         
