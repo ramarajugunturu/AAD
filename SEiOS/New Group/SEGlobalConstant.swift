@@ -9,6 +9,7 @@
 import Foundation
 
 var username : String!
+var nextLink : String!
 
 struct SEWebserviceClient {
     static let eventURL = "https://graph.microsoft.com/v1.0/me/events"

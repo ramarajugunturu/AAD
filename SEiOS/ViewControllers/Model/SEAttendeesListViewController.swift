@@ -80,6 +80,26 @@ class SEAttendeesListViewController: SEBaseViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    func getOtherUserDetails() {
+        if nextLink != nil {
+            self.startLoading()
+            webServiceAPI.getAttendeesList(url: nextLink, onSuccess: { (result) in
+                self.stopLoading()
+                if result is Array<SEAttendeeUserModel>{
+                    for item in result as! [SEAttendeeUserModel]{
+                        self.userDataSource.append(item)
+                        self.AttendeesTable.reloadData()
+                    }
+                }else{
+                    
+                }
+            }) { (error) in
+                self.stopLoading()
+            }
+        }
+        
+    }
 
 }
 
@@ -103,6 +123,9 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
         cell?.contentView.backgroundColor = UIColor.clear
         cell?.layer.backgroundColor = UIColor.clear.cgColor
         cell?.selectionStyle = .none
+        if indexPath.row == userDataSource.count-1 {
+            getOtherUserDetails()
+        }
         if(searchActive){
             let obbject = filtered[indexPath.row]
             cell?.configureCell(name: obbject.displayName)
