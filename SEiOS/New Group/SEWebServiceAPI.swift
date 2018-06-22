@@ -228,6 +228,7 @@ class SEWebServiceAPI: NSObject {
                             {
                                 var userDataSource = Array<SEAttendeeUserModel>()
                                 let jsonDict = json as! Dictionary<String, Any>
+                                nextLink = jsonDict["@odata.nextLink"] as? String
                                 let value = jsonDict["value"] as? Array<Any>
                                 if value != nil {
                                     for item in value! {

@@ -14,8 +14,11 @@ protocol UpdateAttendeeListDelegate {
 }
 class SEAttendeesListViewController: SEBaseViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var AttendeesTable: UITableView!
     var userDataSource = Array<SEAttendeeUserModel>()
+    var filtered = Array<SEAttendeeUserModel>()
+    var searchActive : Bool = false
     var delegate : UpdateAttendeeListDelegate!
     var selectedAttendee = Array<SEAttendeeUserModel>()
     var webServiceAPI = SEWebServiceAPI()
@@ -77,11 +80,34 @@ class SEAttendeesListViewController: SEBaseViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    func getOtherUserDetails() {
+        if nextLink != nil {
+            self.startLoading()
+            webServiceAPI.getAttendeesList(url: nextLink, onSuccess: { (result) in
+                self.stopLoading()
+                if result is Array<SEAttendeeUserModel>{
+                    for item in result as! [SEAttendeeUserModel]{
+                        self.userDataSource.append(item)
+                        self.AttendeesTable.reloadData()
+                    }
+                }else{
+                    
+                }
+            }) { (error) in
+                self.stopLoading()
+            }
+        }
+        
+    }
 
 }
 
 extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(searchActive) {
+            return filtered.count
+        }
         return userDataSource.count
     }
     
@@ -97,8 +123,16 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
         cell?.contentView.backgroundColor = UIColor.clear
         cell?.layer.backgroundColor = UIColor.clear.cgColor
         cell?.selectionStyle = .none
-        let obbject = userDataSource[indexPath.row]
-        cell?.configureCell(name: obbject.displayName)
+        if indexPath.row == userDataSource.count-1 {
+            getOtherUserDetails()
+        }
+        if(searchActive){
+            let obbject = filtered[indexPath.row]
+            cell?.configureCell(name: obbject.displayName)
+        } else {
+            let obbject = userDataSource[indexPath.row]
+            cell?.configureCell(name: obbject.displayName)
+        }
         return cell!
     }
     
@@ -107,26 +141,96 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .none
-            let obbj = userDataSource[indexPath.row]
-           
-            if selectedAttendee.contains(where: { $0.id == obbj.id }) {
-                if let index = selectedAttendee.index(where: {$0.id == obbj.id}) {
-                    selectedAttendee.remove(at: index)
-                    print(selectedAttendee.count)
+        if searchActive
+        {
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .none
+                let obbj = filtered[indexPath.row]
+                
+                if selectedAttendee.contains(where: { $0.id == obbj.id }) {
+                    if let index = selectedAttendee.index(where: {$0.id == obbj.id}) {
+                        selectedAttendee.remove(at: index)
+                        print(selectedAttendee.count)
+                    }
+                } else {
+                    // not
                 }
-            } else {
-                // not
+            }
+        } else{
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .none
+                let obbj = userDataSource[indexPath.row]
+                
+                if selectedAttendee.contains(where: { $0.id == obbj.id }) {
+                    if let index = selectedAttendee.index(where: {$0.id == obbj.id}) {
+                        selectedAttendee.remove(at: index)
+                        print(selectedAttendee.count)
+                    }
+                } else {
+                    // not
+                }
             }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .checkmark
-            self.selectedAttendee.append(userDataSource[indexPath.row])
+        
+        if searchActive {
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .checkmark
+                self.selectedAttendee.append(filtered[indexPath.row])
+            }
         }
+        else{
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .checkmark
+                self.selectedAttendee.append(userDataSource[indexPath.row])
+            }
+        }
+        
     }
 
+}
+
+extension SEAttendeesListViewController: UISearchBarDelegate{
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchString = searchText.trimWhiteSpace()
+        if searchString != "", searchString.count > 0 {
+            let filterData = userDataSource.filter {
+                return $0.displayName?.range(of: searchString, options: .caseInsensitive) != nil
+            }
+            filtered.removeAll()
+            filtered = filterData
+        }
+        if(filtered.count == 0){
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        self.AttendeesTable.reloadData()
+    }
+}
+
+extension String {
+    func trimWhiteSpace() -> String {
+        let string = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        return string
+    }
 }
