@@ -141,26 +141,54 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .none
-            let obbj = userDataSource[indexPath.row]
-           
-            if selectedAttendee.contains(where: { $0.id == obbj.id }) {
-                if let index = selectedAttendee.index(where: {$0.id == obbj.id}) {
-                    selectedAttendee.remove(at: index)
-                    print(selectedAttendee.count)
+        if searchActive
+        {
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .none
+                let obbj = filtered[indexPath.row]
+                
+                if selectedAttendee.contains(where: { $0.id == obbj.id }) {
+                    if let index = selectedAttendee.index(where: {$0.id == obbj.id}) {
+                        selectedAttendee.remove(at: index)
+                        print(selectedAttendee.count)
+                    }
+                } else {
+                    // not
                 }
-            } else {
-                // not
+            }
+        } else{
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .none
+                let obbj = userDataSource[indexPath.row]
+                
+                if selectedAttendee.contains(where: { $0.id == obbj.id }) {
+                    if let index = selectedAttendee.index(where: {$0.id == obbj.id}) {
+                        selectedAttendee.remove(at: index)
+                        print(selectedAttendee.count)
+                    }
+                } else {
+                    // not
+                }
             }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .checkmark
-            self.selectedAttendee.append(userDataSource[indexPath.row])
+        
+        if searchActive {
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .checkmark
+                self.selectedAttendee.append(filtered[indexPath.row])
+            }
         }
+        else{
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .checkmark
+                self.selectedAttendee.append(userDataSource[indexPath.row])
+            }
+        }
+        
     }
 
 }
