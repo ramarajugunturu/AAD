@@ -123,12 +123,16 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
         cell?.contentView.backgroundColor = UIColor.clear
         cell?.layer.backgroundColor = UIColor.clear.cgColor
         cell?.selectionStyle = .none
+        cell?.accessoryType = .none
         if indexPath.row == userDataSource.count-1 {
             getOtherUserDetails()
         }
         if(searchActive){
-            let obbject = filtered[indexPath.row]
-            cell?.configureCell(name: obbject.displayName)
+            if indexPath.row <= filtered.count{
+                let obbject = filtered[indexPath.row]
+                cell?.configureCell(name: obbject.displayName)
+            }
+            
         } else {
             let obbject = userDataSource[indexPath.row]
             cell?.configureCell(name: obbject.displayName)
@@ -180,6 +184,9 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .checkmark
                 self.selectedAttendee.append(filtered[indexPath.row])
+            }else{
+                let cell = tableView.cellForRow(at: indexPath)
+                cell?.accessoryType = .none
             }
         }
         else{
@@ -187,6 +194,11 @@ extension SEAttendeesListViewController : UITableViewDelegate, UITableViewDataSo
                 cell.accessoryType = .checkmark
                 self.selectedAttendee.append(userDataSource[indexPath.row])
             }
+                else{
+                    let cell = tableView.cellForRow(at: indexPath)
+                    cell?.accessoryType = .none
+                }
+            
         }
         
     }
