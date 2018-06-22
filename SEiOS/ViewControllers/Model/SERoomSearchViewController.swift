@@ -253,12 +253,18 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         let startDate = "\(dateString)T\(hour):00:00"
         let endDate = "\(dateString)T\(hour):30:00"
        
-        let startDict: [String: String] = ["dateTime": startDate,
+//        let startDict: [String: String] = ["dateTime": startDate,
+//                                           "timeZone": "UTC"]
+//
+//        let endDict: [String: String] = ["dateTime": endDate,
+//                                         "timeZone": "UTC"]
+//
+        
+        let startDict: [String: String] = ["dateTime": "2018-06-22T17:00:00",
                                            "timeZone": "UTC"]
         
-        let endDict: [String: String] = ["dateTime": endDate,
+        let endDict: [String: String] = ["dateTime": "2018-06-27T17:30:00",
                                          "timeZone": "UTC"]
-        
         
         let param: Parameters = ["timeConstraint":[
             "activityDomain": "unrestricted",
