@@ -9,6 +9,17 @@
 import UIKit
 import Alamofire
 
+extension UISearchBar
+{
+    func setPlaceholderTextColorTo(color: UIColor)
+    {
+        let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = color
+        let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
+        textFieldInsideSearchBarLabel?.textColor = color
+    }
+}
+
 protocol UpdateAttendeeListDelegate {
     func updateAttendeesList(list : Array<Any>)
 }
@@ -25,6 +36,8 @@ class SEAttendeesListViewController: SEBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserDetails()
+        searchBar.setPlaceholderTextColorTo(color: UIColor.white)
+
         self.setBackGroundGradient()
         // Do any additional setup after loading the view.
     }
