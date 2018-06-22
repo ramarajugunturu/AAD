@@ -99,6 +99,8 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     var webServiceAPI = SEWebServiceAPI()
     var attendeeList = [EmailAddress]()
     var eventTitle = ""
+    var eventDescription = "Seven-Eleven Book Meeting room testing - POC."
+
     var startMeetingTimeForService = ""
     var endMeetingTimeForService = ""
     var dateForService = ""
@@ -451,6 +453,9 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 placeHolderText = "Write your description here"
                 cell?.txtField.isUserInteractionEnabled = true
                 cell?.txtField.text = ""
+                cell?.txtField.tag = 100
+                cell?.txtField.addTarget(self, action: #selector(textFieldValueChangedAction(textField:)), for: .editingDidEnd)
+                
                 break
                 
             case 1:
@@ -558,67 +563,16 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         view.endEditing(true)
     }
     
-
-//
-//    @objc func doneDatePicker() {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = DateFormatter.Style.medium
-//        dateFormatter.timeStyle = DateFormatter.Style.none
-//        self.dateFromDatePicker = dateFormatter.string(from: self.datePickerView.date)
-//
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateForService = dateFormatter.string(from: self.datePickerView.date)
-//
-//        self.tblCreateEvent.reloadData()
-//        view.endEditing(true)
-//    }
-//    @objc func doneStartTimePicker() {
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = DateFormatter.Style.none
-//        dateFormatter.timeStyle = DateFormatter.Style.short
-//        self.startMeetingTime = dateFormatter.string(from: self.startMeetingTimePickerView.date)
-//
-//        dateFormatter.dateFormat = "HH:mm:ss"
-//        self.startMeetingTimeForService = dateFormatter.string(from: self.startMeetingTimePickerView.date)
-//        print(self.startMeetingTimeForService)
-//
-//        self.tblCreateEvent.reloadData()
-//        view.endEditing(true)
-//    }
-//
-//    @objc func doneEndTimePicker() {
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = DateFormatter.Style.none
-//        dateFormatter.timeStyle = DateFormatter.Style.short
-//        self.endMeetingTime = dateFormatter.string(from: self.endMeetingTimePickerView.date)
-//
-//        dateFormatter.dateFormat = "HH:mm:ss"
-//        self.endMeetingTimeForService  = dateFormatter.string(from:  self.endMeetingTimePickerView.date)
-//
-//
-//        self.tblCreateEvent.reloadData()
-//        view.endEditing(true)
-//    }
-//
-    
     @objc func createEventAction() {
         print("Add event!!")
         
         self.startLoading()
         let url = SEWebserviceClient.eventURL
         
+        print("eventDescription :\(eventDescription)")
+        
         let bodyDict: [String: String] = ["contentType": "HTML",
-                                          "content": "Seven-Eleven Book Meeting room testing - POC."]
-        
-        
-        
-        //        let startDict: [String: String] = ["dateTime": "2018-06-16T22:00:00",
-        //                                           "timeZone": "India Standard Time"]
-        //
-        //        let endDict: [String: String] = ["dateTime": "2018-06-16T23:00:00",
-        //                                         "timeZone": "India Standard Time"]
+                                          "content": "\(eventDescription)"]
         
         
         let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
@@ -746,6 +700,11 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
         if textField.tag == 2 {
             self.eventTitle = textField.text!
+        }
+        
+        if textField.tag == 100
+        {
+            self.eventDescription = textField.text!
         }
     }
     
@@ -882,7 +841,7 @@ extension SECreateEventViewController {
         
         let calendar = Calendar.current
         
-        let interval = 60
+        let interval = 30//60
         var nextDiff = interval - calendar.component(.minute, from: currentDate) % interval
         var nextDate = calendar.date(byAdding: .minute, value: nextDiff, to: currentDate) ?? Date()
         
