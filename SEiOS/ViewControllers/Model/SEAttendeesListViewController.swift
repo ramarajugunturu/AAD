@@ -219,6 +219,7 @@ extension SEAttendeesListViewController: UISearchBarDelegate{
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
         searchActive = false
     }
     
