@@ -23,7 +23,7 @@ class SEMyBookingsViewController: SEBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.configureInitiallyView()
+        getProfilePicture()
         // Do any additional setup after loading the view.
     }
     
@@ -66,11 +66,28 @@ class SEMyBookingsViewController: SEBaseViewController {
                 self.tblUpcomingMeetings.reloadData()
                 self.stopLoading()
             }else{
-                print("KUCH TO HO GYA")
                 self.stopLoading()
             }
         }) { (error) in
             print("ERROR")
+            self.stopLoading()
+        }
+    }
+    
+    func getProfilePicture() {
+        self.startLoading()
+        let url = SEWebserviceClient.myProfilePictureURL
+        webServiceAPI.getProfilePicture(url: url, onSuccess: { (response) in
+            if response is UIImage {
+                DispatchQueue.main.async {
+                    self.imgProfilePic.image = response as! UIImage
+                }
+            }else{
+                DispatchQueue.main.async {
+                    self.imgProfilePic.image = UIImage(named: "icon_default_profile")
+                }
+            }
+        }) { (error) in
             self.stopLoading()
         }
     }

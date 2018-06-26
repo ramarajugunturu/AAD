@@ -16,6 +16,7 @@ struct SEWebserviceClient {
     static let filterMeetingURL = "https://graph.microsoft.com/v1.0/me/findMeetingTimes"
     static let attendeesListURL = "https://graph.microsoft.com/v1.0/users?$orderby=displayName"
     static let myMeetingListURL = "https://graph.microsoft.com/v1.0/me/calendar/events"
+    static let myProfilePictureURL = "https://graph.microsoft.com/beta/me/photo/$value"
 }
 
 func getDate(dateString : String) -> String{

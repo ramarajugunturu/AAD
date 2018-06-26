@@ -350,6 +350,36 @@ class SEWebServiceAPI: NSObject {
         })
         
     }
+    
+    func getProfilePicture(url:String, onSuccess:@escaping(_ response: Any) ->Void, onError:@escaping(_ error:NSError)->Void) {
+        let headers: HTTPHeaders = ["Content-Type": SEStoreSharedManager.sharedInstance.jsonContentType,
+                                    "Authorization": "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
+        Alamofire.request(url, method: HTTPMethod.get, parameters: nil , encoding: JSONEncoding.default, headers: headers).responseString(completionHandler:{
+            response in
+            if response.response != nil
+            {
+                if response.result.isSuccess {
+                    if let data = response.data
+                    {
+                        if let img = UIImage(data: data) {
+                            onSuccess(img)
+                        }else{
+                           onSuccess("No image found.")
+                        }
+                        
+                    }
+                }//failure
+                else{
+                    onError(response.result.error! as NSError)
+                }
+            }
+            else
+            {
+                onError(response.result.error! as NSError)
+            }
+        })
+        
+    }
 }
 
 
