@@ -38,9 +38,13 @@ class SEMyBookingsViewController: SEBaseViewController {
     
     func configureInitiallyView()
     {
-        if userProfilePicture != nil{
+        if let profilePicture = userProfilePicture{
             DispatchQueue.main.async {
-                self.imgProfilePic.image = userProfilePicture
+                self.imgProfilePic.image = profilePicture
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.imgProfilePic.image = UIImage(named: "icon_default_profile")
             }
         }
         self.setBackGroundGradient()

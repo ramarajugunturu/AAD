@@ -72,6 +72,7 @@ class SESettingsViewController: SEBaseViewController {
             //self.loggingText.text = ""
             print("Successfully sign-out")
             username = ""
+            userProfilePicture = nil
             UserDefaults.standard.set(false, forKey: "status")
             SEViewControllerSwitcher.updateRootVC()
 

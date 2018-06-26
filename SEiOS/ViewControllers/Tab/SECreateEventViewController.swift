@@ -84,7 +84,7 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
          ["name": "Select Date And Time", "image": "icon_date"]]
     let eventHeadingArray2 =  [
         ["name": "Select People", "image": "icon_people"]]
-    let eventHeadingArray3 = [ ["name": "Description", "image": "icon_description"],
+    var eventHeadingArray3 = [ ["name": "Description", "image": "icon_description"],
                                ["name": "All-day Event", "image": "icon_time"],
                                ["name": "Event Title", "image": "icon_event_title"],
                                ["name": "Repeat", "image": "icon_repeat"],
@@ -112,9 +112,13 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     var startMeetingTimePickerView:UIDatePicker = UIDatePicker()
     var endMeetingTimePickerView:UIDatePicker = UIDatePicker()
     
+    var recurrenceDueDate:UIDatePicker = UIDatePicker()
+    
     var dateFromDatePicker = ""
     var startMeetingTime = ""
     var endMeetingTime = ""
+    var recurrenceDueDateString = ""
+    var serviceRecurrenceDueDateString = ""
     
     
     //Varibles from Custome Date Picker
@@ -134,6 +138,14 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let date = Date()
+        let calender = Calendar.current
+        let y = calender.date(byAdding: .month, value: 3, to: date)
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy"
+        recurrenceDueDateString =  df.string(from: y!)
+        df.dateFormat = "yyyy-MM-dd"
+        serviceRecurrenceDueDateString = df.string(from: y!)
         self.configureInitiallyView()
         self.hideKeyboardWhenTappedAround()
         
@@ -169,6 +181,7 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
         endTimes = setEndTimes()
         self.pickerView.dataSource = self
         self.pickerView.delegate = self
+        recurrenceDueDate.datePickerMode = .date
     }
     
     func updateAttendeesList(list: Array<Any>) {
@@ -253,7 +266,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 let titleImage = item["image"]
                 cell?.imageView?.image = UIImage(named: titleImage!)
                 cell?.lblTitle.text = titleStr
-                
+                cell?.txtField.text = ""
                 cell?.btnAdd.isHidden = false
                 cell?.btnAddAttendees.isHidden = true
                 cell?.lblLine.isHidden = false
@@ -453,6 +466,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             }
             
             cell?.txtField.isHidden = false
+            cell?.txtField.text = ""
             cell?.txtField.isUserInteractionEnabled = false
             var placeHolderText  = ""
             switch indexPath.row {
@@ -484,6 +498,20 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.txtField.text = self.occurString
                 break
             case 4:
+                let y = eventHeadingArray3[4]
+                if y["name"] == "Until"{
+                    cell?.txtField.text = recurrenceDueDateString
+                    cell?.txtField.isUserInteractionEnabled = true
+                    cell?.txtField.inputView = recurrenceDueDate
+                    var toolbar = UIToolbar().ToolbarPiker(doneSelect: #selector(donePickerAction), cancelSelect: #selector(cancelPickerAction))
+                    cell?.txtField.inputAccessoryView = toolbar
+                }else{
+                    placeHolderText = "15 minutes before"
+                    cell?.txtField.text = ""
+                }
+                
+                break
+            case 5:
                 placeHolderText = "15 minutes before"
                 cell?.txtField.text = ""
                 break
@@ -537,29 +565,44 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     //=====ToolBar Method
    
      @objc func donePickerAction() {
-        let dateString = getDayString(from: days[self.selectedDateIndex])
-        let timeString = getTimeString(from: startTimes[self.selectedTimeIndex])
-        let endTimeString = getTimeString(from: endTimes[self.selectedEndTimeIndex])
-        print("----\(dateString) : \(timeString)  : \(endTimeString)---")
-       
-        let dateFormatter = DateFormatter()
+        let y = eventHeadingArray3[4]
+        if y["name"] == "Until" {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            recurrenceDueDateString = formatter.string(from: recurrenceDueDate.date)
+            formatter.dateFormat = "yyyy-MM-dd"
+            serviceRecurrenceDueDateString = formatter.string(from: recurrenceDueDate.date)
+            self.view.endEditing(true)
+            self.tblCreateEvent.reloadData()
+            
+            
+        }else{
+            let dateString = getDayString(from: days[self.selectedDateIndex])
+            let timeString = getTimeString(from: startTimes[self.selectedTimeIndex])
+            let endTimeString = getTimeString(from: endTimes[self.selectedEndTimeIndex])
+            print("----\(dateString) : \(timeString)  : \(endTimeString)---")
+            
+            let dateFormatter = DateFormatter()
+            
+            self.dateFromDatePicker = dateString
+            self.dateForService = dateString
+            
+            self.startMeetingTime = timeString
+            self.endMeetingTime = endTimeString
+            
+            dateFormatter.dateFormat = "hh:mm a"
+            let _time = dateFormatter.date(from: timeString)
+            let _endtime = dateFormatter.date(from: endTimeString)
+            
+            dateFormatter.dateFormat = "HH:mm:ss"
+            self.startMeetingTimeForService = dateFormatter.string(from: _time!)
+            self.endMeetingTimeForService = dateFormatter.string(from: _endtime!)
+            
+            self.tblCreateEvent.reloadData()
+            view.endEditing(true)
+        }
         
-        self.dateFromDatePicker = dateString
-        self.dateForService = dateString
         
-        self.startMeetingTime = timeString
-        self.endMeetingTime = endTimeString
-        
-        dateFormatter.dateFormat = "hh:mm a"
-        let _time = dateFormatter.date(from: timeString)
-        let _endtime = dateFormatter.date(from: endTimeString)
-
-        dateFormatter.dateFormat = "HH:mm:ss"
-        self.startMeetingTimeForService = dateFormatter.string(from: _time!)
-        self.endMeetingTimeForService = dateFormatter.string(from: _endtime!)
-
-        self.tblCreateEvent.reloadData()
-        view.endEditing(true)
     }
     
     @objc func cancelPickerAction() {
@@ -613,13 +656,66 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         let locationsDict: [String: String] = ["displayName": self.meetingRoomDetails.meetingRoomName]
         locationsArray.append(locationsDict)
         
-        let parameters : Parameters = ["subject": self.eventTitle,
-                                       "body": bodyDict,
-                                       "start": startDict,
-                                       "end": endDict,
-                                       "attendees": attendeesArray,
-                                       "location": locationDict,
-                                       "locations": locationsArray]
+//        "recurrence":{
+//            "pattern":{
+//                "type":"daily",
+//                "interval":1,
+//                "month":0,
+//                "dayOfMonth":0,
+//                "daysOfWeek":[
+//                "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
+//                ],
+//                "firstDayOfWeek":"monday",
+//                "index":"first"
+//            },
+//            "range":{
+//                "type":"endDate",
+//                "startDate":"2017-09-04",
+//                "endDate":"2017-12-31",
+//                "recurrenceTimeZone":"UTC",
+//                "numberOfOccurrences":0
+//            }
+//        },
+        
+        let patternDict : [String: Any] = [
+            "type":"daily",
+            "interval":1,
+            "month":0,
+            "dayOfMonth":0,
+            "daysOfWeek":["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+            "firstDayOfWeek":"monday",
+            "index":"first"
+            ]
+         let rangeDict : [String: Any] = [
+            "type":"endDate",
+            "startDate":dateForService,
+            "endDate":serviceRecurrenceDueDateString,
+            "recurrenceTimeZone":"UTC",
+            "numberOfOccurrences":0
+        ]
+        let recurrenceDict : [String: Any] = [
+            "pattern":patternDict,
+            "range":rangeDict
+        ]
+        let parameters : Parameters!
+        if occurString == "Never"{
+            parameters = ["subject": self.eventTitle,
+                          "body": bodyDict,
+                          "start": startDict,
+                          "end": endDict,
+                          "attendees": attendeesArray,
+                          "location": locationDict,
+                          "locations": locationsArray]
+        }else{
+            parameters = ["subject": self.eventTitle,
+            "body": bodyDict,
+            "start": startDict,
+            "end": endDict,
+            "recurrence": recurrenceDict,
+            "attendees": attendeesArray,
+            "location": locationDict,
+            "locations": locationsArray]
+        }
         
         print("parameters : \(parameters)")
         
@@ -663,6 +759,9 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 
                 let neverActionButton = UIAlertAction(title: "Never", style: .default) { action -> Void in
                     self.occurString = "Never"
+                    if self.eventHeadingArray3.count == 6 {
+                        self.eventHeadingArray3.remove(at: 4)
+                    }
                     DispatchQueue.main.async {
                         self.tblCreateEvent.reloadData()
                     }
@@ -671,20 +770,22 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 actionSheetController.addAction(neverActionButton)
                 let everyDayActionButton = UIAlertAction(title: "Every day", style: .default) { action -> Void in
                     self.occurString = "Every day"
+                    if self.eventHeadingArray3.count == 5 {
+                        self.eventHeadingArray3.insert(["name": "Until", "image": "icon_repeat"], at: 4)
+                    }
                     DispatchQueue.main.async {
                         self.tblCreateEvent.reloadData()
                     }
                 }
                 actionSheetController.addAction(everyDayActionButton)
                 
-                let everyWeekActionButton = UIAlertAction(title: "Every week", style: .default) { action -> Void in
-                    self.occurString = "Every week"
-                    DispatchQueue.main.async {
-                        self.tblCreateEvent.reloadData()
-                    }
-                }
-                actionSheetController.addAction(everyWeekActionButton)
                 self.present(actionSheetController, animated: true, completion: nil)
+                break
+            case 4:
+                let y = eventHeadingArray3[4]
+                if y["name"] == "Until"{
+                    print("AAYA")
+                }
                 break
             default:
                 break
