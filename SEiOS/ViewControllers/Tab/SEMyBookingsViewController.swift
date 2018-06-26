@@ -38,7 +38,11 @@ class SEMyBookingsViewController: SEBaseViewController {
     
     func configureInitiallyView()
     {
-        
+        if userProfilePicture != nil{
+            DispatchQueue.main.async {
+                self.imgProfilePic.image = userProfilePicture
+            }
+        }
         self.setBackGroundGradient()
         let tableCellNIB = UINib(nibName: "SEMyMeetingsCell", bundle: nil)
         self.tblUpcomingMeetings.register(tableCellNIB, forCellReuseIdentifier: "MyMeetingDetails")
@@ -80,6 +84,7 @@ class SEMyBookingsViewController: SEBaseViewController {
         webServiceAPI.getProfilePicture(url: url, onSuccess: { (response) in
             if response is UIImage {
                 DispatchQueue.main.async {
+                    userProfilePicture = response as! UIImage
                     self.imgProfilePic.image = response as! UIImage
                 }
             }else{

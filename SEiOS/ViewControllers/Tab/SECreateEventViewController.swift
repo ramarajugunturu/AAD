@@ -654,7 +654,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         case 2 :
             
             switch indexPath.row{
-            case 5:
+            case 3:
                 let actionSheetController = UIAlertController(title: "Select occurrence", message: nil, preferredStyle: .actionSheet)
                 let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
                     print("Cancel")
