@@ -43,6 +43,10 @@ class ErrorHandler : NSObject{
         }
         //----
         
+        if let error = responseDictionary["error"]{
+            errorHandlerObj.responseMessage = "Something went wrong!"
+            return errorHandlerObj
+        }
         
         errorHandlerObj.responseMessage = responseDictionary["Message"] as! String
         errorHandlerObj.stausCode = statusCode
@@ -188,7 +192,7 @@ class SEWebServiceAPI: NSObject {
                             }
                             else{
                                 //onSuccess(messageStr!)
-                                onSuccess("")
+                                onSuccess("Event created successfully!")
                             }
                             
                         } catch {

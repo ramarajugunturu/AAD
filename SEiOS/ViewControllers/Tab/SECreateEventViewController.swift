@@ -183,6 +183,14 @@ class SECreateEventViewController: SEBaseViewController, SERoomDetailsDelegate, 
             self.tblCreateEvent.reloadData()
         }
     }
+    
+    func showAlert(Message : String){
+        let alertController = UIAlertController(title: "", message: Message, preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSource {
@@ -617,18 +625,21 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         
         
         webServiceAPI.createEventAPI(url: url, parameters: parameters, onSuccess: { (response) in
-            print("createEventAPI.createEventAPI")
-            self.stopLoading()
-            self.clearForm()
-            if response is [String : Any]
-            {
+            if response is String{
+                if response as! String == "Event created successfully!"{
+                    self.stopLoading()
+                    self.clearForm()
+                }else{
+                    self.stopLoading()
+                    self.showAlert(Message: "Error while creating event. Please try after sometime!")
+                }
+            }else{
+                self.stopLoading()
+                self.showAlert(Message: "Error while creating event. Please try after sometime!")
             }
-            else
-            {
-                //self.handleWebServicePopup(messageStr: response as! String)
-            }
+        
         }, onError:{ error in
-            print("Error Results:\(error)")
+            self.showAlert(Message: "Something went wrong!")
             self.stopLoading()
         })
         
