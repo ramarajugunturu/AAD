@@ -246,26 +246,26 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let dateString = formatter.string(from: date)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let start = formatter.string(from: date)
         let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let startDate = "\(dateString)T\(hour):00:00"
-        let endDate = "\(dateString)T\(hour):30:00"
+        let extendedTime = calendar.date(byAdding: .hour, value: 8, to: date)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let end = formatter.string(from: extendedTime!)
         
-        //        let startDict: [String: String] = ["dateTime": startDate,
-        //                                           "timeZone": "UTC"]
-        //
-        //        let endDict: [String: String] = ["dateTime": endDate,
-        //                                         "timeZone": "UTC"]
-        //
-        
-        let startDict: [String: String] = ["dateTime": "2018-06-22T17:00:00",
+        let startDict: [String: String] = ["dateTime": start,
                                            "timeZone": "UTC"]
         
-        let endDict: [String: String] = ["dateTime": "2018-06-27T17:30:00",
+        let endDict: [String: String] = ["dateTime": end,
                                          "timeZone": "UTC"]
         
+
+//        let startDict: [String: String] = ["dateTime": "2018-06-22T17:00:00",
+//                                           "timeZone": "UTC"]
+//
+//        let endDict: [String: String] = ["dateTime": "2018-06-27T17:30:00",
+//                                         "timeZone": "UTC"]
+//
         let param: Parameters = ["timeConstraint":[
             "activityDomain": "unrestricted",
             "timeslots": [
@@ -276,9 +276,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
             ]
             ]
         ]
-        
-        print("param :\(param)")
-        
+       
         Alamofire.request(urlString, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headerDict).responseJSON { (response:DataResponse<Any>) in
             
             switch (response.result)
