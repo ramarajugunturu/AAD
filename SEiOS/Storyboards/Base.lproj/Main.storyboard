@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="grN-rP-Fhw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="grN-rP-Fhw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -201,13 +201,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default_profile" translatesAutoresizingMaskIntoConstraints="NO" id="VQE-68-TMy">
-                                <rect key="frame" x="152" y="99" width="70" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="9Un-Ba-y4e"/>
-                                    <constraint firstAttribute="width" constant="70" id="z5c-UN-hjQ"/>
-                                </constraints>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUX-cq-eJe">
                                 <rect key="frame" x="20" y="134" width="335" height="222.5"/>
                                 <subviews>
@@ -241,6 +234,13 @@
                                     <constraint firstItem="u8P-32-npe" firstAttribute="top" secondItem="L9I-f4-wG8" secondAttribute="bottom" constant="7" id="wfH-sw-XTr"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default_profile" translatesAutoresizingMaskIntoConstraints="NO" id="VQE-68-TMy">
+                                <rect key="frame" x="152" y="99" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="9Un-Ba-y4e"/>
+                                    <constraint firstAttribute="width" constant="70" id="z5c-UN-hjQ"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aC4-B4-FX9">
                                 <rect key="frame" x="20" y="371.5" width="335" height="251.5"/>
                                 <subviews>
