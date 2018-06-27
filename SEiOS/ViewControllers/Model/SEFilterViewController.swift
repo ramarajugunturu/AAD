@@ -138,10 +138,10 @@ class SEFilterViewController: SEBaseViewController {
     func filterservice()
     {
         let startDict: [String: String] = ["dateTime": "\(selectedDate)T\(startMeetingTimeForService):00",
-            "timeZone": "UTC"]
+            "timeZone": timezone]
         
         let endDict: [String: String] = ["dateTime": "\(selectedDate)T\(endMeetingTimeForService):00",
-            "timeZone": "UTC"]
+            "timeZone": timezone]
         
         let param: Parameters = ["timeConstraint":[
                 "activityDomain": "unrestricted",

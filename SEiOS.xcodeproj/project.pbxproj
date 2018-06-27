@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0DB7ABBFC02C26B84B281C2D /* Pods_SEiOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A1A1458B586C99D4D1F7BF /* Pods_SEiOSUITests.framework */; };
+		25AECBEA20E3AC570077BBF7 /* SESettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AECBE820E3AC570077BBF7 /* SESettingsCell.swift */; };
+		25AECBEB20E3AC570077BBF7 /* SESettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25AECBE920E3AC570077BBF7 /* SESettingsCell.xib */; };
 		52B679D220D13F5C001D58E8 /* SECreateEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B679D020D13F5C001D58E8 /* SECreateEventTableViewCell.swift */; };
 		52B679D320D13F5C001D58E8 /* SECreateEventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B679D120D13F5C001D58E8 /* SECreateEventTableViewCell.xib */; };
 		52B679DA20D3A752001D58E8 /* SEGlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B679D920D3A752001D58E8 /* SEGlobalConstant.swift */; };
@@ -67,6 +69,8 @@
 /* Begin PBXFileReference section */
 		14A1A1458B586C99D4D1F7BF /* Pods_SEiOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEiOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21212F3FCCE7039416745910 /* Pods-SEiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEiOS/Pods-SEiOS.release.xcconfig"; sourceTree = "<group>"; };
+		25AECBE820E3AC570077BBF7 /* SESettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SESettingsCell.swift; sourceTree = "<group>"; };
+		25AECBE920E3AC570077BBF7 /* SESettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SESettingsCell.xib; sourceTree = "<group>"; };
 		52B679D020D13F5C001D58E8 /* SECreateEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECreateEventTableViewCell.swift; sourceTree = "<group>"; };
 		52B679D120D13F5C001D58E8 /* SECreateEventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SECreateEventTableViewCell.xib; sourceTree = "<group>"; };
 		52B679D920D3A752001D58E8 /* SEGlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEGlobalConstant.swift; sourceTree = "<group>"; };
@@ -332,6 +336,8 @@
 				D2D1D1BB20D1205B00766351 /* SERoomSearchTableViewCell.xib */,
 				F589B8CE20DA6887004A3A18 /* SEMyMeetingsCell.swift */,
 				F589B8CF20DA6887004A3A18 /* SEMyMeetingsCell.xib */,
+				25AECBE820E3AC570077BBF7 /* SESettingsCell.swift */,
+				25AECBE920E3AC570077BBF7 /* SESettingsCell.xib */,
 			);
 			path = TblViewCells;
 			sourceTree = "<group>";
@@ -471,6 +477,7 @@
 				EF98358420DCE2BF00353C72 /* SECreateEventDatePickerTableViewCell.xib in Resources */,
 				D23D1DCD20C4FF5F00022CD2 /* LaunchScreen.storyboard in Resources */,
 				D23D1DCA20C4FF5F00022CD2 /* Assets.xcassets in Resources */,
+				25AECBEB20E3AC570077BBF7 /* SESettingsCell.xib in Resources */,
 				52B679D320D13F5C001D58E8 /* SECreateEventTableViewCell.xib in Resources */,
 				D2D1D1C820D3DE8500766351 /* MeetingRoom.json in Resources */,
 				D23D1DC820C4FF5A00022CD2 /* Main.storyboard in Resources */,
@@ -595,6 +602,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25AECBEA20E3AC570077BBF7 /* SESettingsCell.swift in Sources */,
 				D2D1D1BC20D1205B00766351 /* SERoomSearchTableViewCell.swift in Sources */,
 				D2D1D1C420D2261600766351 /* SEMianTabBarViewController.swift in Sources */,
 				F589B8CB20D918D1004A3A18 /* SEAttendeeUserModel.swift in Sources */,

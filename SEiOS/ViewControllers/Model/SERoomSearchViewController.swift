@@ -254,10 +254,10 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         let end = formatter.string(from: extendedTime!)
         
         let startDict: [String: String] = ["dateTime": start,
-                                           "timeZone": "UTC"]
+                                           "timeZone": timezone]
         
         let endDict: [String: String] = ["dateTime": end,
-                                         "timeZone": "UTC"]
+                                         "timeZone": timezone]
         
 
 //        let startDict: [String: String] = ["dateTime": "2018-06-22T17:00:00",

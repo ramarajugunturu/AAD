@@ -11,11 +11,14 @@ import MSAL
 
 class SESettingsViewController: SEBaseViewController {
 
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var tblSettings: UITableView!
     
     var applicationContext = MSALPublicClientApplication.init()
     let kClientID = "abf2827a-f496-450f-810f-e5c236360d62"
     let kAuthority = "https://login.microsoftonline.com/common/"
 
+    let tableDastasource = ["Timezone", "Sign Out"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,31 +61,97 @@ class SESettingsViewController: SEBaseViewController {
     func configureInitiallyView()
     {
         self.setBackGroundGradient()
+        self.navigationController?.navigationBar.isHidden = true
+        containerView.layer.cornerRadius = 10
+        containerView.clipsToBounds = true
     }
     
-    @IBAction func signOutButton(_ sender: UIButton) {
-        
-        do {            
-            /**
-             Removes all tokens from the cache for this application for the provided user
-             - user:    The user to remove from the cache
-             */
-            
-            try self.applicationContext.remove(self.applicationContext.users().first)
-            //self.loggingText.text = ""
-            print("Successfully sign-out")
-            username = ""
-            userProfilePicture = nil
-            UserDefaults.standard.set(false, forKey: "status")
-            SEViewControllerSwitcher.updateRootVC()
+    
+}
 
-            
-        } catch let error {
-            //self.loggingText.text = "Received error signing user out: \(error)"
-            print("Received error signing user out: \(error)")
-        }
-        
-        
+extension SESettingsViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableDastasource.count
     }
-
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "SettingCell"
+        var cell : SESettingsCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SESettingsCell?
+        if (cell == nil) {
+            cell = Bundle.main.loadNibNamed("SESettingsCell", owner: nil, options: nil)?[0] as? SESettingsCell
+            cell?.accessoryType = UITableViewCellAccessoryType.none
+        }
+        UITableViewCell.appearance().backgroundColor = .clear
+        cell?.contentView.backgroundColor = UIColor.clear
+        cell?.layer.backgroundColor = UIColor.clear.cgColor
+        cell?.selectionStyle = .none
+        cell?.accessoryType = .none
+        cell?.lblValue.isHidden = true
+        cell?.lblTitile.text = tableDastasource[indexPath.row]
+        if indexPath.row == 0 {
+            cell?.lblValue.isHidden = false
+            cell?.lblValue.text = timezone
+        }
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 1:
+            do {
+                /**
+                 Removes all tokens from the cache for this application for the provided user
+                 - user:    The user to remove from the cache
+                 */
+                
+                try self.applicationContext.remove(self.applicationContext.users().first)
+                //self.loggingText.text = ""
+                print("Successfully sign-out")
+                username = ""
+                userProfilePicture = nil
+                UserDefaults.standard.set(false, forKey: "status")
+                SEViewControllerSwitcher.updateRootVC()
+                
+                
+            } catch let error {
+                //self.loggingText.text = "Received error signing user out: \(error)"
+                print("Received error signing user out: \(error)")
+            }
+            break
+        case 0:
+            let actionSheetController = UIAlertController(title: "Select timezone", message: nil, preferredStyle: .actionSheet)
+            let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+                print("Cancel")
+            }
+            actionSheetController.addAction(cancelActionButton)
+            
+            let utcActionButton = UIAlertAction(title: "UTC", style: .default) { action -> Void in
+                timezone = "UTC"
+                DispatchQueue.main.async {
+                    self.tblSettings.reloadData()
+                }
+            }
+            actionSheetController.addAction(utcActionButton)
+            let indianActionButton = UIAlertAction(title: "India Standard Time", style: .default) { action -> Void in
+                timezone = "India Standard Time"
+                DispatchQueue.main.async {
+                    self.tblSettings.reloadData()
+                }
+            }
+            actionSheetController.addAction(indianActionButton)
+            self.present(actionSheetController, animated: true, completion: nil)
+            break
+        default:
+            break
+        }
+    }
+    
+    
+    
+    
 }

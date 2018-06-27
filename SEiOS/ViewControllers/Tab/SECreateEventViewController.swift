@@ -615,38 +615,23 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     @objc func createEventAction() {
-        print("Add event!!")
-        
         self.startLoading()
         let url = SEWebserviceClient.eventURL
-        
-        print("eventDescription :\(eventDescription)")
-        
         let bodyDict: [String: String] = ["contentType": "HTML",
                                           "content": "\(eventDescription)"]
-        
-        
         let startDict: [String: String] = ["dateTime": "\(dateForService)T\(startMeetingTimeForService)",
-            "timeZone": "India Standard Time"]
-        
+            "timeZone": timezone]
         let endDict: [String: String] = ["dateTime": "\(dateForService)T\(endMeetingTimeForService)",
-            "timeZone": "India Standard Time"]
-        
-        
+            "timeZone": timezone]
         var attendeesArray = [[String: Any]]()
-        
         
         for item in self.attendeeList {
             let emailDetailsDict: [String: String] = ["address": item.address,
                                                       "name": item.name]
-            
             let emailAddressDict: [String: Any] = ["emailAddress": emailDetailsDict,
                                                    "type": "Required"]
-            
             attendeesArray.append(emailAddressDict)
         }
-        
-        
         
         let locationDict: [String: String] = ["displayName": self.meetingRoomDetails.meetingRoomName,
                                               "locationType": "conferenceRoom"]
@@ -690,7 +675,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             "type":"endDate",
             "startDate":dateForService,
             "endDate":serviceRecurrenceDueDateString,
-            "recurrenceTimeZone":"UTC",
+            "recurrenceTimeZone":timezone,
             "numberOfOccurrences":0
         ]
         let recurrenceDict : [String: Any] = [
@@ -784,7 +769,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
             case 4:
                 let y = eventHeadingArray3[4]
                 if y["name"] == "Until"{
-                    print("AAYA")
+                    print("Until")
                 }
                 break
             default:

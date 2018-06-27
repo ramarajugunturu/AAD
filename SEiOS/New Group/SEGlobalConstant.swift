@@ -12,6 +12,7 @@ import UIKit
 var username : String!
 var nextLink : String!
 var userProfilePicture : UIImage!
+var timezone : String = "UTC"
 
 struct SEWebserviceClient {
     static let eventURL = "https://graph.microsoft.com/v1.0/me/events"
@@ -37,5 +38,9 @@ func getTime(dateString: String) -> String{
     dateFormatter.dateFormat = "hh:mm a"
     let string = dateFormatter.string(from: date!)
     return string
+}
+
+func getLocalTimeZone() -> String {
+    return TimeZone.current.identifier
 }
 

@@ -84,31 +84,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QL-Tv-Bzg">
-                                <rect key="frame" x="106" y="145" width="162" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPL-o9-ziV">
+                                <rect key="frame" x="10" y="30" width="355" height="578"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SGV-Sk-osb">
+                                        <rect key="frame" x="5" y="10" width="345" height="558"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="9zV-bM-iFv" id="1GI-J6-hfV"/>
+                                            <outlet property="delegate" destination="9zV-bM-iFv" id="szC-6z-1kr"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="162" id="4LA-P5-MXc"/>
-                                    <constraint firstAttribute="height" constant="30" id="qva-Qi-EWt"/>
+                                    <constraint firstAttribute="bottom" secondItem="SGV-Sk-osb" secondAttribute="bottom" constant="10" id="848-aS-Je0"/>
+                                    <constraint firstItem="SGV-Sk-osb" firstAttribute="leading" secondItem="IPL-o9-ziV" secondAttribute="leading" constant="5" id="U2u-75-Br6"/>
+                                    <constraint firstItem="SGV-Sk-osb" firstAttribute="top" secondItem="IPL-o9-ziV" secondAttribute="top" constant="10" id="rbt-N1-tJl"/>
+                                    <constraint firstAttribute="trailing" secondItem="SGV-Sk-osb" secondAttribute="trailing" constant="5" id="zRl-gc-4MX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal" title="Sign Out">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="signOutButton:" destination="9zV-bM-iFv" eventType="touchUpInside" id="iLg-Hl-2AJ"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.92941176470588238" green="0.53333333333333333" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="0QL-Tv-Bzg" firstAttribute="leading" secondItem="hl1-Jv-dFB" secondAttribute="leading" constant="106" id="3ax-wS-nkG"/>
-                            <constraint firstItem="0QL-Tv-Bzg" firstAttribute="top" secondItem="hl1-Jv-dFB" secondAttribute="top" constant="81" id="4KQ-FO-Gyx"/>
-                            <constraint firstItem="hl1-Jv-dFB" firstAttribute="trailing" secondItem="0QL-Tv-Bzg" secondAttribute="trailing" constant="107" id="RqC-0C-fSt"/>
-                            <constraint firstItem="0QL-Tv-Bzg" firstAttribute="centerX" secondItem="hl1-Jv-dFB" secondAttribute="centerX" id="bVj-Py-K9K"/>
+                            <constraint firstItem="IPL-o9-ziV" firstAttribute="leading" secondItem="hl1-Jv-dFB" secondAttribute="leading" constant="10" id="6TM-cd-8AV"/>
+                            <constraint firstItem="hl1-Jv-dFB" firstAttribute="bottom" secondItem="IPL-o9-ziV" secondAttribute="bottom" constant="10" id="L5k-sj-MSX"/>
+                            <constraint firstItem="IPL-o9-ziV" firstAttribute="top" secondItem="77Z-eM-9NH" secondAttribute="top" constant="30" id="hMW-sU-Onz"/>
+                            <constraint firstItem="hl1-Jv-dFB" firstAttribute="trailing" secondItem="IPL-o9-ziV" secondAttribute="trailing" constant="10" id="iZb-Pn-mpW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hl1-Jv-dFB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Lrj-zP-gIU"/>
+                    <connections>
+                        <outlet property="containerView" destination="IPL-o9-ziV" id="sGj-RQ-834"/>
+                        <outlet property="tblSettings" destination="SGV-Sk-osb" id="xZm-2n-dro"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9TZ-mE-DoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
