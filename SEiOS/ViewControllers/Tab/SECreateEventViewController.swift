@@ -421,6 +421,7 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
                 cell?.lblUsername.text = model.displayName
                 cell?.imgProfilePic.image = UIImage.init(named: "icon_my_contacts")
                 cell?.btnRemove.isHidden = false
+                cell?.btnRemove.tag = indexPath.row-1
                 cell?.btnRemove.addTarget(self, action: #selector(tblCellBtn_RemoveAttendee_Tapped), for: .touchUpInside)
                 return cell!
             }
@@ -828,8 +829,11 @@ extension SECreateEventViewController: UITableViewDelegate, UITableViewDataSourc
         self.performSegue(withIdentifier: "addAttendee", sender: nil)
     }
     
-    @objc func tblCellBtn_RemoveAttendee_Tapped(){
-        print("df")
+    @objc func tblCellBtn_RemoveAttendee_Tapped(sender : UIButton){
+        attendeeName.remove(at: sender.tag)
+        attendeeList.remove(at: sender.tag)
+        tblCreateEvent.reloadData()
+        
     }
 }
 
