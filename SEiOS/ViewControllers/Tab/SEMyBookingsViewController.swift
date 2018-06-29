@@ -47,6 +47,15 @@ class SEMyBookingsViewController: SEBaseViewController {
                 self.imgProfilePic.image = UIImage(named: "icon_default_profile")
             }
         }
+        if let designation = userDesignation{
+            DispatchQueue.main.async {
+                self.lblUserDesignation.text = designation
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.lblUserDesignation.text = ""
+            }
+        }
         self.setBackGroundGradient()
         let tableCellNIB = UINib(nibName: "SEMyMeetingsCell", bundle: nil)
         self.tblUpcomingMeetings.register(tableCellNIB, forCellReuseIdentifier: "MyMeetingDetails")

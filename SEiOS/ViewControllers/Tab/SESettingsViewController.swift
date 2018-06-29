@@ -114,10 +114,9 @@ extension SESettingsViewController : UITableViewDelegate, UITableViewDataSource 
                 print("Successfully sign-out")
                 username = ""
                 userProfilePicture = nil
+                userDesignation = nil
                 UserDefaults.standard.set(false, forKey: "status")
-                SEViewControllerSwitcher.updateRootVC()
-                
-                
+                SEViewControllerSwitcher.updateRootVC()                
             } catch let error {
                 //self.loggingText.text = "Received error signing user out: \(error)"
                 print("Received error signing user out: \(error)")
@@ -144,6 +143,13 @@ extension SESettingsViewController : UITableViewDelegate, UITableViewDataSource 
                 }
             }
             actionSheetController.addAction(indianActionButton)
+            let cstActionButton = UIAlertAction(title: "CST", style: .default) { action -> Void in
+                timezone = "CST"
+                DispatchQueue.main.async {
+                    self.tblSettings.reloadData()
+                }
+            }
+            actionSheetController.addAction(cstActionButton)
             self.present(actionSheetController, animated: true, completion: nil)
             break
         default:

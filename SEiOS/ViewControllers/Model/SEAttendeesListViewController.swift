@@ -73,6 +73,7 @@ class SEAttendeesListViewController: SEBaseViewController {
                 self.AttendeesTable.reloadData()
                 self.stopLoading()
             }else{
+                self.stopLoading()
                 let alertController = UIAlertController(title: "", message: "Error while fetcing users.", preferredStyle: .alert)
                 
                 let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
@@ -81,8 +82,10 @@ class SEAttendeesListViewController: SEBaseViewController {
                 alertController.addAction(defaultAction)
                 
                 self.present(alertController, animated: true, completion: nil)
+                
             }
         }) { (error) in
+            self.stopLoading()
             let alertController = UIAlertController(title: "", message: "Error while fetcing users.", preferredStyle: .alert)
             
             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in

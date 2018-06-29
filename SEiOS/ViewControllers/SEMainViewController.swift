@@ -192,6 +192,7 @@ class SEMainViewController: SEBaseViewController, URLSessionDelegate {
                 print(result.debugDescription)
                 let arr = result as! Dictionary<String,Any>
                 username = arr["displayName"] as! String
+                userDesignation = arr["jobTitle"] as? String
                 self.performSegue(withIdentifier: "mySETabbarControllerID", sender: nil)
             }
             }.resume()

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 var username : String!
+var userDesignation : String!
 var nextLink : String!
 var userProfilePicture : UIImage!
 var timezone : String = "UTC"
