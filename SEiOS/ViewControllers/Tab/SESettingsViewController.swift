@@ -144,7 +144,7 @@ extension SESettingsViewController : UITableViewDelegate, UITableViewDataSource 
             }
             actionSheetController.addAction(indianActionButton)
             let cstActionButton = UIAlertAction(title: "CST", style: .default) { action -> Void in
-                timezone = "CST"
+                timezone = "Central Standard Time"
                 DispatchQueue.main.async {
                     self.tblSettings.reloadData()
                 }
