@@ -18,6 +18,7 @@ var timezone : String = "UTC"
 struct SEWebserviceClient {
     static let eventURL = "https://graph.microsoft.com/v1.0/me/events"
     static let filterMeetingURL = "https://graph.microsoft.com/v1.0/me/findMeetingTimes"
+    static let findRoomListURL = "https://graph.microsoft.com/beta/me/findRooms"
     static let attendeesListURL = "https://graph.microsoft.com/v1.0/users?$orderby=displayName"
     static let myMeetingListURL = "https://graph.microsoft.com/v1.0/me/calendar/events"
     static let myProfilePictureURL = "https://graph.microsoft.com/beta/me/photo/$value"

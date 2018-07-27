@@ -55,6 +55,7 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
     @IBOutlet weak var availableRoomsInfoTableView: UITableView!
     @IBOutlet weak var filterBarButton: UIBarButtonItem!
     
+    var webServiceAPI = SEWebServiceAPI()
     var meetingRoomList = [MeetingRoomDetails]()
     var delegate : SERoomDetailsDelegate!
     var availableMeetingRoomsList = [MeetingDetails]()
@@ -71,6 +72,9 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
         //  Meeting Rooms Details Service Call
         self.serviceForMeetingRoom()
         // self.createMeetingRoomList()
+        
+        //For Bete Testing
+        //self.getRoomList()
     }
     
     override func didReceiveMemoryWarning() {
@@ -347,6 +351,22 @@ class SERoomSearchViewController: SEBaseViewController, UITableViewDelegate, UIT
             }
             
             
+        }
+    }
+    
+    func getRoomList() {
+        self.startLoading()
+        let url = SEWebserviceClient.findRoomListURL
+        webServiceAPI.getFindRoomsList(url: url, onSuccess: { (response) in
+            //print("API Res:\(response)")
+            
+            DispatchQueue.main.async {
+                self.meetingRoomList = response as! [MeetingRoomDetails]
+                self.availableRoomsInfoTableView.reloadData()
+                self.stopLoading()
+            }
+        }) { (error) in
+            self.stopLoading()
         }
     }
 }

@@ -380,6 +380,76 @@ class SEWebServiceAPI: NSObject {
         })
         
     }
+    
+    func getFindRoomsList(url:String, onSuccess:@escaping(_ response: Any) ->Void, onError:@escaping(_ error:NSError)->Void) {
+        let headers: HTTPHeaders = ["Content-Type": SEStoreSharedManager.sharedInstance.jsonContentType,
+                                    "Authorization": "Bearer \(SEStoreSharedManager.sharedInstance.accessToken)"]
+        Alamofire.request(url, method: HTTPMethod.get, parameters: nil , encoding: JSONEncoding.default, headers: headers).responseString(completionHandler:{
+            response in
+            if response.response != nil
+            {
+                if response.result.isSuccess {
+                    
+                    if let data = response.result.value!.data(using: String.Encoding.utf8) {
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data as Data, options: .mutableContainers) as? [String:Any]
+                            print("json Room List response: \(String(describing: json))")
+                            //-- success 200 condition
+                            if response.response!.statusCode == 200
+                            {
+                                var userDataSource = Array<MeetingRoomDetails>()
+                                let jsonDict = json as! Dictionary<String, Any>
+                                let value = jsonDict["value"] as? Array<Any>
+
+                                if value != nil {
+                                    for item in value! {
+                                        let result =  item as! Dictionary<String, Any>
+                                        //var availMeetigRooms = [MeetingRoomDetails]()
+                                        var modObj = MeetingRoomDetails()
+                                        modObj.meetingRoomName = result["name"] as! String
+                                        modObj.meetingRoomCapacity = 7
+                                        //modObj.id = result["name"] as? String
+                                        //modObj.businessPhones = result["businessPhones"] as? Array
+                                        //modObj.displayName = result["address"] as? String
+                                       userDataSource.append(modObj)
+                                       // availMeetigRooms.meetingRoomName = result["name"] as! String
+                                        print("Conf. Room:\(String(describing: result["name"] as! String))")
+                                    }
+                                }else{
+                                    
+                                }
+                                
+                                onSuccess(userDataSource)
+                                //onSuccess("xxx")
+                                
+                            }
+                            else if(response.response!.statusCode < 200 || response.response!.statusCode > 300)
+                            {
+                                let erroHandlerObj = ErrorHandler.handleError(responseDictionary: json!)
+                                onSuccess(erroHandlerObj.responseMessage)
+                            }
+                            else{
+                                //onSuccess(messageStr!)
+                                onSuccess("yyy")
+                            }
+                            
+                        } catch {
+                            onSuccess("Some thing went wrong!")
+                        }
+                    }
+                }//failure
+                else{
+                    onError(response.result.error! as NSError)
+                    
+                }
+            }
+            else
+            {
+                onError(response.result.error! as NSError)
+            }
+        })
+        
+    }
 }
 
 
